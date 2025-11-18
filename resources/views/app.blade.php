@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="overflow-x-clip " lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -7,13 +7,32 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="preload" href="{{ asset('fonts/Lato-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ asset('fonts/Lato-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
+
+    <style>
+        @font-face {
+            font-family: 'Lato';
+            src: url('/fonts/Lato-Bold.woff2') format('woff2');
+            font-weight: bold;
+            font-display: swap
+        }
+
+        @font-face {
+            font-family: 'Lato';
+            src: url('/fonts/Lato-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-display: swap
+        }
+    </style>
+
     @routes
     @viteReactRefresh
     @vite('resources/js/app.tsx')
     @inertiaHead
 </head>
 
-<body>
+<body class="font-sans overflow-x-clip min-h-screen">
     @inertia
     <div id="portal-container"></div>
 </body>
