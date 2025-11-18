@@ -6,7 +6,7 @@ import AppHeader from './partials/app-header';
 
 const AppLayout: FC<NodeProps> = ({ children, className }) => {
     return (
-        <div class={cn('mx-auto max-w-480 pb-5 lg:pb-9', className)}>
+        <div class={cn('mx-auto text-foreground max-w-480 pb-5 lg:pb-9 lg:text-xl xl:text-2xl', className)}>
             <AppHeader />
             <main class="mb-20 space-y-20 px-5 sm:px-6 lg:mb-33 lg:space-y-33 lg:px-9 xl:mb-37.5 xl:space-y-37.5">
                 {children}

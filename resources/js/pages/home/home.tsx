@@ -1,13 +1,10 @@
 import AppLayout from '@/layouts/app-layout';
+import HeroSection from './partials/hero-section';
 
 const Home = () => {
     return (
         <AppLayout>
-            <div>
-                Hello world
-                <br />
-                Привет мир
-            </div>
+            <HeroSection />
         </AppLayout>
     );
 };

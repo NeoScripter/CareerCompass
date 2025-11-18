@@ -15,6 +15,31 @@
 
     --color-muted: oklch(0.9742 0.0122 276.1);
     --color-primary: oklch(0.925 0.1948 123.83);
+    --color-primary-muted: oklch(0.922 0.2225 122.42);
     --color-foreground: oklch(0.3562 0 0);
     --color-muted-foreground: oklch(0.5513 0.0123 285.99);
 }
+
+@layer base {
+    button {
+        @apply cursor-pointer;
+    }
+}
+
+.burger {
+    transform-origin: center;
+}
+
+.burger-open {
+    transition:
+        translate 150ms ease-in,
+        rotate 100ms ease-in 100ms;
+}
+
+.burger-close {
+    transition:
+        translate 150ms ease-in 100ms,
+        rotate 200ms ease-in;
+}
+
+
