@@ -17,9 +17,9 @@ const baseClass =
 
 const variants: Record<ButtonVariant, string> = {
     primary:
-        'px-[4.375em] py-[0.75em] bg-primary hover:bg-primary-muted focus-within:bg-primary-muted hover:ring-foreground focus:ring-foreground',
+        'px-[4.375em] py-[0.75em] lg:px-[7.3em] lg:py-[1.15em] bg-primary hover:bg-primary-muted focus-within:bg-primary-muted hover:ring-foreground focus:ring-foreground',
     secondary:
-        'bg-foreground text-white hover:text-foreground focus-within:text-foreground hover:bg-white focus-within:bg-white hover:ring-foreground focus:ring-foreground px-[1.5em] py-[0.75em]',
+        'bg-foreground text-white hover:text-foreground focus-within:text-foreground hover:bg-white focus-within:bg-white hover:ring-foreground focus:ring-foreground px-[1.5em] py-[0.75em] lg:px-[3.5em] lg:py-[1em]',
     neutral: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
 };
 

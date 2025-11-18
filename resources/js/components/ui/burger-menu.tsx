@@ -12,9 +12,6 @@ const BurgerMenu: FC<{
             id="burger-menu"
             class={cn(
                 'size-9 transition-transform duration-150 ease-in',
-                {
-                    'sm:translate-x-8 sm:-translate-y-3': show,
-                },
                 className,
             )}
         >

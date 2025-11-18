@@ -10,7 +10,7 @@ import AppSection from '@/layouts/partials/app-section';
 
 const HeroSection = () => {
     return (
-        <AppSection className="relative isolate min-h-183 p-5 pt-35 md:flex md:aspect-[16/7] md:min-h-0 md:items-end md:justify-between md:pt-0 lg:p-8 xl:p-12">
+        <AppSection className="relative isolate min-h-183 p-5 pt-35 md:flex md:aspect-video xl:aspect-[16/8] 2xl:aspect-[16/7] md:min-h-0 md:items-end md:justify-between md:pt-0 lg:p-8 xl:p-12">
             <BgLoader
                 desktop={DesktopBg}
                 desktopSm={DesktopBgSm}
