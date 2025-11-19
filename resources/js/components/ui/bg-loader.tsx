@@ -12,6 +12,7 @@ type BgLoaderProps = {
     pos?: string;
     fit?: string;
     size?: string;
+    alt?: string;
 };
 
 export default function BgLoader({
@@ -25,6 +26,7 @@ export default function BgLoader({
     pos = 'object-bottom-right',
     fit = 'object-cover',
     size = 'size-full',
+    alt = '',
 }: BgLoaderProps) {
     const [isLoading, setIsLoading] = useState(true);
 
@@ -34,7 +36,7 @@ export default function BgLoader({
 
     return (
         <div
-            aria-hidden="true"
+            {...(alt === '' && { 'aria-hidden': 'true' })}
             className={cn(
                 'pointer-events-none absolute inset-0 -z-5 overflow-clip select-none',
                 className,
@@ -55,7 +57,7 @@ export default function BgLoader({
                 <img
                     onLoad={() => setIsLoading(false)}
                     src={mobile}
-                    alt=""
+                    alt={alt}
                     className={cn('block', size, fit, pos)}
                 />
             </picture>
@@ -70,7 +72,7 @@ export default function BgLoader({
                 )}
             >
                 <div
-                    aria-hidden="true"
+                    {...(alt === '' && { 'aria-hidden': 'true' })}
                     className={cn(
                         isLoading &&
                             'absolute inset-0 size-full animate-pulse bg-gray-200/50',
@@ -91,7 +93,7 @@ export default function BgLoader({
                     <img
                         onLoad={() => setIsLoading(false)}
                         src={tinyMobile}
-                        alt=""
+                        alt={alt}
                         className={cn('block', size, fit, pos)}
                     />
                 </picture>

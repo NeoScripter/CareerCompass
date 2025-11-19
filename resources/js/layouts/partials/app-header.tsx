@@ -25,6 +25,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
 
     useEffect(() => {
         const handleScrollDown = () => {
+            if (showMenu && window.screen.width < 768) return;
             const currentScrollTop =
                 window.scrollY || document.documentElement.scrollTop;
 
@@ -42,7 +43,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
         window.addEventListener('scroll', handleScrollDown);
 
         return () => window.removeEventListener('scroll', handleScrollDown);
-    }, []);
+    }, [showMenu]);
 
     return (
         <header

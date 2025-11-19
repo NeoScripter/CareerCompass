@@ -46,6 +46,7 @@ const IntroSection = () => {
                         tabletSm={TabletTiny}
                         desktop={Desktop}
                         desktopSm={DesktopTiny}
+                        alt='Зелёная прозрачная извилистая дорога или путь, поднимающаяся сквозь облака'
                         className="static max-h-100 rounded-[2rem] sm:max-h-full"
                     />
                 </div>
