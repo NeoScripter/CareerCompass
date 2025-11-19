@@ -1,11 +1,10 @@
-import AnimatedUnderline from '@/components/ui/animated-underline';
+import NavLink from '@/components/nav/nav-link';
 import BurgerMenu from '@/components/ui/burger-menu';
 import { Button } from '@/components/ui/button';
 import { useClickOutside } from '@/hooks/use-click-outside';
 import { useEscapeKey } from '@/hooks/use-escape-key';
 import { navLinks } from '@/lib/data/navLinks';
 import { cn } from '@/lib/utils/cn';
-import { NodeProps } from '@/types/nodeProps';
 import { LogOut } from 'lucide-preact';
 import { FC } from 'preact/compat';
 
@@ -25,7 +24,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
         <header
             id="header"
             class={cn(
-                'fixed top-8 left-1/2 md:rounded-full z-100 flex w-9/10 -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 lg:pr-4 xl:max-w-347',
+                'fixed top-8 left-1/2 z-100 flex w-9/10 -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 md:rounded-full lg:pr-4 xl:max-w-347',
                 className,
                 {
                     'rounded-full': !showMenu,
@@ -64,27 +63,6 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
 
 export default AppHeader;
 
-const NavLink: FC<NodeProps<{ href: string; label: string }>> = ({
-    href,
-    className,
-    label,
-}) => {
-    return (
-        <li>
-            <a
-                href={href}
-                class={cn(
-                    'group relative mx-auto block w-fit font-bold md:mx-0 md:text-sm lg:text-base xl:text-xl',
-                    className,
-                )}
-            >
-                {label}
-                <AnimatedUnderline className="z-10 h-0.5 shrink-0 bg-black" />
-            </a>
-        </li>
-    );
-};
-
 const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
     showMenu,
     isLoggedIn,
@@ -94,7 +72,7 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
             class={cn(
                 'absolute inset-x-0 top-8 -z-1 overflow-clip rounded-b-[2rem] bg-white px-3 transition-[max-height,padding] duration-300 ease-in-out md:static md:flex md:flex-1 md:translate-y-0 md:items-center md:overflow-auto md:rounded-[2rem] md:px-0',
                 {
-                    'max-h-200 pt-13 md:pt-0 pb-5 md:py-0': showMenu,
+                    'max-h-200 pt-13 pb-5 md:py-0 md:pt-0': showMenu,
                     'max-h-0 py-0 md:max-h-full': !showMenu,
                 },
             )}
