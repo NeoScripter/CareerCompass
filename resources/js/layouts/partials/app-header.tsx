@@ -6,13 +6,15 @@ import { useEscapeKey } from '@/hooks/use-escape-key';
 import { navLinks } from '@/lib/data/navLinks';
 import { cn } from '@/lib/utils/cn';
 import { LogOut } from 'lucide-preact';
-import { FC } from 'preact/compat';
+import { FC, useEffect, useRef, useState } from 'preact/compat';
 
 const AppHeader: FC<{ className?: string }> = ({ className }) => {
     const { show: showMenu, setShow: setShowMenu } = useClickOutside([
         '#header',
     ]);
 
+    const [hide, setHide] = useState(false);
+    const lastScrollTopRef = useRef(0);
     useEscapeKey(() => setShowMenu(false));
 
     const isLoggedIn = false;
@@ -20,16 +22,39 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
     const toggleMenu = () => {
         setShowMenu((p) => !p);
     };
+
+    useEffect(() => {
+        const handleScrollDown = () => {
+            const currentScrollTop =
+                window.scrollY || document.documentElement.scrollTop;
+
+            if (currentScrollTop > lastScrollTopRef.current + 30) {
+                // User is scrolling down
+                setHide(true);
+            } else if (currentScrollTop < lastScrollTopRef.current) {
+                // User is scrolling up
+                setHide(false);
+            }
+
+            lastScrollTopRef.current = currentScrollTop;
+        };
+
+        window.addEventListener('scroll', handleScrollDown);
+
+        return () => window.removeEventListener('scroll', handleScrollDown);
+    }, []);
+
     return (
         <header
             id="header"
             class={cn(
-                'fixed top-8 left-1/2 z-100 flex w-9/10 -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 md:rounded-full lg:pr-4 xl:max-w-347',
+                'fixed top-8 left-1/2 z-100 flex w-9/10 transition-transform duration-300 ease-in -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 md:rounded-full lg:pr-4 xl:max-w-347',
                 className,
                 {
                     'rounded-full': !showMenu,
                     'rounded-t-[2rem]': showMenu,
                     'md:pl-20 lg:pl-30 xl:pl-40': !isLoggedIn,
+                    '-translate-y-3/2': hide,
                 },
             )}
         >

@@ -10,18 +10,22 @@ import AppSection from '@/layouts/partials/app-section';
 import { introSteps } from '@/lib/data/introSteps';
 import { cn } from '@/lib/utils/cn';
 import { range } from '@/lib/utils/range';
-import { useState } from 'preact/hooks';
+import { useRef, useState } from 'preact/hooks';
 import { FC } from 'react-dom/src';
 
 const IntroSection = () => {
     const [activeStep, setActiveStep] = useState(0);
+    const timeoutRef = useRef<number | null>(null);
 
     const handleMouseEnter = (idx: number) => {
+        if (timeoutRef.current != null) {
+            clearTimeout(timeoutRef.current);
+        }
         setActiveStep(idx);
     };
 
     const handleMouseLeave = () => {
-        setActiveStep(0);
+        timeoutRef.current = setTimeout(() => setActiveStep(0), 400);
     };
 
     return (
@@ -93,7 +97,7 @@ const IntroStep: FC<{
                 <span
                     aria-hidden="true"
                     class={cn(
-                        'ease relative mr-3 mb-1.5 inline-block h-0.5 w-5 transition-colors delay-150 duration-300 lg:h-[3px]',
+                        'ease relative mr-3 mb-1.5 inline-block h-0.5 w-5 transition-colors duration-300 lg:h-[3px]',
                         active ? 'bg-primary' : 'bg-foreground',
                     )}
                 >
@@ -116,7 +120,7 @@ const StepBar: FC<{ active: boolean }> = ({ active }) => {
     return (
         <div
             class={cn(
-                'ease w-full flex-1 transition-colors delay-150 duration-300',
+                'ease w-full flex-1 transition-colors duration-300',
                 active ? 'bg-primary' : 'bg-foreground',
             )}
         />
