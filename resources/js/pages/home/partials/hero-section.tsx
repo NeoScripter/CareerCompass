@@ -1,9 +1,9 @@
-import DesktopBgSm from '@/assets/images/home/hero-dk-tiny.webp';
-import DesktopBg from '@/assets/images/home/hero-dk.webp';
-import MobileBgSm from '@/assets/images/home/hero-mb-tiny.webp';
-import MobileBg from '@/assets/images/home/hero-mb.webp';
-import TabletBgSm from '@/assets/images/home/hero-tablet-tiny.webp';
-import TabletBg from '@/assets/images/home/hero-tablet.webp';
+import DesktopBgSm from '@/assets/images/home/hero/hero-dk-tiny.webp';
+import DesktopBg from '@/assets/images/home/hero/hero-dk.webp';
+import MobileBgSm from '@/assets/images/home/hero/hero-mb-tiny.webp';
+import MobileBg from '@/assets/images/home/hero/hero-mb.webp';
+import TabletBgSm from '@/assets/images/home/hero/hero-tablet-tiny.webp';
+import TabletBg from '@/assets/images/home/hero/hero-tablet.webp';
 import BgLoader from '@/components/ui/bg-loader';
 import { Button } from '@/components/ui/button';
 import AppSection from '@/layouts/partials/app-section';
