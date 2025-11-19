@@ -25,11 +25,11 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
         <header
             id="header"
             class={cn(
-                'fixed top-8 left-1/2 z-100 flex w-9/10 lg:pr-4 -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 xl:max-w-347',
+                'fixed top-8 left-1/2 md:rounded-full z-100 flex w-9/10 -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 lg:pr-4 xl:max-w-347',
                 className,
                 {
                     'rounded-full': !showMenu,
-                    'rounded-t-full': showMenu,
+                    'rounded-t-[2rem]': showMenu,
                     'md:pl-20 lg:pl-30 xl:pl-40': !isLoggedIn,
                 },
             )}
@@ -50,7 +50,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
                 </button>
             ) : (
                 <Button
-                    class="ml-1"
+                    class="ml-1 text-sm lg:text-base"
                     variant="secondary"
                     type="button"
                     as="button"
@@ -92,9 +92,9 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
     return (
         <nav
             class={cn(
-                'absolute inset-x-0 top-0 translate-y-16 overflow-clip rounded-b-[2rem] bg-white px-3 transition-[max-height,padding] duration-300 ease-in-out md:static md:flex md:flex-1 md:translate-y-0 md:items-center md:overflow-auto md:rounded-[2rem] md:px-0',
+                'absolute inset-x-0 top-8 -z-1 overflow-clip rounded-b-[2rem] bg-white px-3 transition-[max-height,padding] duration-300 ease-in-out md:static md:flex md:flex-1 md:translate-y-0 md:items-center md:overflow-auto md:rounded-[2rem] md:px-0',
                 {
-                    'max-h-200 py-5 md:py-0': showMenu,
+                    'max-h-200 pt-13 md:pt-0 pb-5 md:py-0': showMenu,
                     'max-h-0 py-0 md:max-h-full': !showMenu,
                 },
             )}
