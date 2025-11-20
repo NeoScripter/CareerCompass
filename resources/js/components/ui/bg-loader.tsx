@@ -13,6 +13,8 @@ type BgLoaderProps = {
     fit?: string;
     size?: string;
     alt?: string;
+    mbMinWidth?: number;
+    tabletMinWidth?: number;
 };
 
 export default function BgLoader({
@@ -27,6 +29,8 @@ export default function BgLoader({
     fit = 'object-cover',
     size = 'size-full',
     alt = '',
+    mbMinWidth = 768,
+    tabletMinWidth = 1200,
 }: BgLoaderProps) {
     const [isLoading, setIsLoading] = useState(true);
 
@@ -52,8 +56,14 @@ export default function BgLoader({
                     size,
                 )}
             >
-                <source srcSet={desktop} media="(min-width: 1200px)" />
-                <source srcSet={tablet} media="(min-width: 768px)" />
+                <source
+                    srcSet={desktop}
+                    media={`(min-width: ${tabletMinWidth}px)`}
+                />
+                <source
+                    srcSet={tablet}
+                    media={`(min-width: ${mbMinWidth}px)`}
+                />
                 <img
                     onLoad={() => setIsLoading(false)}
                     src={mobile}
@@ -88,8 +98,15 @@ export default function BgLoader({
                         size,
                     )}
                 >
-                    <source srcSet={tinyDesktop} media="(min-width: 1200px)" />
-                    <source srcSet={tinyTablet} media="(min-width: 768px)" />
+                    <source
+                        srcSet={tinyDesktop}
+                        media={`(min-width: ${tabletMinWidth}px)`}
+                    />
+                    <source
+                        srcSet={tinyTablet}
+                        media={`(min-width: ${mbMinWidth}px)`}
+                    />
+
                     <img
                         onLoad={() => setIsLoading(false)}
                         src={tinyMobile}
