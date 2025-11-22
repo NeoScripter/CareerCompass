@@ -69,7 +69,7 @@ const SliderNav: FC<
         >
             <ul
                 ref={containerRef}
-                class="grid items-stretch"
+                class="grid items-stretch overflow-x-clip"
                 style={{
                     gridTemplateColumns: `repeat(${visibleSlides}, 1fr)`,
                 }}
@@ -103,19 +103,38 @@ const SliderBtn: FC<{
     const active = idx === current;
 
     return (
-        <li class={cn('flex-1')}>
+        <li class={cn('relative flex-1')}>
             <button
                 onClick={onClick}
                 class={cn(
-                    'xs:text-base ease h-full rounded-t-[2rem] bg-white px-2 py-5 text-center text-sm font-bold transition-colors duration-300 sm:px-5 md:text-lg lg:px-[2em] xl:py-7 xl:text-2xl',
+                    'xs:text-base ease z-25 h-full rounded-t-[2rem] bg-transparent px-2 py-5 text-center text-sm font-bold transition-colors duration-300 sm:px-5 md:text-lg lg:px-[2em] xl:py-7 xl:text-2xl',
                     {
                         'bg-muted cursor-default': active,
                     },
                 )}
             >
                 <span class="mr-2">{`0${idx + 1}`}</span>
-                <span class="">{label}</span>
+                <span class="z-30">{label}</span>
             </button>
+
+            <span
+                aria-hidden="true"
+                class={cn(
+                    'absolute inset-y-0 left-full -z-15 block w-full transition-colors duration-300',
+                    active ? 'bg-muted' : 'opacity-0',
+                )}
+            >
+                <span class="absolute inset-0 block rounded-bl-[2rem] bg-white" />
+            </span>
+            <span
+                aria-hidden="true"
+                class={cn(
+                    'absolute inset-y-0 right-full -z-15 block w-full transition-colors duration-300',
+                    active ? 'bg-muted' : 'opacity-0',
+                )}
+            >
+                <span class="absolute inset-0 block rounded-br-[2rem] bg-white" />
+            </span>
         </li>
     );
 };
