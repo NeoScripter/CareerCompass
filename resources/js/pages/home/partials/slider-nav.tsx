@@ -42,7 +42,15 @@ const SliderNav: FC<
             if (!containerRef.current) return;
             const width = containerRef.current.offsetWidth;
             const slideWidth = window.innerWidth < 380 ? 120 : 170;
-            setVisibleSlides(Math.min(4, Math.floor(width / slideWidth)));
+            const visible = Math.min(4, Math.floor(width / slideWidth));
+            setVisibleSlides(visible);
+
+            const event = new CustomEvent('visibleSlidesChange', {
+                detail: {
+                    slides: visible,
+                },
+            });
+            document.dispatchEvent(event);
         };
 
         update();
@@ -99,7 +107,7 @@ const SliderBtn: FC<{
             <button
                 onClick={onClick}
                 class={cn(
-                    'xs:text-base ease h-full rounded-t-[2rem] bg-white p-5 text-center text-sm font-bold transition-colors duration-300 sm:px-5 md:text-lg xl:py-7 xl:text-2xl',
+                    'xs:text-base ease h-full rounded-t-[2rem] bg-white px-2 py-5 text-center text-sm font-bold transition-colors duration-300 sm:px-5 md:text-lg lg:px-[2em] xl:py-7 xl:text-2xl',
                     {
                         'bg-muted cursor-default': active,
                     },

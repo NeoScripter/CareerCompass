@@ -4,7 +4,7 @@ import { OutcomeSlide, outcomeSlides } from '@/lib/data/outcomeSlides';
 import { cn } from '@/lib/utils/cn';
 import { range } from '@/lib/utils/range';
 import { NodeProps } from '@/types/nodeProps';
-import { FC, useState } from 'preact/compat';
+import { FC, useEffect, useState } from 'preact/compat';
 import SliderNav from './slider-nav';
 
 const OutcomesSlides: FC<NodeProps> = ({ className }) => {
@@ -38,7 +38,10 @@ const OutcomesSlides: FC<NodeProps> = ({ className }) => {
                     handleIncrement={handleIncrement}
                 />
 
-                <SliderDisplay outcome={outcomeSlides[activeSlide]} />
+                <SliderDisplay
+                    outcome={outcomeSlides[activeSlide]}
+                    activeSlide={activeSlide}
+                />
             </header>
         </div>
     );
@@ -46,9 +49,48 @@ const OutcomesSlides: FC<NodeProps> = ({ className }) => {
 
 export default OutcomesSlides;
 
-const SliderDisplay: FC<{ outcome: OutcomeSlide }> = ({ outcome }) => {
+const SliderDisplay: FC<{ outcome: OutcomeSlide; activeSlide: number }> = ({
+    outcome,
+    activeSlide,
+}) => {
+    const [visibleSlides, setVisibleSlides] = useState(2);
+
+    useEffect(() => {
+        const handleVisibleSlidesChange = (e: Event) => {
+            const custom = e as CustomEvent<{ slides: number }>;
+            setVisibleSlides(custom.detail.slides);
+        };
+        document.addEventListener(
+            'visibleSlidesChange',
+            handleVisibleSlidesChange,
+        );
+
+        return () =>
+            document.removeEventListener(
+                'visibleSlidesChange',
+                handleVisibleSlidesChange,
+            );
+    });
+
+    let isLast = activeSlide === 3,
+        isFirst = activeSlide !== 3;
+
+    if (visibleSlides === 3) {
+        isFirst = activeSlide === 0 || activeSlide === 1;
+    } else if (visibleSlides === 4) {
+        isFirst = activeSlide === 0;
+    }
+
     return (
-        <div class="bg-muted rounded-b-[2rem] px-5 py-7.5 md:flex md:items-start md:gap-6 justify-between lg:gap-10 md:px-7.5 md:pt-15 lg:px-15 lg:pb-15 xl:gap-14 lg:pt-20 xl:px-13 xl:pt-25">
+        <div
+            class={cn(
+                'bg-muted justify-between rounded-[2rem] px-5 py-7.5 md:flex md:items-start md:gap-6 md:px-7.5 md:pt-15 lg:gap-10 lg:px-15 lg:pt-20 lg:pb-15 xl:gap-14 xl:px-13 xl:pt-25',
+                {
+                    'rounded-tr-none': isLast,
+                    'rounded-tl-none': isFirst,
+                },
+            )}
+        >
             <div class="mb-8">
                 <SecondaryHeading> {outcome.title} </SecondaryHeading>
                 <p>{outcome.description}</p>
@@ -62,7 +104,7 @@ const SliderDisplay: FC<{ outcome: OutcomeSlide }> = ({ outcome }) => {
                 mobileSm={outcome.mobileTiny}
                 alt={outcome.alt}
                 mbMinWidth={500}
-                className="static z-5 rounded-[2rem] max-h-150 sm:basis-[60%] sm:shrink-0"
+                className="static z-5 max-h-150 rounded-[2rem] sm:shrink-0 sm:basis-[55%]"
             />
         </div>
     );
