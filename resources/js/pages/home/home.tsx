@@ -2,6 +2,7 @@ import AppLayout from '@/layouts/app-layout';
 import HeroSection from './partials/hero-section';
 import IntroSection from './partials/intro-section';
 import OutcomesSection from './partials/outcomes-section';
+import ReasonsSection from './partials/reasons-section';
 
 const Home = () => {
     return (
@@ -9,6 +10,7 @@ const Home = () => {
             <HeroSection />
             <IntroSection />
             <OutcomesSection />
+            <ReasonsSection />
 
         </AppLayout>
     );

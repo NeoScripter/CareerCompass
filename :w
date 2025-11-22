@@ -1,0 +1,39 @@
+import LazyImage from '@/components/ui/lazy-image';
+import { reasons, ReasonType } from '@/lib/data/reasons';
+import { cn } from '@/lib/utils/cn';
+import { NodeProps } from '@/types/nodeProps';
+import { FC } from 'react-dom/src';
+
+const Reasons = () => {
+    return (
+        <ul class="my-13 grid gap-5 sm:my-15 lg:my-20 lg:gap-8 xl:my-25">
+            {reasons.map((reason, idx) => (
+                <ReasonItem key={reason.id} reason={reason} />
+            ))}
+        </ul>
+    );
+};
+
+export default Reasons;
+
+const ReasonItem: FC<NodeProps<{ reason: ReasonType }>> = ({
+    reason,
+    className,
+}) => {
+    return (
+        <li
+            class={cn(
+                'relative isolate flex aspect-square items-end justify-center rounded-[2rem] p-5 lg:p-7 xl:p-12',
+                className,
+            )}
+        >
+            <LazyImage
+                parentClass='absolute inset-0 -z-5'
+                img={reason.img}
+                tinyImg={reason.tinyImg}
+                alt={reason.alt}
+            />
+            <p>{reason.description}</p>
+        </li>
+    );
+};
