@@ -120,8 +120,8 @@ const SliderBtn: FC<{
             <span
                 aria-hidden="true"
                 class={cn(
-                    'absolute inset-y-0 left-full -z-15 block w-full transition-colors duration-300',
-                    active ? 'bg-muted' : 'opacity-0',
+                    'absolute inset-y-0 left-full -z-15 block w-full transition-all duration-300',
+                    active ? 'bg-muted opacity-100' : 'opacity-0',
                 )}
             >
                 <span class="absolute inset-0 block rounded-bl-[2rem] bg-white" />
@@ -129,8 +129,8 @@ const SliderBtn: FC<{
             <span
                 aria-hidden="true"
                 class={cn(
-                    'absolute inset-y-0 right-full -z-15 block w-full transition-colors duration-300',
-                    active ? 'bg-muted' : 'opacity-0',
+                    'absolute inset-y-0 right-full -z-15 block w-full transition-all duration-300',
+                    active ? 'bg-muted opacity-100' : 'opacity-0',
                 )}
             >
                 <span class="absolute inset-0 block rounded-br-[2rem] bg-white" />

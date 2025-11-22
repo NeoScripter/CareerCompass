@@ -49,7 +49,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
         <header
             id="header"
             class={cn(
-                'fixed top-8 left-1/2 z-100 flex w-9/10 transition-transform duration-300 ease-in -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 md:rounded-full lg:pr-4 xl:max-w-347',
+                'fixed shadow-lg top-8 left-1/2 z-100 flex w-9/10 transition-transform duration-300 ease-in -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 md:rounded-full lg:pr-4 xl:max-w-347',
                 className,
                 {
                     'rounded-full': !showMenu,
