@@ -83,8 +83,9 @@ const SliderDisplay: FC<{ outcome: OutcomeSlide; activeSlide: number }> = ({
 
     return (
         <div
+            key={`slide-${activeSlide}`}
             class={cn(
-                'bg-muted justify-between rounded-[2rem] px-5 py-7.5 md:flex md:items-start md:gap-6 md:px-7.5 md:pt-15 lg:gap-10 lg:px-15 lg:pt-20 lg:pb-15 xl:gap-14 xl:px-13 xl:pt-25',
+                'bg-muted justify-between rounded-[2rem] px-5 py-7.5 md:flex md:items-start md:gap-6 md:px-7.5 display-card md:pt-15 lg:gap-10 lg:px-15 lg:pt-20 lg:pb-15 xl:gap-14 xl:px-13 xl:pt-25',
                 {
                     'rounded-tr-none': isLast,
                     'rounded-tl-none': isFirst,

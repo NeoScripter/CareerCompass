@@ -3,6 +3,7 @@ import HeroSection from './partials/hero-section';
 import IntroSection from './partials/intro-section';
 import OutcomesSection from './partials/outcomes-section';
 import ReasonsSection from './partials/reasons-section';
+import PlansSection from './partials/plans-section';
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <IntroSection />
             <OutcomesSection />
             <ReasonsSection />
+            <PlansSection />
 
         </AppLayout>
     );

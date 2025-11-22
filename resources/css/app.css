@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -7,8 +7,8 @@
 
 @theme {
     --font-sans:
-        "Lato", "Arial", "Verdana", "Tahoma", ui-sans-serif, system-ui,
-        sans-serif, "Apple Color Emoji";
+        'Lato', 'Arial', 'Verdana', 'Tahoma', ui-sans-serif, system-ui,
+        sans-serif, 'Apple Color Emoji';
 
     --breakpoint-xs: 22.5rem;
     --breakpoint-3xl: 110rem;
@@ -42,35 +42,44 @@
         rotate 200ms ease-in;
 }
 
-
-
 :root {
-  --clr-neon: oklch(53.2% 0.157 131.589);
+    --clr-neon: #ccfb55;
 }
 
 .neon-card:hover {
-  /* outline: var(--clr-neon) 0.2em solid; */
-  box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+    outline: var(--clr-neon) 0.2em solid;
+    box-shadow:
+        inset 0 0 0.5em 0 var(--clr-neon),
+        0 0 0.5em 0 var(--clr-neon);
 }
 
 .neon-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  box-shadow: 0 0 2em 0.5em var(--clr-neon);
-  opacity: 0;
-  background-color: var(--clr-neon);
-  z-index: -1;
-  transition: opacity 100ms linear;
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 0 2em 0.5em var(--clr-neon);
+    opacity: 0;
+    background-color: var(--clr-neon);
+    z-index: -1;
+    transition: opacity 100ms linear;
 }
 
 .neon-card:hover,
 .neon-card:focus {
-  text-shadow: none;
+    text-shadow: none;
 }
 
 .neon-card:hover::after,
 .neon-card:focus::after {
-  opacity: 0.8;
+    opacity: 0.1;
 }
 
+.display-card {
+    animation: fadeIn 0.3s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+}
