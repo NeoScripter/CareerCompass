@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils/cn';
 import scrollToSection from '@/lib/utils/scrollToSection';
 import { NodeProps } from '@/types/nodeProps';
+import { router } from '@inertiajs/react';
 import { FC } from 'preact/compat';
 
 const NavLink: FC<NodeProps<{ href: string; label: string }>> = ({
@@ -8,13 +9,18 @@ const NavLink: FC<NodeProps<{ href: string; label: string }>> = ({
     className,
     label,
 }) => {
+    const handleClick = () => {
+        if (route().current('home')) {
+            scrollToSection(`#${href}`);
+        } else {
+            router.get(route('home'));
+        }
+    };
     return (
         <li>
             <button
-                type='button'
-                onClick={() =>
-                    scrollToSection(`#${href}`)
-                }
+                type="button"
+                onClick={handleClick}
                 class={cn(
                     'ease mx-auto block w-fit font-bold transition-colors duration-200 hover:text-lime-500 md:mx-0 md:text-sm lg:text-base xl:text-xl',
                     className,

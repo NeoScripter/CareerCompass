@@ -64,7 +64,7 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
                     </span>
                 </p>
                 {plan.prevPrice && (
-                    <p class="text-base line-through">
+                    <p class="text-base line-through lg:text-lg xl:text-xl">
                         <span
                             aria-label={`Предыдущая цена ${plan.prevPrice} рублей`}
                         >

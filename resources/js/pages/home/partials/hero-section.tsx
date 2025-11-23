@@ -7,6 +7,7 @@ import TabletBg from '@/assets/images/home/hero/hero-tablet.webp';
 import BgLoader from '@/components/ui/bg-loader';
 import { Button } from '@/components/ui/button';
 import AppSection from '@/layouts/partials/app-section';
+import scrollToSection from '@/lib/utils/scrollToSection';
 
 const HeroSection = () => {
     return (
@@ -37,6 +38,7 @@ const HeroSection = () => {
 
             <div class="mx-auto max-w-100 md:mx-0 md:max-w-full">
                 <Button
+                    onClick={() => scrollToSection('#plans')}
                     as="button"
                     variant="primary"
                     type="button"
