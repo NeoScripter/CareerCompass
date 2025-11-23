@@ -21,31 +21,32 @@ export default function Checkbox({
 }: CheckboxProps) {
     return (
         <div>
-            <Field className={cn('flex items-center gap-4', labelClassName)}>
+            <Field className={cn('flex items-start gap-4', labelClassName)}>
                 <LibCheckbox
                     checked={checked}
                     onChange={onChange}
                     className={cn(
-                        'group block size-12 shrink-0 cursor-pointer rounded-sm bg-white data-checked:bg-bright-salad',
+                        'group block size-12 shrink-0 cursor-pointer border-2 border-foreground rounded-md bg-white data-checked:bg-bright-salad',
                         checkboxClassName,
                     )}
                 >
                     {/* Checkmark icon */}
                     <svg
-                        className="stroke-white opacity-0 group-data-checked:opacity-100"
+                        className="stroke-black opacity-0 group-data-checked:opacity-100"
                         viewBox="0 0 14 14"
                         fill="none"
+                        overflow="visible"
                     >
                         <path
                             transform="translate(0, -1)"
-                            d="M3 8L6 11L11 5.5"
-                            strokeWidth={1}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            d="M3 5 L6 10 L14 0"
+                            strokeWidth={3}
+                            strokeLinecap="butt"
+                            strokeLinejoin="miter"
                         />
                     </svg>
                 </LibCheckbox>
-                <Label className="flex items-center flex-wrap gap-1.5 w-full">{children}</Label>
+                <Label className="inline w-full">{children}</Label>
             </Field>
             {error != null && (
                 <div className="mt-2 px-2 text-sm text-red-500 md:text-base">

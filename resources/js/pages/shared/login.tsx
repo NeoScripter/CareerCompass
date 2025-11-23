@@ -8,6 +8,8 @@ import PasswordInput from '@/components/forms/password-input';
 import { Button } from '@/components/ui/button';
 import SecondaryHeading from '@/components/ui/secondary-heading';
 import { cn } from '@/lib/utils/cn';
+import { useLoginModal } from '@/providers/login-context';
+import { useSignupModal } from '@/providers/signup-context';
 import { TargetedEvent } from 'preact';
 import { toast } from 'sonner';
 
@@ -16,15 +18,14 @@ type LoginForm = {
     password: string;
 };
 
-type LoginProps = {
-    cb: () => void;
-}
-export default function Login({cb}: LoginProps) {
+export default function Login() {
+    const { show } = useLoginModal();
+    const { show: showSignupModal } = useSignupModal();
     const { data, setData, post, processing, errors, reset } = useForm<
         Required<LoginForm>
     >({
-        email: 'test@example.com',
-        password: 'password',
+        email: '',
+        password: '',
     });
 
     const submit = (e: TargetedEvent<HTMLFormElement, SubmitEvent>) => {
@@ -34,7 +35,7 @@ export default function Login({cb}: LoginProps) {
             onSuccess: () => {
                 router.flushAll();
                 toast('Добро пожаловать!');
-                cb();
+                show.value = false;
             },
             onFinish: () => reset('password'),
         });
@@ -100,6 +101,19 @@ export default function Login({cb}: LoginProps) {
                         )}
                         Войти
                     </Button>
+                </div>
+                <div class="flex gap-1 text-sm items-center justify-center">
+                    Еще не зарегистрированы?
+                    <button
+                        type='button'
+                        onClick={() => {
+                            show.value = false;
+                            showSignupModal.value = true;
+                        }}
+                        class="underline underline-offset-3"
+                    >
+                        Регистрация
+                    </button>
                 </div>
             </form>
         </div>

@@ -1,21 +1,22 @@
 import NavLink from '@/components/nav/nav-link';
 import BurgerMenu from '@/components/ui/burger-menu';
 import { Button } from '@/components/ui/button';
-import Notify from '@/components/ui/notify';
 import { useClickOutside } from '@/hooks/use-click-outside';
 import { useEscapeKey } from '@/hooks/use-escape-key';
 import { navLinks } from '@/lib/data/navLinks';
 import { cn } from '@/lib/utils/cn';
+import { useLoginModal } from '@/providers/login-context';
 import { User } from '@/types/model';
 import { Link, router, usePage } from '@inertiajs/react';
 import { LogOut } from 'lucide-preact';
 import { FC, useEffect, useRef, useState } from 'preact/compat';
 import { toast } from 'sonner';
 
-const AppHeader: FC<{ className?: string; onClick: () => void }> = ({
+const AppHeader: FC<{ className?: string;  }> = ({
     className,
-    onClick,
 }) => {
+    const { show } = useLoginModal();
+
     const { auth } = usePage<{
         auth: { user: User | null };
     }>().props;
@@ -95,7 +96,7 @@ const AppHeader: FC<{ className?: string; onClick: () => void }> = ({
                 </Link>
             ) : (
                 <Button
-                    onClick={onClick}
+                    onClick={() => show.value = true}
                     class="ml-1 text-sm lg:text-base"
                     variant="secondary"
                     type="button"
