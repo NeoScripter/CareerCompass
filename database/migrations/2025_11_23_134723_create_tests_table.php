@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plan_user', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('plan_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('times_taken')->default(0);
+            $table->string('tier');
+            $table->boolean('finished')->default(false);
             $table->timestamps();
-            $table->unique(['user_id', 'plan_id']);
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plan_user');
+        Schema::dropIfExists('tests');
     }
 };

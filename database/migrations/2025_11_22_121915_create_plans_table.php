@@ -17,9 +17,9 @@ return new class extends Migration
             $table->unsignedInteger('duration');
             $table->unsignedInteger('price');
             $table->unsignedInteger('prevPrice')->nullable();
-            $table->unsignedInteger('limit');
             $table->text('description');
             $table->json('perks');
+            $table->string('tier');
             $table->timestamps();
         });
     }

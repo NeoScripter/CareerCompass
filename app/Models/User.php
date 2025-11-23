@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\TestTiers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -47,9 +49,17 @@ class User extends Authenticatable
         ];
     }
 
-    public function plans(): BelongsToMany
+    public function plan(): BelongsTo
     {
-        return $this->belongsToMany(Plan::class)
-            ->withPivot(['times_taken']);;
+        return $this->belongsTo(Plan::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function (User $user) {
+            if (!$user->plan_id) {
+                $user->plan()->associate(Plan::free()->first())->save();
+            }
+        });
     }
 }

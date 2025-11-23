@@ -57,7 +57,7 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
                     ~{plan.duration} мин
                 </span>
             </p>
-            <div class="mb-5 inline-flex gap-2.5 lg:mb-7.5">
+            <div class="mb-5 select-none inline-flex gap-2.5 lg:mb-7.5">
                 <p class="text-3xl font-bold lg:text-5xl xl:text-6xl">
                     <span aria-label={`${plan.price} рублей`}>
                         {plan.price} ₽

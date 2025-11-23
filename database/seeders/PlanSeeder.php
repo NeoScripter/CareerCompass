@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\TestTiers;
 use App\Models\Plan;
 use Illuminate\Database\Seeder;
 
@@ -14,9 +15,9 @@ class PlanSeeder extends Seeder
     {
         Plan::create([
             'title' => 'БАЗА',
+            'tier' => TestTiers::FREE,
             'duration' => 2,
             'price' => 0,
-            'limit' => 1,
             'description' => 'Для тех, кто делает первые шаги в выборе профессии или направления обучения.',
             'perks' => [
                 '5 рекомендованных профессий',
@@ -27,10 +28,10 @@ class PlanSeeder extends Seeder
 
         Plan::create([
             'title' => 'ТОП',
+            'tier' => TestTiers::TOP,
             'duration' => 4,
             'price' => 99,
             'prevPrice' => 499,
-            'limit' => 999999,
             'description' => 'Для тех, кто хочет не просто выбрать профессию, но и лучше понять себя, свои качества и потенциал развития.',
             'perks' => [
                 '8 профессий, подходящих именно тебе',
@@ -43,10 +44,10 @@ class PlanSeeder extends Seeder
 
         Plan::create([
             'title' => 'ПРЕМИУМ',
+            'tier' => TestTiers::PREMIUM,
             'duration' => 6,
             'price' => 199,
             'prevPrice' => 999,
-            'limit' => 999999,
             'description' => 'Для тех, кто хочет глубоко проанализировать себя, определить путь к идеальной профессии и составить план личностного роста.',
             'perks' => [
                 '10 рекомендованных профессий',
