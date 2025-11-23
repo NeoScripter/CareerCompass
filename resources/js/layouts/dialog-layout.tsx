@@ -22,7 +22,7 @@ export default function DialogLayout({
             open={show}
             onClose={onClose}
             className={cn(
-                'fixed inset-0 z-150 isolate flex items-center justify-center overflow-y-auto outline-none',
+                'fixed inset-0 z-150 isolate flex flex-wrap overflow-y-auto outline-none',
                 className,
             )}
         >
@@ -34,7 +34,7 @@ export default function DialogLayout({
             <DialogPanel
                 transition
                 className={cn(
-                    'relative z-50 h-max w-9/10 max-w-120 rounded-[2rem] duration-300 ease-in-out data-[closed]:scale-40 bg-white data-[closed]:opacity-0',
+                    'relative z-50 m-auto h-max w-9/10 max-w-120 rounded-[2rem] duration-300 ease-in-out data-[closed]:scale-40 bg-white data-[closed]:opacity-0',
                 )}
             >
                 {showBtn && (
