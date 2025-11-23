@@ -54,7 +54,7 @@ const IntroSection = () => {
                 <div class="flex items-start sm:max-w-[45%] sm:flex-1">
                     <div
                         aria-hidden="true"
-                        class="mt-2 flex h-80 w-0.5 shrink-0 flex-col lg:h-120 lg:w-[3px]"
+                        class="mt-2 flex h-110 xs:h-85 sm:h-110 md:h-90 lg:h-120 xl:h-130 w-0.5 shrink-0 flex-col  lg:w-[3px]"
                     >
                         {range(0, 2).map((step) => (
                             <StepBar
@@ -103,7 +103,7 @@ const IntroStep: FC<{
                     )}
                 >
                     {order === 1 && (
-                        <span class="absolute -top-0 right-0 -left-4 h-20 -translate-y-full bg-white" />
+                        <span class="absolute -top-0 right-0 -left-4 h-10 -translate-y-full bg-white" />
                     )}
                     {order === 3 && (
                         <span class="absolute right-0 -bottom-0 -left-4 h-20 translate-y-full bg-white" />
