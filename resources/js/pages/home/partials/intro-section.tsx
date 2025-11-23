@@ -29,7 +29,7 @@ const IntroSection = () => {
     };
 
     return (
-        <AppSection className="">
+        <AppSection id='about'>
             <SecondaryHeading>Как это работает?</SecondaryHeading>
 
             <div class="sm:flex sm:items-start sm:gap-5 lg:gap-11 xl:gap-25">

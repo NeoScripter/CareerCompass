@@ -107,7 +107,7 @@ const SliderBtn: FC<{
             <button
                 onClick={onClick}
                 class={cn(
-                    'xs:text-base ease z-25 h-full rounded-t-[2rem] bg-transparent px-2 py-5 text-center text-sm font-bold transition-colors duration-300 sm:px-5 md:text-lg lg:px-[2em] xl:py-7 xl:text-2xl',
+                    'xs:text-base ease z-25 size-full rounded-t-[2rem] bg-transparent px-2 py-5 text-center text-sm font-bold transition-colors duration-300 sm:px-5 md:text-lg lg:px-[2em] xl:py-7 xl:text-2xl',
                     {
                         'bg-muted cursor-default': active,
                     },

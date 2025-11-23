@@ -7,22 +7,22 @@ export type NavLinkType = {
 export const navLinks: NavLinkType[] = [
     {
         id: crypto.randomUUID(),
-        href: '#about',
+        href: 'about',
         label: 'О тесте'
     },
     {
         id: crypto.randomUUID(),
-        href: '#result',
+        href: 'result',
         label: 'Результат'
     },
     {
         id: crypto.randomUUID(),
-        href: '#prof',
+        href: 'prof',
         label: 'Профориентация'
     },
     {
         id: crypto.randomUUID(),
-        href: '#plans',
+        href: 'plans',
         label: 'Тарифы'
     },
 ]

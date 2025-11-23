@@ -4,7 +4,7 @@ import Plans from './plans';
 
 const PlansSection = () => {
     return (
-        <AppSection className="mb-11 sm:mb-20 xl:mb-21">
+        <AppSection id="plans" className="mb-11 sm:mb-20 xl:mb-21">
             <SecondaryHeading className="mx-auto text-center text-balance md:max-w-1/2">
                 Выберите свой путь
             </SecondaryHeading>

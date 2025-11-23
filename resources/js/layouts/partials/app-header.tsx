@@ -1,14 +1,25 @@
 import NavLink from '@/components/nav/nav-link';
 import BurgerMenu from '@/components/ui/burger-menu';
 import { Button } from '@/components/ui/button';
+import Notify from '@/components/ui/notify';
 import { useClickOutside } from '@/hooks/use-click-outside';
 import { useEscapeKey } from '@/hooks/use-escape-key';
 import { navLinks } from '@/lib/data/navLinks';
 import { cn } from '@/lib/utils/cn';
+import { User } from '@/types/model';
+import { Link, router, usePage } from '@inertiajs/react';
 import { LogOut } from 'lucide-preact';
 import { FC, useEffect, useRef, useState } from 'preact/compat';
+import { toast } from 'sonner';
 
-const AppHeader: FC<{ className?: string }> = ({ className }) => {
+const AppHeader: FC<{ className?: string; onClick: () => void }> = ({
+    className,
+    onClick,
+}) => {
+    const { auth } = usePage<{
+        auth: { user: User | null };
+    }>().props;
+
     const { show: showMenu, setShow: setShowMenu } = useClickOutside([
         '#header',
     ]);
@@ -17,7 +28,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
     const lastScrollTopRef = useRef(0);
     useEscapeKey(() => setShowMenu(false));
 
-    const isLoggedIn = false;
+    const isLoggedIn = auth?.user != null;
 
     const toggleMenu = () => {
         setShowMenu((p) => !p);
@@ -49,7 +60,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
         <header
             id="header"
             class={cn(
-                'fixed shadow-lg top-8 left-1/2 z-100 flex w-9/10 transition-transform duration-300 ease-in -translate-x-1/2 items-center justify-between bg-white p-3 md:[width:calc(100%-1rem)] md:max-w-267 md:rounded-full lg:pr-4 xl:max-w-347',
+                'fixed top-8 left-1/2 z-100 flex w-9/10 -translate-x-1/2 items-center justify-between bg-white p-3 shadow-lg transition-transform duration-300 ease-in md:[width:calc(100%-1rem)] md:max-w-267 md:rounded-full lg:pr-4 xl:max-w-347',
                 className,
                 {
                     'rounded-full': !showMenu,
@@ -70,11 +81,21 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
             <Nav showMenu={showMenu} isLoggedIn={isLoggedIn} />
 
             {isLoggedIn ? (
-                <button class="mr-2 size-7 md:-order-2 md:mr-4 md:ml-4 lg:size-9">
+                <Link
+                    href={route('logout')}
+                    onSuccess={() => {
+                        toast('До новых встреч!');
+                        router.flushAll();
+                    }}
+                    method="post"
+                    as="button"
+                    class="mr-2 size-7 md:-order-2 md:mr-4 md:ml-4 lg:size-9"
+                >
                     <LogOut class="size-full" />
-                </button>
+                </Link>
             ) : (
                 <Button
+                    onClick={onClick}
                     class="ml-1 text-sm lg:text-base"
                     variant="secondary"
                     type="button"
