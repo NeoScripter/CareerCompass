@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'lastTest' => $request->user()?->lastTest(),
             ],
             'ziggy' => fn(): array => [
                 ...(new Ziggy)->toArray(),

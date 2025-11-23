@@ -1,22 +1,55 @@
+export type Answer = {
+    id: number;
+    created_at?: string;
+    updated_at?: string;
+};
+export type LegalInfo = {
+    id: number;
+    key: string;
+    title: string;
+    body: string;
+    html: string;
+    created_at?: string;
+    updated_at?: string;
+};
 export type Plan = {
     id: number;
     title: string;
     duration: number;
     price: number;
     prevPrice?: number;
-    limit: number;
     description: string;
-    perks: string[];
+    perks: string;
+    tier: string;
     created_at?: string;
     updated_at?: string;
     users?: User[];
 };
+export type Test = {
+    id: number;
+    tier: string;
+    completed: any;
+    created_at?: string;
+    updated_at?: string;
+    user?: User;
+};
 export type User = {
     id: number;
     name: string;
+    plan_id?: number;
     email: string;
     email_verified_at?: string;
     created_at?: string;
     updated_at?: string;
-    plans?: Plan[];
+    tests?: Test[];
+    plan?: Plan;
 };
+export enum LegalInfoKeys {
+    POLICY = "policy",
+    CONSENT = "consent"
+}
+export enum TestTiers {
+    FREE = "free",
+    TOP = "top",
+    PREMIUM = "premium"
+}

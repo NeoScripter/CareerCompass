@@ -6,19 +6,17 @@ import { useEscapeKey } from '@/hooks/use-escape-key';
 import { navLinks } from '@/lib/data/navLinks';
 import { cn } from '@/lib/utils/cn';
 import { useLoginModal } from '@/providers/login-context';
-import { User } from '@/types/model';
+import { Test, User } from '@/types/model';
 import { Link, router, usePage } from '@inertiajs/react';
 import { LogOut } from 'lucide-preact';
 import { FC, useEffect, useRef, useState } from 'preact/compat';
 import { toast } from 'sonner';
 
-const AppHeader: FC<{ className?: string;  }> = ({
-    className,
-}) => {
+const AppHeader: FC<{ className?: string }> = ({ className }) => {
     const { show } = useLoginModal();
 
     const { auth } = usePage<{
-        auth: { user: User | null };
+        auth: { user: User | null; lastTest: Test | null };
     }>().props;
 
     const { show: showMenu, setShow: setShowMenu } = useClickOutside([
@@ -96,7 +94,7 @@ const AppHeader: FC<{ className?: string;  }> = ({
                 </Link>
             ) : (
                 <Button
-                    onClick={() => show.value = true}
+                    onClick={() => (show.value = true)}
                     class="ml-1 text-sm lg:text-base"
                     variant="secondary"
                     type="button"
@@ -115,6 +113,12 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
     showMenu,
     isLoggedIn,
 }) => {
+    const { auth } = usePage<{
+        auth: { user: User | null; lastTest: Test | null };
+    }>().props;
+
+    const disabled = auth.lastTest == null;
+
     return (
         <nav
             class={cn(
@@ -136,8 +140,12 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
             </ul>
             {isLoggedIn && (
                 <Button
+                    disabled={disabled}
                     variant="secondary"
-                    class="mx-auto mt-3 text-sm md:mx-0 md:mt-0 lg:text-base"
+                    class={cn(
+                        'mx-auto mt-3 text-sm md:mx-0 md:mt-0 lg:text-base',
+                        disabled ? 'cursor-default opacity-50 pointer-events-none' : 'opacity-100',
+                    )}
                     type="button"
                     as="button"
                 >
