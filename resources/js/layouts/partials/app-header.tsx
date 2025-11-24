@@ -59,7 +59,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
         <header
             id="header"
             class={cn(
-                'fixed top-8 left-1/2 z-100 flex w-9/10 -translate-x-1/2 items-center justify-between bg-white p-2 shadow-lg transition-transform duration-300 ease-in md:w-full md:max-w-3/4 md:rounded-full lg:pr-4 lg:w-280',
+                'fixed top-8 left-1/2 z-100 flex w-9/10 -translate-x-1/2 items-center justify-between bg-white p-2 shadow-lg transition-transform duration-300 ease-in md:w-full md:max-w-3/4 md:rounded-full lg:w-240',
                 className,
                 {
                     'rounded-full': !showMenu,
@@ -129,7 +129,7 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
                 },
             )}
         >
-            <ul class="space-y-4 md:mx-auto md:flex md:items-center md:gap-8 md:space-y-0 lg:gap-10 xl:gap-12">
+            <ul class="space-y-4 md:mx-auto md:flex md:items-center md:gap-8 md:space-y-0 lg:gap-10">
                 {navLinks.map((link) => (
                     <NavLink
                         key={link.id}
