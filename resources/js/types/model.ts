@@ -1,8 +1,3 @@
-export type Answer = {
-    id: number;
-    created_at?: string;
-    updated_at?: string;
-};
 export type LegalInfo = {
     id: number;
     key: string;
@@ -19,19 +14,31 @@ export type Plan = {
     price: number;
     prevPrice?: number;
     description: string;
-    perks: string;
+    perks: string[];
     tier: string;
     created_at?: string;
     updated_at?: string;
     users?: User[];
 };
+export type Question = {
+    id: number;
+    question: string;
+    test_id: number;
+    number: number;
+    answer?: string;
+    created_at?: string;
+    updated_at?: string;
+    test?: Test;
+};
 export type Test = {
     id: number;
     tier: string;
+    user_id: number;
     completed: any;
     created_at?: string;
     updated_at?: string;
     user?: User;
+    questions?: Question[];
 };
 export type User = {
     id: number;
@@ -42,7 +49,7 @@ export type User = {
     created_at?: string;
     updated_at?: string;
     tests?: Test[];
-    plan?: Plan;
+    plans?: Plan[];
 };
 export enum LegalInfoKeys {
     POLICY = "policy",

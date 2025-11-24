@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
-import { Plan } from '@/types/model';
+import { useLoginModal } from '@/providers/login-context';
+import { Plan, User } from '@/types/model';
 import { NodeProps } from '@/types/nodeProps';
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { CircleCheckBig } from 'lucide-preact';
 import { FC } from 'react-dom/src';
 
@@ -33,6 +34,22 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
     className,
     disabled = false,
 }) => {
+    const { show: showLoginModal } = useLoginModal();
+
+    const { auth } = usePage<{
+        auth: { user: User | null };
+    }>().props;
+
+    const handleClick = () => {
+        if (auth?.user == null) {
+            showLoginModal.value = true;
+        } else {
+            router.visit(route('test.store'), {
+                method: 'post',
+                data: { tier: plan.tier },
+            });
+        }
+    };
     return (
         <li
             class={cn(
@@ -57,7 +74,7 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
                     ~{plan.duration} мин
                 </span>
             </p>
-            <div class="mb-5 select-none inline-flex gap-2.5 lg:mb-7.5">
+            <div class="mb-5 inline-flex gap-2.5 select-none lg:mb-7.5">
                 <p class="text-3xl font-bold lg:text-5xl xl:text-6xl">
                     <span aria-label={`${plan.price} рублей`}>
                         {plan.price} ₽
@@ -77,10 +94,11 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
                 {plan.description}
             </p>
             <Button
+                onClick={handleClick}
                 variant="primary"
                 class={cn(
                     'mx-auto my-7.5 px-[2.5em] lg:my-11 xl:my-13 xl:px-[3em]',
-                    disabled && 'opacity-50 pointer-events-none',
+                    disabled && 'pointer-events-none opacity-50',
                 )}
                 aria-label={`Пройти тест для плана ${plan.title}`}
                 disabled={disabled}

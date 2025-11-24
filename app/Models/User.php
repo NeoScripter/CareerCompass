@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,16 +60,24 @@ class User extends Authenticatable
         return $this->hasMany(Test::class);
     }
 
-    public function plan(): BelongsTo
+    public function plans(): BelongsToMany
     {
-        return $this->belongsTo(Plan::class);
+        return $this->belongsToMany(Plan::class);
+    }
+
+    public function hasTest(int $testId): bool
+    {
+        return $this->tests()
+            ->where('tests.id', $testId)
+            ->exists();
     }
 
     protected static function booted(): void
     {
         static::created(function (User $user) {
-            if (!$user->plan_id) {
-                $user->plan()->associate(Plan::free()->first())->save();
+            if ($user->plans()->count() === 0) {
+                $freePlanId = Plan::free()->value('id');
+                $user->plans()->attach($freePlanId);
             }
         });
     }
