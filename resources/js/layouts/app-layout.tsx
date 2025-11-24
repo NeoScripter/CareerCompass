@@ -16,7 +16,7 @@ const AppLayout: FC<NodeProps> = ({ children, className }) => {
     return (
         <div
             class={cn(
-                'text-foreground mx-auto max-w-480 pb-5 lg:pb-9 lg:text-xl xl:text-2xl',
+                'text-muted-foreground mx-auto max-w-480 pb-5 lg:pb-9 lg:text-xl xl:text-2xl',
                 className,
             )}
         >

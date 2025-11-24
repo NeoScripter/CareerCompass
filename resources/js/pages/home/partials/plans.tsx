@@ -65,7 +65,7 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
         >
             <h4
                 id={`plan-title-${plan.title}`}
-                class="mb-3.5 text-center text-lg font-bold lg:mb-5 lg:text-2xl xl:text-3xl"
+                class="text-foreground mb-3.5 text-center text-lg font-bold lg:mb-5 lg:text-2xl xl:text-3xl"
             >
                 {plan.title}
             </h4>
@@ -76,7 +76,10 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
             </p>
             <div class="mb-5 inline-flex gap-2.5 select-none lg:mb-7.5">
                 <p class="text-3xl font-bold lg:text-5xl xl:text-6xl">
-                    <span aria-label={`${plan.price} рублей`}>
+                    <span
+                        class="text-foreground"
+                        aria-label={`${plan.price} рублей`}
+                    >
                         {plan.price} ₽
                     </span>
                 </p>

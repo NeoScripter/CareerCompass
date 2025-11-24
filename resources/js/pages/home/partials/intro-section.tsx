@@ -94,7 +94,7 @@ const IntroStep: FC<{
 }> = ({ title, active, description, order, onMouseEnter, onMouseLeave }) => {
     return (
         <li onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <h4 class="mb-3.5 text-lg font-bold lg:mb-7.5 lg:text-2xl xl:text-3xl">
+            <h4 class="mb-3.5 text-lg text-foreground font-bold lg:mb-7.5 lg:text-2xl xl:text-3xl">
                 <span
                     aria-hidden="true"
                     class={cn(

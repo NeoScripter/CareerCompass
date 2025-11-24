@@ -9,7 +9,7 @@ type LegalInfoProps = {
 const LegalInfo: FC<LegalInfoProps> = ({ title, html }) => {
     return (
         <AppLayout className="pt-35 sm:pt-42 lg:pt-50">
-            <h1 class="mb-5 text-5xl font-bold lg:mb-10 text-center text-balance lg:text-6xl xl:mb-14 xl:text-7xl">
+            <h1 class="mb-5 text-5xl text-foreground font-bold lg:mb-10 text-center text-balance lg:text-6xl xl:mb-14 xl:text-7xl">
                 {title}
             </h1>
             <div

@@ -6,7 +6,7 @@ const SecondaryHeading: FC<NodeProps> = ({ children, className }) => {
     return (
         <h2
             class={cn(
-                'mb-5 text-3xl font-bold lg:mb-7.5 lg:text-5xl xl:text-6xl',
+                'mb-5 text-foreground text-3xl font-bold lg:mb-7.5 lg:text-5xl xl:text-6xl',
                 className,
             )}
         >
