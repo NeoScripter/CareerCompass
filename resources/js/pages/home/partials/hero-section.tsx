@@ -24,7 +24,7 @@ const HeroSection = () => {
                 fit="object-contain"
             />
 
-            <div class="mx-auto mb-8 max-w-100 md:mx-0 md:mb-0 md:max-w-1/2 xl:max-w-175">
+            <div class="mx-auto mb-8 max-w-100 text-center md:text-left md:mx-0 md:mb-0 md:max-w-1/2 xl:max-w-175">
                 <h1 class="mb-5 text-5xl font-medium xl:mb-8 xl:text-6xl text-foreground lg:max-w-100">
                     Найди свое призвание
                 </h1>
@@ -36,7 +36,7 @@ const HeroSection = () => {
                 </p>
             </div>
 
-            <div class="mx-auto max-w-100 md:mx-0 md:max-w-full">
+            <div class="mx-auto max-w-100 w-fit md:w-auto md:mx-0 md:max-w-full">
                 <Button
                     onClick={() => scrollToSection('#plans')}
                     as="button"

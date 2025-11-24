@@ -22,7 +22,7 @@ const NavLink: FC<NodeProps<{ href: string; label: string }>> = ({
                 type="button"
                 onClick={handleClick}
                 class={cn(
-                    'ease mx-auto block w-fit font-bold transition-colors duration-200 hover:text-primary md:mx-0 md:text-sm xl:text-base',
+                    'ease mx-auto block w-fit font-bold transition-colors duration-200 hover:text-primary text-foreground md:mx-0 md:text-sm xl:text-base',
                     className,
                 )}
             >
