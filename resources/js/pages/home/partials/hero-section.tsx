@@ -11,7 +11,7 @@ import scrollToSection from '@/lib/utils/scrollToSection';
 
 const HeroSection = () => {
     return (
-        <AppSection className="relative isolate min-h-183 p-5 pt-35 md:flex md:aspect-video md:min-h-0 md:items-end md:justify-between md:pt-0 lg:p-8 xl:aspect-[16/8] xl:p-12 2xl:aspect-[16/7]">
+        <AppSection className="relative isolate min-h-183 p-5 pt-35 md:flex md:aspect-[16/9] md:min-h-0 md:items-end md:justify-between md:pt-0 lg:p-8 lg:pb-0 xl:p-12 xl:pb-2">
             <BgLoader
                 desktop={DesktopBg}
                 desktopSm={DesktopBgSm}
@@ -25,7 +25,7 @@ const HeroSection = () => {
             />
 
             <div class="mx-auto mb-8 max-w-100 md:mx-0 md:mb-0 md:max-w-1/2 xl:max-w-175">
-                <h1 class="mb-5 text-5xl font-bold lg:mb-8 lg:text-6xl xl:mb-9 xl:text-7xl">
+                <h1 class="mb-5 text-5xl font-medium lg:mb-8 lg:text-6xl xl:max-w-100">
                     Найди свое призвание
                 </h1>
                 <p>

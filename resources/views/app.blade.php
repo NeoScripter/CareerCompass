@@ -8,6 +8,8 @@
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
     <link rel="preload" href="{{ asset('fonts/Lato-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ asset('fonts/Lato-Medium.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ asset('fonts/Lato-SemiBold.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('fonts/Lato-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
@@ -16,6 +18,19 @@
             font-family: 'Lato';
             src: url('/fonts/Lato-Bold.woff2') format('woff2');
             font-weight: bold;
+            font-display: swap
+        }
+        @font-face {
+            font-family: 'Lato';
+            src: url('/fonts/Lato-SemiBold.woff2') format('woff2');
+            font-weight: 600;
+            font-display: swap
+        }
+
+        @font-face {
+            font-family: 'Lato';
+            src: url('/fonts/Lato-Medium.woff2') format('woff2');
+            font-weight: 500;
             font-display: swap
         }
 
