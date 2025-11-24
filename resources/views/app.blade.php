@@ -9,6 +9,7 @@
 
     <link rel="preload" href="{{ asset('fonts/Lato-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('fonts/Lato-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <style>
         @font-face {
