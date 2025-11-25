@@ -1,16 +1,17 @@
 import { outcomeSlides } from '@/lib/data/outcomeSlides';
 import { cn } from '@/lib/utils/cn';
-import { range } from '@/lib/utils/range';
 import { NodeProps } from '@/types/nodeProps';
 import { FC, useEffect, useRef, useState } from 'preact/compat';
 
 const SWIPE_THRESHOLD = 50;
 
-const SliderNav: FC<NodeProps<{activeSlide: number}>> = ({ className, activeSlide }) => {
-        const [touchStartX, setTouchStartX] = useState<number | null>(null);
+const SliderNav: FC<NodeProps<{ activeSlide: number }>> = ({
+    className,
+    activeSlide,
+}) => {
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
     const [visibleSlides, setVisibleSlides] = useState(0);
     const containerRef = useRef<HTMLUListElement | null>(null);
-
 
     const handleTouchStart = (e: TouchEvent) => {
         setTouchStartX(e.touches[0].clientX);
@@ -95,4 +96,3 @@ const SliderBtn: FC<{
         </li>
     );
 };
-

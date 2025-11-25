@@ -1,6 +1,7 @@
 import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'preact/compat/client';
-import '../css/app.css';
+// import '../css/app.css';
+import '../scss/app.scss';
 import { LoginProvider } from './providers/login-context';
 import { SignupProvider } from './providers/signup-context';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';

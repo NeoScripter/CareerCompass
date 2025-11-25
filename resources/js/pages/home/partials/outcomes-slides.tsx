@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils/cn';
 import { range } from '@/lib/utils/range';
 import { NodeProps } from '@/types/nodeProps';
 import { FC, useEffect, useState } from 'preact/compat';
-import SliderNav from './slider-nav';
+import SliderNav from './SliderNav/SliderNav';
 
 const OutcomesSlides: FC<NodeProps> = ({ className }) => {
     const [activeSlide, setActiveSlide] = useState(0);

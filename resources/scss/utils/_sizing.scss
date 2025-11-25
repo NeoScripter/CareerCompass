@@ -1,0 +1,62 @@
+@function px-to-vw($current-screen-width, $size) {
+    $result: $size / $current-screen-width * 100;
+    $rounded: round($result * 100) / 100;
+    @return $rounded * 1vw;
+}
+
+@function round_to_decimal($value) {
+    @return round($value * 100) / 100;
+}
+
+@function rem($value_in_px, $base_font_size: 16) {
+    $raw_result: $value_in_px / $base_font_size;
+    $rounded: round_to_decimal($raw_result);
+    @return $rounded * 1rem;
+}
+
+// Move calc-adaptive outside the mixin
+@function calc-adaptive($size_in_px, $base-width, $upper-limit-px) {
+    $vw-value: px-to-vw($base-width, $size_in_px);
+    $size-at-limit: $size_in_px / $base-width * $upper-limit-px;
+    $size-at-limit-rem: round_to_decimal($size-at-limit / 16) * 1rem;
+    @return min($size-at-limit-rem, $vw-value);
+}
+
+$sm: rem(570);
+$md: rem(1110);
+$lg: rem(1680);
+$xl: rem(1920);
+
+@mixin sm {
+    @media (min-width: #{$sm}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (min-width: #{$md}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (min-width: #{$lg}) {
+        @content;
+    }
+}
+
+@mixin fluid($property, $size-xs, $size-sm, $size-md, $size-lg) {
+    #{$property}: calc-adaptive($size-xs, 570, 570);
+
+    @include sm {
+        #{$property}: calc-adaptive($size-sm, 570, 1110);
+    }
+
+    @include md {
+        #{$property}: calc-adaptive($size-md, 1110, 1680);
+    }
+
+    @include lg {
+        #{$property}: calc-adaptive($size-lg, 1680, 1920);
+    }
+}

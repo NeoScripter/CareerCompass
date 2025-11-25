@@ -1,0 +1,17 @@
+html,
+body {
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+body {
+    min-height: 100vh;
+    color: clr('foreground');
+    font-family:
+        'Lato', 'Arial', 'Verdana', 'Tahoma', ui-sans-serif, system-ui,
+        sans-serif, 'Apple Color Emoji';
+}
+
+button {
+    color: inherit;
+}

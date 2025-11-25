@@ -1,6 +1,6 @@
 import SecondaryHeading from '@/components/ui/secondary-heading';
 import AppSection from '@/layouts/partials/app-section';
-import Reasons from './reasons';
+import Reasons from '../reasons/reasons';
 
 const ReasonsSection = () => {
     return (
@@ -9,7 +9,7 @@ const ReasonsSection = () => {
                 Зачем проходить тест на профориентацию?
             </SecondaryHeading>
 
-            <p class="mx-auto text-center md:max-w-2/3 lg:max-w-1/2">
+            <p class="mx-auto text-center md:max-w-2/3 lg:max-w-1/2 test">
                 Выбор профессии — одно из самых важных решений в жизни. ИИ-тест
                 на профориентацию помогает:
             </p>
