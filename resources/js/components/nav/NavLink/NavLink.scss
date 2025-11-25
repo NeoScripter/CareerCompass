@@ -1,0 +1,16 @@
+.nav-link {
+    .link {
+        cursor: pointer;
+        margin: 0 auto;
+        display: block;
+        width: fit-content;
+        font-weight: 700;
+        color: clr('foreground');
+        transition: color 0.2s ease;
+        @include fluid(font-size, 13, 13, 17, 20);
+    }
+
+    .link:hover {
+        color: clr('primary');
+    }
+}

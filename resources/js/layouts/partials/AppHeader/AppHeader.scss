@@ -1,0 +1,57 @@
+.AppHeader {
+    position: fixed;
+    @include fluid(top, 50, 50, 85, 85);
+    left: 50%;
+    z-index: 100;
+    display: flex;
+    @include fluid(width, 320, 730, 1067, 1387);
+    transform: translateX(-50%);
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    @include fluid(padding, 12, 12, 10, 10);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease-in;
+
+    @include sm() {
+        border-radius: 3rem;
+    }
+}
+
+.rounded-default {
+    border-radius: 3rem;
+}
+
+.rounded-open {
+    border-radius: 3rem 3rem 0 0;
+    @include sm() {
+        border-radius: 3rem;
+    }
+}
+
+.hidden-header {
+    transform: translate(-50%, -200%);
+}
+
+.logout-btn {
+    display: block;
+    @include fluid(width, 24, 24, 34, 40);
+    @include fluid(height, 30, 30, 40, 50);
+
+    @include sm() {
+        order: -2;
+        flex-shrink: 0;
+        @include fluid(margin-left, 25, 25, 30, 40);
+    }
+}
+
+.logout-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.placeholder {
+    flex-shrink: 0;
+    pointer-events: none;
+    @include fluid(width, 46, 46, 107, 108);
+}

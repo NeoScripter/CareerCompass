@@ -16,7 +16,7 @@ const AppLayout: FC<NodeProps> = ({ children, className }) => {
 
     return (
         <div className={cn('AppLayout', className)}>
-            {/* <AppHeader /> */}
+            <AppHeader />
             <main className="content">{children}</main>
             <Toaster
                 position="top-center"
@@ -40,7 +40,7 @@ const AppLayout: FC<NodeProps> = ({ children, className }) => {
             {/* > */}
             {/*     <Signup /> */}
             {/* </DialogLayout> */}
-            <AppFooter />
+            {/* <AppFooter /> */}
         </div>
     );
 };

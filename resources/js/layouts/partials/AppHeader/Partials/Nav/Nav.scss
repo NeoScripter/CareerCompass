@@ -1,0 +1,64 @@
+.Nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    @include fluid(top, 40, 0, 0, 0);
+    z-index: -1;
+    overflow: hidden;
+    overflow: clip;
+    background: #fff;
+    @include fluid(padding-inline, 12, 0, 0, 0);
+    border-bottom-left-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+    transition:
+        max-height 300ms ease-in-out,
+        padding 300ms ease-in-out;
+
+    @include sm() {
+        position: static;
+        display: flex;
+        flex: 1;
+        transform: translateY(0);
+        align-items: center;
+        overflow-y: auto;
+        border-radius: 3rem;
+        padding-inline: 0;
+        max-height: none;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.nav-open {
+    max-height: 20rem;
+    @include fluid(padding-bottom, 20, 0, 0, 0);
+    @include fluid(padding-top, 40, 0, 0, 0);
+}
+
+.nav-closed {
+    max-height: 0rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    @include sm() {
+        max-height: 20rem;
+    }
+}
+
+.list {
+    display: grid;
+    place-content: center;
+    @include fluid(gap, 15, 20, 29, 30);
+
+    @include sm() {
+        margin-inline: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.result-btn.disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+}
