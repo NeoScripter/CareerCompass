@@ -14,7 +14,7 @@ class HomeController extends Controller
     {
         $plans = Plan::orderBy('price', 'asc')->get();
 
-        return Inertia::render('home/home', [
+        return Inertia::render('Home/Home', [
             'plans' => $plans
         ]);
     }

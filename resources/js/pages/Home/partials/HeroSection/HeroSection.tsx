@@ -4,14 +4,14 @@ import MobileBgSm from '@/assets/images/home/hero/hero-mb-tiny.webp';
 import MobileBg from '@/assets/images/home/hero/hero-mb.webp';
 import TabletBgSm from '@/assets/images/home/hero/hero-tablet-tiny.webp';
 import TabletBg from '@/assets/images/home/hero/hero-tablet.webp';
-import BgLoader from '@/components/ui/bg-loader';
-import { Button } from '@/components/ui/button';
-import AppSection from '@/layouts/partials/app-section';
+import BgLoader from '@/components/ui/BgLoader/BgLoader';
+import { Button } from '@/components/ui/Button/Button';
+import AppSection from '@/layouts/partials/AppSection/AppSection';
 import scrollToSection from '@/lib/utils/scrollToSection';
 
 const HeroSection = () => {
     return (
-        <AppSection className="relative isolate min-h-183 p-5 pt-35 md:flex md:aspect-[16/9] xl:aspect-[16/8] md:min-h-0 md:items-end md:justify-between md:pt-0 lg:p-8 lg:pb-0 xl:p-12 xl:pb-2">
+        <AppSection className="hero-section">
             <BgLoader
                 desktop={DesktopBg}
                 desktopSm={DesktopBgSm}
@@ -19,30 +19,24 @@ const HeroSection = () => {
                 tabletSm={TabletBgSm}
                 mobile={MobileBg}
                 mobileSm={MobileBgSm}
-                className="bg-muted absolute -inset-6 lg:-inset-10"
-                pos="object-bottom-left md:object-bottom"
-                fit="object-contain"
+                className="background"
+                mbMinWidth={570}
             />
-
-            <div class="mx-auto mb-8 max-w-100 text-center md:text-left md:mx-0 md:mb-0 md:max-w-1/2 xl:max-w-175">
-                <h1 class="mb-5 text-5xl font-medium xl:mb-8 xl:text-6xl text-foreground lg:max-w-100">
-                    Найди свое призвание
-                </h1>
-                <p>
+            <div class="content">
+                <h1 class="title">Найди свое призвание</h1>
+                <p class="description">
                     Пройдите быстрый тест на профориентацию с искусственным
                     интеллектом и узнайте, кем вам действительно стоит стать.
                     ИИ-алгоритм анализирует ваши ответы, выявляет сильные
-                    стороны личности и подбирает подходящие профессии.{' '}
+                    стороны личности и подбирует подходящие профессии.{' '}
                 </p>
             </div>
-
-            <div class="mx-auto max-w-100 w-fit md:w-auto md:mx-0 md:max-w-full">
+            <div>
                 <Button
                     onClick={() => scrollToSection('#plans')}
                     as="button"
-                    variant="primary"
                     type="button"
-                    class="px-[4.375em] text-sm lg:px-[7.3em] lg:text-base xl:text-xl"
+                    className="primary cta-button"
                 >
                     Пройти тест
                 </Button>

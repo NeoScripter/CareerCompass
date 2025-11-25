@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button/Button';
 import { cn } from '@/lib/utils/cn';
 import { useLoginModal } from '@/providers/login-context';
 import { Plan, User } from '@/types/model';
@@ -89,7 +89,7 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
                             class="relative"
                             aria-label={`Предыдущая цена ${plan.prevPrice} рублей`}
                         >
-                            <span aria-hidden="true" class="absolute origin-center rotate-45 block top-1/2 inset-x-0 h-px bg-muted-foreground" />
+                            <span aria-hidden="true" class="absolute origin-center -rotate-15 block top-1/2 inset-x-0 h-[1.5px] bg-muted-foreground" />
                             {plan.prevPrice} ₽
                         </span>
                     </p>

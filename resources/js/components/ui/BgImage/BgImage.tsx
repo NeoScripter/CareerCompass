@@ -27,60 +27,36 @@ export default function BgImage({
     const tinyMobile = tinyMobileImg || mobileImg;
 
     return (
-        <div
-            aria-hidden="true"
-            className={cn(
-                'pointer-events-none absolute inset-0 -z-5 overflow-clip select-none',
-                className,
-            )}
-        >
-            {/* Main high-quality images */}
-            <picture
-                className={cn(
-                    'block size-full object-cover object-bottom-right transition-all duration-500 ease-in-out',
-                    isLoading && 'opacity-0',
-                )}
-            >
+        <div aria-hidden="true" className={cn('BgImage', className)}>
+            <picture className={cn('main-picture', isLoading && 'hidden')}>
                 <source srcSet={desktopImg} media="(min-width: 900px)" />
                 <source srcSet={tabletImg} media="(min-width: 500px)" />
                 <img
                     onLoad={() => setIsLoading(false)}
                     src={mobileImg}
                     alt=""
-                    className="block size-full object-cover object-bottom-right"
+                    className="image"
                 />
             </picture>
 
-            {/* Loading state with tiny/low-quality images */}
             <div
+                className={cn('loading-overlay', !isLoading && 'hidden')}
                 role="status"
                 aria-label="Фото загружается"
-                className={cn(
-                    'absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center',
-                    !isLoading && 'opacity-0',
-                )}
             >
                 <div
+                    className={cn('loading-bg', isLoading && 'visible')}
                     aria-hidden="true"
-                    className={cn(
-                        isLoading &&
-                            'absolute inset-0 size-full animate-pulse bg-gray-200/50',
-                    )}
                 ></div>
 
-                <picture
-                    aria-hidden="true"
-                    className={cn(
-                        'block size-full w-full object-cover object-bottom-right transition-all duration-500 ease-in-out',
-                    )}
-                >
+                <picture className="loading-picture" aria-hidden="true">
                     <source srcSet={tinyDesktop} media="(min-width: 900px)" />
                     <source srcSet={tinyTablet} media="(min-width: 500px)" />
                     <img
                         onLoad={() => setIsLoading(false)}
                         src={tinyMobile}
                         alt=""
-                        className="block size-full object-cover object-bottom-right"
+                        className="image"
                     />
                 </picture>
             </div>

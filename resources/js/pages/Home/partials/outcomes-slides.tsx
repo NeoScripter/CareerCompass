@@ -1,4 +1,4 @@
-import BgLoader from '@/components/ui/bg-loader';
+import BgLoader from '@/components/ui/BgLoader/BgLoader';
 import SecondaryHeading from '@/components/ui/secondary-heading';
 import { OutcomeSlide, outcomeSlides } from '@/lib/data/outcomeSlides';
 import { cn } from '@/lib/utils/cn';

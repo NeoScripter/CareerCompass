@@ -1,6 +1,6 @@
 import NavLink from '@/components/nav/nav-link';
 import BurgerMenu from '@/components/ui/burger-menu';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button/Button';
 import { useClickOutside } from '@/hooks/use-click-outside';
 import { useEscapeKey } from '@/hooks/use-escape-key';
 import { navLinks } from '@/lib/data/navLinks';

@@ -1,0 +1,50 @@
+.button {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    @include fluid(border-radius, 33, 33, 33, 33);
+    @include fluid(padding-inline, 20, 20, 20, 19);
+    @include fluid(padding-block, 10, 10, 39, 39);
+    @include fluid(font-size, 13, 13, 17, 20);
+    font-weight: 700;
+    transition: all 0.25s ease;
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+.button.primary {
+    background-color: clr('primary');
+    color: clr('foreground');
+
+    &:hover,
+    &:focus-visible {
+        background-color: clr('foreground');
+        color: white;
+    }
+}
+
+.button.secondary {
+    background-color: clr('foreground');
+    color: white;
+
+    &:hover,
+    &:focus-visible {
+        background-color: clr('primary');
+        color: clr('foreground');
+    }
+}
+
+.button.neutral {
+    background-color: rgb(220, 38, 38);
+    color: white;
+
+    &:hover {
+        background-color: rgb(185, 28, 28);
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgb(239, 68, 68);
+    }
+}

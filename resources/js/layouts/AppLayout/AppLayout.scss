@@ -1,0 +1,27 @@
+.AppLayout {
+    margin-inline: auto;
+    max-width: $xl;
+
+    main.content {
+        @include fluid(padding-inline, 20, 30, 36, 36);
+        @include fluid(margin-bottom, 80, 80, 100, 120);
+
+        > *:not(:last-child) {
+            @include fluid(margin-bottom, 80, 80, 100, 120);
+        }
+    }
+
+    .toaster {
+        margin-top: 4rem; // mt-16
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        font-size: 1rem !important; // !text-base
+    }
+
+    .dialog {
+        margin-inline: auto;
+        max-width: 260px;
+    }
+}

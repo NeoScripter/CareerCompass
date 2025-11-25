@@ -1,5 +1,5 @@
 import SecondaryHeading from '@/components/ui/secondary-heading';
-import AppSection from '@/layouts/partials/app-section';
+import AppSection from '@/layouts/partials/AppSection/AppSection';
 import Plans from './plans';
 
 const PlansSection = () => {

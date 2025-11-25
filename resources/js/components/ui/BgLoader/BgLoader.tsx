@@ -25,9 +25,9 @@ export default function BgLoader({
     tabletSm,
     mobileSm,
     className,
-    pos = 'object-bottom-right',
-    fit = 'object-cover',
-    size = 'size-full',
+    pos = 'image-position--bottom-right',
+    fit = 'image-fit--cover',
+    size = 'image-size--full',
     alt = '',
     mbMinWidth = 768,
     tabletMinWidth = 1200,
@@ -41,16 +41,13 @@ export default function BgLoader({
     return (
         <div
             {...(alt === '' && { 'aria-hidden': 'true' })}
-            className={cn(
-                'pointer-events-none absolute inset-0 -z-5 overflow-clip select-none',
-                className,
-            )}
+            className={cn('bg-loader', className)}
         >
             {/* Main high-quality images */}
             <picture
                 className={cn(
-                    'block transition-opacity duration-500 ease-in-out',
-                    isLoading && 'opacity-0',
+                    'bg-loader__picture',
+                    isLoading && 'bg-loader__picture--loading',
                     fit,
                     pos,
                     size,
@@ -68,7 +65,7 @@ export default function BgLoader({
                     onLoad={() => setIsLoading(false)}
                     src={mobile}
                     alt={alt}
-                    className={cn('block', size, fit, pos)}
+                    className={cn('bg-loader__image', size, fit, pos)}
                 />
             </picture>
 
@@ -77,26 +74,18 @@ export default function BgLoader({
                 role="status"
                 aria-label="Фото загружается"
                 className={cn(
-                    'absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center',
-                    !isLoading && 'opacity-0',
+                    'bg-loader__loading-overlay',
+                    !isLoading && 'bg-loader__loading-overlay--hidden',
                 )}
             >
                 <div
                     {...(alt === '' && { 'aria-hidden': 'true' })}
-                    className={cn(
-                        isLoading &&
-                            'absolute inset-0 size-full animate-pulse bg-gray-200/50',
-                    )}
+                    className={cn(isLoading && 'bg-loader__skeleton')}
                 ></div>
 
                 <picture
                     aria-hidden="true"
-                    className={cn(
-                        'block transition-opacity duration-500 ease-in-out',
-                        fit,
-                        pos,
-                        size,
-                    )}
+                    className={cn('bg-loader__picture', fit, pos, size)}
                 >
                     <source
                         srcSet={tinyDesktop}
@@ -111,7 +100,7 @@ export default function BgLoader({
                         onLoad={() => setIsLoading(false)}
                         src={tinyMobile}
                         alt={alt}
-                        className={cn('block', size, fit, pos)}
+                        className={cn('bg-loader__image', size, fit, pos)}
                     />
                 </picture>
             </div>

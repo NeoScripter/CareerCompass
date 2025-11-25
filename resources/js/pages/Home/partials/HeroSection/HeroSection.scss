@@ -1,0 +1,42 @@
+.hero-section {
+    position: relative;
+    isolation: isolate;
+    @include fluid(height, 761, 448, 769, 1042);
+
+    @include sm() {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+    }
+
+    .background {
+        @include fluid(inset, -20, -30, -36, -36);
+        background-color: clr('muted');
+        position: absolute;
+        z-index: -5;
+    }
+
+    .content {
+        @include fluid(padding-top, 127, 243, 551, 765);
+    }
+
+    .cta-button {
+        margin-inline: auto;
+        @include fluid(margin-top, 30, 0, 0, 0);
+        @include fluid(padding-block, 10, 10, 20, 20);
+        @include fluid(padding-inline, 70, 60, 125, 137);
+
+        @include sm() {
+            margin-inline: 0;
+        }
+    }
+}
+
+.description {
+    @include fluid(width, 280, 338, 640, 703);
+}
+
+.title {
+    @include fluid(max-width, 300, 338, 640, 703);
+}
+

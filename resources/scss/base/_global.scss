@@ -6,12 +6,27 @@ body {
 
 body {
     min-height: 100vh;
-    color: clr('foreground');
+    color: clr('foreground-muted');
     font-family:
         'Lato', 'Arial', 'Verdana', 'Tahoma', ui-sans-serif, system-ui,
         sans-serif, 'Apple Color Emoji';
+    @include fluid(font-size, 15, 15, 22, 26);
+    line-height: 110%;
 }
 
 button {
     color: inherit;
 }
+
+h1,
+h2 {
+    color: clr('foreground');
+}
+
+h1 {
+    font-weight: 600;
+    @include fluid(font-size, 45, 45, 60, 72);
+    @include fluid(line-height, 40, 40, 54, 65);
+    @include fluid(margin-bottom, 20, 20, 31, 35);
+}
+

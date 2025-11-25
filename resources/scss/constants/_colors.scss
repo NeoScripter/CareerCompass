@@ -1,16 +1,13 @@
+@use 'sass:map';
+
 $colors: (
     'foreground': oklch(0.3562 0 0),
-    'muted-foreground': oklch(0.5513 0.0123 285.99),
+    'foreground-muted': oklch(0.5513 0.0123 285.99),
     'muted': oklch(0.9742 0.0122 276.1),
     'primary': oklch(0.925 0.1948 123.83),
     'primary-muted': oklch(0.922 0.2225 122.42),
 );
 
-@function clr($category) {
-    @if map-has-key($colors, $category) {
-        @return map-get($colors, $category);
-    } @else {
-        @warn "Color `#{$category}` not found in $colors map.";
-        @return null;
-    }
+@function clr($key) {
+    @return map.get($colors, $key);
 }

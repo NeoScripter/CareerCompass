@@ -1,4 +1,3 @@
-import { cn } from '@/lib/utils/cn';
 import { useState } from 'preact/hooks';
 
 type LazyImageProps = {
@@ -10,8 +9,8 @@ type LazyImageProps = {
 };
 
 export default function LazyImage({
-    parentClass,
-    imgClass,
+    parentClass = '',
+    imgClass = '',
     img,
     alt,
     tinyImg,
@@ -21,7 +20,7 @@ export default function LazyImage({
     return (
         <figure
             role="img"
-            className={cn('relative overflow-clip', parentClass)}
+            class={`lazy-image ${parentClass}`.trim()}
             aria-label={alt}
         >
             <img
@@ -33,29 +32,17 @@ export default function LazyImage({
                 src={img}
                 alt={alt}
                 loading="lazy"
-                className={cn(
-                    'size-full object-cover object-center transition-all duration-500 ease-in-out',
-                    imgClass,
-                    isLoading && 'opacity-0',
-                )}
+                class={`main-img ${isLoading ? 'loading' : ''} ${imgClass}`.trim()}
                 aria-hidden={isLoading}
             />
             {isLoading && (
-                <div
-                    role="status"
-                    aria-label="Фото загружается"
-                    className="absolute inset-0 z-10 flex items-center justify-center"
-                >
-                    <div
-                        aria-hidden="true"
-                        className="absolute inset-0 z-10 size-full animate-pulse bg-gray-200/50"
-                    ></div>
-
+                <div role="status" aria-label="Фото загружается" class="loader">
+                    <div aria-hidden="true" class="pulse"></div>
                     <img
                         aria-hidden={!isLoading}
                         src={tinyImg}
                         alt={alt}
-                        className="size-full object-cover object-center"
+                        class="placeholder"
                     />
                 </div>
             )}

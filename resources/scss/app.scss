@@ -2,6 +2,17 @@
 @import './utils/sizing';
 @import './constants/colors';
 @import './base/global';
-@import '@/pages/home/partials/reasons-section/reasons-section';
 
-@import '@/pages/home/partials/SliderNav/SliderNav';
+@import '@/components/ui/Button/Button';
+@import '@/pages/Home/partials/reasons-section/reasons-section';
+@import '@/pages/Home/partials/SliderNav/SliderNav';
+@import '@/components/ui/BgLoader/BgLoader';
+@import '@/components/ui/BgImage/BgImage';
+@import '@/layouts/AppLayout/AppLayout';
+@import '@/layouts/DialogLayout/DialogLayout';
+@import '@/layouts/TestLayout/TestLayout';
+@import '@/layouts/partials/AppFooter/AppFooter';
+@import '@/layouts/partials/AppHeader/AppHeader';
+@import '@/layouts/partials/AppSection/AppSection';
+@import '@/components/ui/LazyImage/LazyImage';
+@import '@/pages/Home/partials/HeroSection/HeroSection';
