@@ -15,32 +15,32 @@ const AppLayout: FC<NodeProps> = ({ children, className }) => {
     const { show: showSignupModal } = useSignupModal();
 
     return (
-        <div className={cn('AppLayout', className)}>
+        <div className={cn('app-layout', className)}>
             <AppHeader />
-            <main className="content">{children}</main>
+            <main className="app-layout__content">{children}</main>
             <Toaster
                 position="top-center"
                 expand
                 richColors
                 toastOptions={{
-                    className: 'toaster',
+                    className: 'app-layout__toaster',
                 }}
             />
             {/* <DialogLayout */}
             {/*     show={show.value} */}
             {/*     onClose={() => (show.value = false)} */}
-            {/*     className="dialog" */}
+            {/*     className="app-layout__dialog" */}
             {/* > */}
             {/*     <Login /> */}
             {/* </DialogLayout> */}
             {/* <DialogLayout */}
             {/*     show={showSignupModal.value} */}
             {/*     onClose={() => (showSignupModal.value = false)} */}
-            {/*     className="dialog" */}
+            {/*     className="app-layout__dialog" */}
             {/* > */}
             {/*     <Signup /> */}
             {/* </DialogLayout> */}
-            {/* <AppFooter /> */}
+            <AppFooter />
         </div>
     );
 };
