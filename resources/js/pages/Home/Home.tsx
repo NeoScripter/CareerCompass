@@ -1,11 +1,12 @@
 import AppLayout from '@/layouts/AppLayout/AppLayout';
 import HeroSection from './partials/HeroSection/HeroSection';
+import IntroSection from './partials/IntroSection/IntroSection';
 
 const Home = () => {
     return (
         <AppLayout>
             <HeroSection />
-            {/* <IntroSection /> */}
+            <IntroSection />
             {/* <OutcomesSection /> */}
             {/* <ReasonsSection /> */}
             {/* <PlansSection /> */}

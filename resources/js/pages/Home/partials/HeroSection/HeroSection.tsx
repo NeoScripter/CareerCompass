@@ -20,6 +20,8 @@ const HeroSection = () => {
                 mobile={MobileBg}
                 mobileSm={MobileBgSm}
                 className="background"
+                fit='fit'
+                pos='pos'
                 mbMinWidth={570}
             />
             <div class="content">

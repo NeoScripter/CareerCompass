@@ -1,4 +1,4 @@
-import AppLayout from '@/layouts/app-layout';
+import AppLayout from '@/layouts/AppLayout/AppLayout';
 import { FC } from 'react-dom/src';
 
 type LegalInfoProps = {
