@@ -1,20 +1,16 @@
 import AppSection from '@/layouts/partials/AppSection/AppSection';
-import Plans from './plans';
+import Plans from '../Plans/Plans';
 
 const PlansSection = () => {
     return (
-        <AppSection id="plans" className="mb-11 sm:mb-20 xl:mb-21">
-            <h2 className="mx-auto text-center text-balance md:max-w-1/2">
-                Выберите свой путь
-            </h2>
-
-            <p class="mx-auto mb-13 text-center sm:mb-15 md:max-w-2/3 lg:mb-20 lg:max-w-1/2 xl:mb-25">
+        <AppSection id="plans" className="plans-section">
+            <h2 className="plans-section__title">Выберите свой путь</h2>
+            <p class="plans-section__text">
                 Каждый человек уникален — поэтому мы создали три формата теста,
                 чтобы вы могли выбрать именно тот уровень анализа, который нужен
                 вам. Наш ИИ-тест адаптируется под любую цель и глубину
                 погружения.
             </p>
-
             <Plans />
         </AppSection>
     );

@@ -81,7 +81,7 @@ const SliderDisplay: FC<{ outcome: OutcomeSlide; activeSlide: number }> = ({
                 mobile={outcome.mobile}
                 mobileSm={outcome.mobileTiny}
                 alt={outcome.alt}
-                mbMinWidth={570}
+                mbMinWidth={500}
                 className="outcomes-slides__image"
             />
         </div>

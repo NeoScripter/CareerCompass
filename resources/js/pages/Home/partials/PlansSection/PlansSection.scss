@@ -1,0 +1,18 @@
+@use 'core' as u;
+
+.plans-section__title {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-wrap: balance;
+
+    @include u.fluid(width, 361, 361, 436, 419);
+}
+
+.plans-section__text {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    @include u.fluid(margin-bottom, 50, 50, 100, 80);
+    @include u.fluid(width, 320, 482, 904, 910);
+}

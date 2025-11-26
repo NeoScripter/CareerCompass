@@ -1,21 +1,18 @@
 import AppSection from '@/layouts/partials/AppSection/AppSection';
-import Reasons from '../reasons/reasons';
+import Reasons from '../Reasons/Reasons';
 
 const ReasonsSection = () => {
     return (
-        <AppSection id="prof" className="mb-11 sm:mb-20 xl:mb-21">
-            <h2 className="mx-auto text-center text-balance md:max-w-2/3">
+        <AppSection id="prof" className="reasons-section">
+            <h2 className="reasons-section__title">
                 Зачем проходить тест на профориентацию?
             </h2>
-
-            <p class="mx-auto text-center md:max-w-2/3 lg:max-w-1/2 test">
+            <p class="reasons-section__text reasons-section__text--intro">
                 Выбор профессии — одно из самых важных решений в жизни. ИИ-тест
                 на профориентацию помогает:
             </p>
-
             <Reasons />
-
-            <p class="mx-auto text-center md:max-w-2/3 lg:max-w-1/2">
+            <p class="reasons-section__text">
                 Наш тест профориентации на основе искусственного интеллекта
                 подходит школьникам, студентам и взрослым, которые хотят сменить
                 профессию.

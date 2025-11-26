@@ -3,7 +3,6 @@
 
 
 @use '@/components/ui/Button/Button';
-@use '@/pages/Home/partials/reasons-section/reasons-section';
 @use '@/pages/Home/partials/SliderNav/SliderNav';
 @use '@/components/ui/BgLoader/BgLoader';
 @use '@/components/ui/BgImage/BgImage';
@@ -22,3 +21,7 @@
 @use '@/pages/Home/partials/IntroStep/IntroStep';
 @use '@/pages/Home/partials/OutcomesSection/OutcomesSection';
 @use '@/pages/Home/partials/OutcomesSlides/OutcomesSlides';
+@use '@/pages/Home/partials/ReasonsSection/ReasonsSection';
+@use '@/pages/Home/partials/Reasons/Reasons';
+@use '@/pages/Home/partials/PlansSection/PlansSection';
+@use '@/pages/Home/partials/Plans/Plans';

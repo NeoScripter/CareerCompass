@@ -1,0 +1,157 @@
+@use 'core' as u;
+@use 'sass:color';
+
+.plans {
+    display: grid;
+    @include u.fluid(gap, 20, 15, 30, 30);
+
+    @include u.sm() {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @include u.md() {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.plans__card {
+    background-color: u.clr('muted');
+    border-radius: 2rem;
+    @include u.fluid(font-size, 15, 15, 22, 26);
+    @include u.fluid(padding-inline, 30, 20, 30, 50);
+    @include u.fluid(padding-bottom, 22, 28, 35, 35);
+    @include u.fluid(padding-top, 20, 30, 50, 50);
+
+    @include u.sm() {
+        grid-column: span 2 / span 2;
+    }
+
+    @include u.md() {
+        grid-column: span 1 / span 1;
+    }
+}
+
+.plans__card:not(.plans__card--disabled) {
+    transition-property: outline, scale;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+.plans__card:not(.plans__card--disabled):hover {
+    scale: 1.03;
+    outline: 3px solid u.clr('primary');
+}
+
+.plans__card--regular {
+    @include u.sm() {
+        grid-column: span 2 / span 2;
+    }
+
+    @include u.md() {
+        grid-column: span 1 / span 1;
+    }
+}
+
+.plans__card--last {
+    @include u.sm() {
+        grid-column-start: 2;
+        grid-column-end: 4;
+        align-items: center;
+    }
+
+    @include u.md() {
+        grid-column-start: auto;
+        grid-column-end: auto;
+    }
+}
+
+.plans__title {
+    color: u.clr('foreground');
+    @include u.fluid(margin-bottom, 15, 15, 20, 20);
+    @include u.fluid(font-size, 18, 18, 24, 29);
+    text-align: center;
+    font-weight: 700;
+}
+
+.plans__duration {
+    margin-bottom: 1.875rem;
+    text-align: center;
+}
+
+.plans__pricing {
+    display: inline-flex;
+    gap: 0.625em;
+    user-select: none;
+    @include u.fluid(margin-bottom, 20, 20, 30, 35);
+}
+
+.plans__price {
+    @include u.fluid(font-size, 33, 33, 44, 53);
+    font-weight: 700;
+}
+
+.plans__price-value {
+    color: u.clr('foreground');
+}
+
+.plans__prev-price {
+    font-size: 1.1em;
+}
+
+.plans__prev-price-wrapper {
+    position: relative;
+}
+
+.plans__prev-price-line {
+    position: absolute;
+    transform-origin: center;
+    rotate: -15deg;
+    display: block;
+    z-index: 5;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background-color: u.clr('foreground-muted');
+}
+
+.plans__description {
+    @include u.fluid(min-height, 60, 60, 88, 104);
+}
+
+.plans__button {
+    margin-left: auto;
+    margin-right: auto;
+    @include u.fluid(margin-block, 30, 30, 50, 50);
+}
+
+.plans__button--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.plans__perks {
+    display: grid;
+    @include u.fluid(gap, 20, 20, 20, 20);
+}
+
+.plans__perk {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+}
+
+.plans__perk-icon {
+    flex-shrink: 0;
+    @include u.fluid(margin-top, 2, 2, 2, 2);
+    @include u.fluid(gap, 20, 20, 20, 20);
+}
+
+.plans__perk-text {
+    flex: 1;
+}
+
+.plans__card--second {
+    background-color: color.change(u.clr('primary'), $alpha: 0.2);
+}

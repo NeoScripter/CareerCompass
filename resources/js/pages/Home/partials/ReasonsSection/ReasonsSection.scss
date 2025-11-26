@@ -1,0 +1,22 @@
+@use 'core' as u;
+
+/* .reasons-section { */
+/*     margin-bottom: 2.75rem; */
+/**/
+/*     @include u.sm() { */
+/*         margin-bottom: 5rem; */
+/*     } */
+/* } */
+
+.reasons-section__title {
+    margin-inline: auto;
+    text-align: center;
+    text-wrap: balance;
+    @include u.fluid(width, 320, 358, 670, 596);
+}
+
+.reasons-section__text {
+    margin-inline: auto;
+    text-align: center;
+    @include u.fluid(width, 320, 358, 904, 910);
+}
