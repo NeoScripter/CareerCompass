@@ -1,16 +1,16 @@
 import SecondaryHeading from '@/components/ui/secondary-heading';
 import AppSection from '@/layouts/partials/AppSection/AppSection';
-import OutcomesSlides from './outcomes-slides';
+import OutcomesSlides from '../OutcomesSlides/OutcomesSlides';
 
 const OutcomesSection = () => {
     return (
-        <AppSection id='result'>
-            <div class="mb-11 sm:mb-20 sm:flex sm:items-end sm:gap-4 xl:mb-21">
-                <SecondaryHeading className="sm:max-w-[45%] sm:flex-1">
+        <AppSection id="result" className="outcomes-section">
+            <div class="outcomes-section__header">
+                <SecondaryHeading className="outcomes-section__heading">
                     Что вы получите после прохождения теста
                 </SecondaryHeading>
 
-                <p class="sm:flex-1">
+                <p class="outcomes-section__description">
                     Каждый отчёт формируется с помощью ИИ-анализа, что делает
                     результат максимально точным и индивидуальным.
                 </p>

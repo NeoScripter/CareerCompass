@@ -1,4 +1,5 @@
+@use 'core' as u;
 
 .test {
-  font-size: rem(40);
+  font-size: u.rem(40);
 }

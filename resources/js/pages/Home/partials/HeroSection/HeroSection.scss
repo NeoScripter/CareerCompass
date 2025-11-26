@@ -1,52 +1,58 @@
+@use 'core' as u;
+
 .hero-section {
     position: relative;
     overflow-y: clip;
     isolation: isolate;
-    @include fluid(height, 695, 416, 739, 985);
-    @include fluid(padding-inline, 20, 25, 40, 50);
-    @include fluid(margin-top, 20, 25, 40, 50);
-    @include fluid(padding-bottom, 20, 25, 40, 50);
+    @include u.fluid(height, 695, 416, 739, 985);
+    @include u.fluid(padding-inline, 20, 20, 30, 40);
+    @include u.fluid(margin-top, 0, 20, 30, 40);
+    @include u.fluid(padding-bottom, 20, 25, 40, 50);
 
-    @include sm() {
+    @include u.sm() {
         display: flex;
         align-items: end;
         justify-content: space-between;
     }
 
     .background {
-        @include fluid(inset, -20, 0, 0, 0);
-        background-color: clr('muted');
+        @include u.fluid(inset, -20, 0, 0, 0);
+        background-color: u.clr('muted');
         position: absolute;
         z-index: -5;
         border-radius: 2rem;
     }
 
     .content {
-        @include fluid(padding-top, 127, 243, 551, 765);
+        @include u.fluid(padding-top, 127, 243, 551, 765);
     }
 
     .cta-button {
         margin-inline: auto;
-        @include fluid(margin-top, 30, 0, 0, 0);
-        @include fluid(padding-block, 10, 10, 20, 20);
-        @include fluid(padding-inline, 70, 60, 125, 137);
+        @include u.fluid(margin-top, 30, 0, 0, 0);
+        @include u.fluid(padding-block, 10, 10, 20, 20);
+        @include u.fluid(padding-inline, 70, 60, 125, 137);
 
-        @include sm() {
+        @include u.sm() {
             margin-inline: 0;
         }
     }
 }
 
 .description {
-    @include fluid(width, 280, 338, 640, 703);
+    @include u.fluid(width, 280, 338, 640, 703);
 }
 
 .title {
-    @include fluid(max-width, 300, 338, 640, 703);
+    @include u.fluid(max-width, 300, 338, 640, 703);
 }
 
 .fit {
-    object-fit: contain;
+    object-fit: cover;
+
+    @include u.sm() {
+        object-fit: contain;
+    }
 }
 
 .pos {

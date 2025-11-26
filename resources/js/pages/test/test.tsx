@@ -1,4 +1,4 @@
-import TestLayout from "@/layouts/test-layout";
+import TestLayout from "@/layouts/TestLayout/TestLayout";
 
 const Test = () => {
     return (

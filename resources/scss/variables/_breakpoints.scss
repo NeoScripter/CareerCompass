@@ -1,0 +1,11 @@
+@use 'utils/functions' as f;
+
+$relSm: 360;
+$relMd: 780;
+$relLg: 1440;
+$relXl: 1920;
+
+$sm: f.rem(570);
+$md: f.rem(1110);
+$lg: f.rem(1680);
+$xl: f.rem(1920);

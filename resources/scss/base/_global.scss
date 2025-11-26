@@ -1,3 +1,5 @@
+@use 'core' as u;
+
 html,
 body {
     overflow-x: hidden;
@@ -6,11 +8,11 @@ body {
 
 body {
     min-height: 100vh;
-    color: clr('foreground-muted');
+    color: u.clr('foreground-muted');
     font-family:
         'Lato', 'Arial', 'Verdana', 'Tahoma', ui-sans-serif, system-ui,
         sans-serif, 'Apple Color Emoji';
-    @include fluid(font-size, 15, 15, 22, 26);
+    @include u.fluid(font-size, 15, 15, 22, 26);
     line-height: 110%;
 }
 
@@ -21,20 +23,20 @@ button {
 
 h1,
 h2 {
-    color: clr('foreground');
+    color: u.clr('foreground');
 }
 
 h1 {
     font-weight: 600;
-    @include fluid(font-size, 45, 45, 60, 72);
-    @include fluid(line-height, 40, 40, 54, 65);
-    @include fluid(margin-bottom, 20, 20, 31, 35);
+    @include u.fluid(font-size, 45, 45, 60, 72);
+    @include u.fluid(line-height, 40, 40, 54, 65);
+    @include u.fluid(margin-bottom, 20, 20, 31, 35);
 }
 
 h2 {
     font-weight: 600;
     line-height: 90%;
-    @include fluid(font-size, 33, 33, 44, 53);
-    @include fluid(margin-bottom, 20, 20, 30, 30);
+    @include u.fluid(font-size, 33, 33, 44, 53);
+    @include u.fluid(margin-bottom, 20, 20, 30, 30);
 }
 

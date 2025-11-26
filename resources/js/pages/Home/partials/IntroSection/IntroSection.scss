@@ -1,30 +1,32 @@
+@use 'core' as u;
+
 .intro-section__container {
-    @include sm() {
+    @include u.sm() {
         display: flex;
         align-items: flex-start;
     }
-    @include fluid(gap, 16, 16, 45, 100);
+    @include u.fluid(gap, 16, 16, 45, 100);
 }
 
 .intro-section__media {
     margin-bottom: 2.5rem;
 
-    @include sm() {
+    @include u.sm() {
         flex: 1;
         margin-bottom: 0;
     }
 }
 
 .intro-section__description {
-    @include fluid(margin-bottom, 30, 38, 57, 50);
+    @include u.fluid(margin-bottom, 30, 38, 57, 50);
 }
 
 .intro-section__image {
     position: static;
     border-radius: 3rem;
 
-    @include fluid(width, 320, 358, 697, 908);
-    @include fluid(height, 400, 244, 392, 511);
+    @include u.fluid(width, 320, 358, 697, 908);
+    @include u.fluid(height, 400, 244, 392, 511);
 }
 
 .intro-section__content {
@@ -35,9 +37,9 @@
 
 .intro-section__progress-bar {
     display: flex;
-    @include fluid(margin-top, 7, 8, 10, 12.5);
-    @include fluid(height, 260.5, 243, 387, 400);
-    @include fluid(width, 2, 2, 3, 3);
+    @include u.fluid(margin-top, 7, 8, 10, 12.5);
+    @include u.fluid(height, 260.5, 243, 387, 400);
+    @include u.fluid(width, 2, 2, 3, 3);
     flex-shrink: 0;
     flex-direction: column;
 
@@ -56,5 +58,5 @@
 
 .intro-section__steps-list {
     display: grid;
-    @include fluid(gap, 40, 40, 80, 85);
+    @include u.fluid(gap, 40, 40, 80, 85);
 }

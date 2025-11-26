@@ -1,3 +1,5 @@
+@use 'core' as u;
+
 .nav-link {
     .link {
         cursor: pointer;
@@ -7,7 +9,7 @@
         font-weight: 700;
         color: clr('foreground');
         transition: color 0.2s ease;
-        @include fluid(font-size, 13, 13, 17, 20);
+        @include u.fluid(font-size, 13, 13, 17, 20);
     }
 
     .link:hover {

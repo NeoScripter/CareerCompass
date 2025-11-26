@@ -1,13 +1,15 @@
+@use 'core' as u;
+
 .app-layout {
     margin-inline: auto;
-    max-width: $xl;
+    max-width: u.$xl;
 }
 .app-layout__content {
-    @include fluid(padding-inline, 20, 30, 36, 36);
-    @include fluid(margin-bottom, 80, 80, 100, 120);
+    @include u.fluid(padding-inline, 20, 30, 36, 36);
+    @include u.fluid(margin-bottom, 80, 80, 100, 120);
 
     > *:not(:last-child) {
-        @include fluid(margin-bottom, 80, 80, 100, 120);
+        @include u.fluid(margin-bottom, 80, 80, 100, 120);
     }
 }
 

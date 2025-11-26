@@ -1,8 +1,10 @@
+@use 'core' as u;
+
 .app-footer {
-    @include fluid(margin-inline, 20, 25, 35, 35);
-    @include fluid(margin-bottom, 20, 25, 35, 35);
-    @include fluid(padding, 20, 25, 30, 30);
-    @include fluid(font-size, 13, 13, 17, 20);
+    @include u.fluid(margin-inline, 20, 25, 35, 35);
+    @include u.fluid(margin-bottom, 20, 25, 35, 35);
+    @include u.fluid(padding, 20, 25, 30, 30);
+    @include u.fluid(font-size, 13, 13, 17, 20);
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -10,7 +12,7 @@
     border-radius: 3rem;
     font-weight: 700;
 
-    @include sm() {
+    @include u.sm() {
         align-items: center;
         justify-content: flex-start;
         border-radius: 4rem;
@@ -19,11 +21,11 @@
 
 .app-footer__copyright {
     color: clr('foreground');
-    @include fluid(font-size, 13, 13, 17, 20);
+    @include u.fluid(font-size, 13, 13, 17, 20);
 }
 
 .app-footer__nav {
-    @include sm() {
+    @include u.sm() {
         margin: 0 auto;
     }
 }
@@ -31,9 +33,9 @@
 .app-footer__nav-list {
     display: flex;
     flex-direction: column;
-    @include fluid(gap, 15, 15, 30, 30);
+    @include u.fluid(gap, 15, 15, 30, 30);
 
-    @include sm() {
+    @include u.sm() {
         flex-direction: row;
         align-items: center;
     }
@@ -46,9 +48,9 @@
 
 .app-footer__placeholder {
     display: none;
-    @include fluid(width, 100, 100, 120, 120);
+    @include u.fluid(width, 100, 100, 120, 120);
 
-    @include sm() {
+    @include u.sm() {
       display: block;
     }
 }

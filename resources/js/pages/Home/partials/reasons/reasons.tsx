@@ -1,4 +1,4 @@
-import LazyImage from '@/components/ui/lazy-image';
+import LazyImage from '@/components/ui/LazyImage/LazyImage';
 import { reasons, ReasonType } from '@/lib/data/reasons';
 import { cn } from '@/lib/utils/cn';
 import { NodeProps } from '@/types/nodeProps';

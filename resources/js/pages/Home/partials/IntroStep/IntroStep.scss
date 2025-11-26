@@ -1,11 +1,13 @@
+@use 'core' as u;
+
 .intro-step {
     list-style: none;
 }
 
 .intro-step__title {
     color: clr('foreground');
-    @include fluid(margin-bottom, 15, 15, 30, 30);
-    @include fluid(font-size, 18, 18, 24, 29);
+    @include u.fluid(margin-bottom, 15, 15, 30, 30);
+    @include u.fluid(font-size, 18, 18, 24, 29);
     font-weight: 600;
     line-height: 90%;
 }
@@ -15,8 +17,8 @@
     position: relative;
     margin-right: 0.75rem;
     height: 0.125rem;
-    @include fluid(width, 20, 20, 20, 20);
-    @include fluid(height, 2, 2, 3, 3);
+    @include u.fluid(width, 20, 20, 20, 20);
+    @include u.fluid(height, 2, 2, 3, 3);
     margin-bottom: 0.3em;
     background-color: clr('foreground');
     transition: background-color 300ms ease-in;
@@ -31,6 +33,6 @@
 }
 
 .intro-step__description {
-    @include fluid(font-size, 15, 15, 22, 26);
-    @include fluid(margin-left, 71, 71, 89, 88);
+    @include u.fluid(font-size, 15, 15, 22, 26);
+    @include u.fluid(margin-left, 71, 71, 89, 88);
 }

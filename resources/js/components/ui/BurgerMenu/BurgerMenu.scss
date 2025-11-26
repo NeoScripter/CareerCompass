@@ -1,6 +1,8 @@
+@use 'core' as u;
+
 .BurgerMenu {
-    @include fluid(width, 28, 0, 0, 0);
-    @include fluid(margin-left, 16, 0, 0, 0);
+    @include u.fluid(width, 28, 0, 0, 0);
+    @include u.fluid(margin-left, 16, 0, 0, 0);
     z-index: 5;
     transition: transform 150ms ease-in;
     display: flex;
@@ -57,7 +59,7 @@
         opacity: 0;
     }
 
-    @include sm() {
+    @include u.sm() {
         display: none;
     }
 }

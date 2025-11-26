@@ -1,0 +1,36 @@
+@use 'utils/functions' as f;
+@use 'variables/breakpoints' as b;
+
+@mixin sm {
+    @media (min-width: #{b.$sm}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (min-width: #{b.$md}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (min-width: #{b.$lg}) {
+        @content;
+    }
+}
+
+@mixin fluid($property, $size-xs, $size-sm, $size-md, $size-lg) {
+    #{$property}: f.calc-adaptive($size-xs, b.$relSm, 570);
+
+    @include sm {
+        #{$property}: f.calc-adaptive($size-sm, b.$relMd, 1110);
+    }
+
+    @include md {
+        #{$property}: f.calc-adaptive($size-md, b.$relLg, 1680);
+    }
+
+    @include lg {
+        #{$property}: f.calc-adaptive($size-lg, b.$relXl, 1920);
+    }
+}

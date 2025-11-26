@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/Button/Button';
-import AppLayout from '@/layouts/app-layout';
+import AppLayout from '@/layouts/AppLayout/AppLayout';
 
 const Payment = () => {
     return (

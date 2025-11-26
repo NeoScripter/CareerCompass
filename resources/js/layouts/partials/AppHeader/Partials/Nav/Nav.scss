@@ -1,20 +1,22 @@
+@use 'core' as u;
+
 .Nav {
     position: absolute;
     left: 0;
     right: 0;
-    @include fluid(top, 40, 0, 0, 0);
+    @include u.fluid(top, 40, 0, 0, 0);
     z-index: -1;
     overflow: hidden;
     overflow: clip;
     background: #fff;
-    @include fluid(padding-inline, 12, 0, 0, 0);
+    @include u.fluid(padding-inline, 12, 0, 0, 0);
     border-bottom-left-radius: 3rem;
     border-bottom-right-radius: 3rem;
     transition:
         max-height 300ms ease-in-out,
         padding 300ms ease-in-out;
 
-    @include sm() {
+    @include u.sm() {
         position: static;
         display: flex;
         flex: 1;
@@ -31,15 +33,15 @@
 
 .nav-open {
     max-height: 20rem;
-    @include fluid(padding-bottom, 20, 0, 0, 0);
-    @include fluid(padding-top, 40, 0, 0, 0);
+    @include u.fluid(padding-bottom, 20, 0, 0, 0);
+    @include u.fluid(padding-top, 40, 0, 0, 0);
 }
 
 .nav-closed {
     max-height: 0rem;
     padding-top: 0rem;
     padding-bottom: 0rem;
-    @include sm() {
+    @include u.sm() {
         max-height: 20rem;
     }
 }
@@ -47,9 +49,9 @@
 .list {
     display: grid;
     place-content: center;
-    @include fluid(gap, 15, 20, 29, 30);
+    @include u.fluid(gap, 15, 20, 29, 30);
 
-    @include sm() {
+    @include u.sm() {
         margin-inline: auto;
         display: flex;
         align-items: center;

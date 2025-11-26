@@ -5,7 +5,7 @@ import Input from '@/components/forms/input';
 import InputError from '@/components/forms/input-error';
 import Label from '@/components/forms/label';
 import PasswordInput from '@/components/forms/password-input';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button/Button';
 import SecondaryHeading from '@/components/ui/secondary-heading';
 import { cn } from '@/lib/utils/cn';
 import { useLoginModal } from '@/providers/login-context';
