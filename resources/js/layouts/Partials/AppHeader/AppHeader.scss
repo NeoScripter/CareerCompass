@@ -1,8 +1,8 @@
 @use 'core' as u;
 
-.AppHeader {
+.app-header {
     position: fixed;
-    @include u.fluid(top, 50, 50, 85, 85);
+    @include u.fluid(top, 50, 50, 70, 70);
     left: 50%;
     z-index: 100;
     display: flex;

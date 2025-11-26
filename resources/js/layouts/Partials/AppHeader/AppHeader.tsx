@@ -52,7 +52,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
     return (
         <header
             id="header"
-            class={cn('AppHeader', className, {
+            class={cn('app-header', className, {
                 'rounded-default': !showMenu,
                 'rounded-open': showMenu,
                 'hidden-header': hide,
