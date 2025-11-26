@@ -1,0 +1,53 @@
+@use 'core' as u;
+
+.legal-info {
+    padding-top: 8.75rem;
+
+    @media (min-width: 640px) {
+        padding-top: 10.5rem;
+    }
+
+    @media (min-width: 1024px) {
+        padding-top: 12.5rem;
+    }
+}
+
+.legal-info__title {
+    margin-bottom: 1.25rem;
+    font-size: 3rem;
+    color: u.clr('foreground');
+    font-weight: 700;
+    text-align: center;
+    text-wrap: balance;
+
+    @media (min-width: 1024px) {
+        margin-bottom: 2.5rem;
+        font-size: 3.75rem;
+    }
+
+    @media (min-width: 1280px) {
+        /* margin-bottom: 3.5rem; */
+        font-size: 4.5rem;
+    }
+}
+
+.legal-info__content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100rem;
+    display: block;
+    color: u.clr('foreground');
+    font-size: 0.875rem;
+
+    @media (min-width: 640px) {
+        font-size: 1rem;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 1.125rem;
+    }
+
+    @media (min-width: 1536px) {
+        font-size: 1.25rem;
+    }
+}

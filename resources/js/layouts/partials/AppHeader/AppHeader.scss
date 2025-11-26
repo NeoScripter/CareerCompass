@@ -40,6 +40,10 @@
     @include u.fluid(width, 24, 24, 34, 40);
     @include u.fluid(height, 30, 30, 40, 50);
 
+    transition: color 0.3s ease;
+    &:hover {
+        color: black;
+    }
     @include u.sm() {
         order: -2;
         flex-shrink: 0;

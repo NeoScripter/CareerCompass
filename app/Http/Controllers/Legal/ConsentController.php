@@ -16,7 +16,7 @@ class ConsentController extends Controller
     {
         $info = LegalInfo::select(['title', 'html'])->where('key', LegalInfoKeys::CONSENT)->first();
 
-        return Inertia::render('legal-info', [
+        return Inertia::render('LegalInfo/LegalInfo', [
             'title' => $info->title,
             'html' => $info->html,
         ]);
