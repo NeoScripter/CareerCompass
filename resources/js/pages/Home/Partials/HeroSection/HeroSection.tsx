@@ -6,7 +6,7 @@ import TabletBgSm from '@/assets/images/home/hero/hero-tablet-tiny.webp';
 import TabletBg from '@/assets/images/home/hero/hero-tablet.webp';
 import BgLoader from '@/components/ui/BgLoader/BgLoader';
 import { Button } from '@/components/ui/Button/Button';
-import AppSection from '@/layouts/partials/AppSection/AppSection';
+import AppSection from '@/layouts/Partials/AppSection/AppSection';
 import scrollToSection from '@/lib/utils/scrollToSection';
 
 const HeroSection = () => {

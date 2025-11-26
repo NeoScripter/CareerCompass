@@ -5,7 +5,7 @@ import Mobile from '@/assets/images/home/intro/intro-mb.webp';
 import TabletTiny from '@/assets/images/home/intro/intro-tablet-tiny.webp';
 import Tablet from '@/assets/images/home/intro/intro-tablet.webp';
 import BgLoader from '@/components/ui/BgLoader/BgLoader';
-import AppSection from '@/layouts/partials/AppSection/AppSection';
+import AppSection from '@/layouts/Partials/AppSection/AppSection';
 import { introSteps } from '@/lib/data/introSteps';
 import { range } from '@/lib/utils/range';
 import { useRef, useState } from 'preact/hooks';

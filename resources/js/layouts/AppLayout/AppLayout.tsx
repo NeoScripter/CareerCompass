@@ -7,8 +7,8 @@ import { NodeProps } from '@/types/nodeProps';
 import { FC } from 'preact/compat';
 import { Toaster } from 'sonner';
 import DialogLayout from '../DialogLayout/DialogLayout';
-import AppFooter from '../partials/AppFooter/AppFooter';
-import AppHeader from '../partials/AppHeader/AppHeader';
+import AppFooter from '../Partials/AppFooter/AppFooter';
+import AppHeader from '../Partials/AppHeader/AppHeader';
 
 const AppLayout: FC<NodeProps> = ({ children, className }) => {
     const { show } = useLoginModal();

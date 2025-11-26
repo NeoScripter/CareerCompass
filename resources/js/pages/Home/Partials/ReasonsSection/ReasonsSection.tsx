@@ -1,4 +1,4 @@
-import AppSection from '@/layouts/partials/AppSection/AppSection';
+import AppSection from '@/layouts/Partials/AppSection/AppSection';
 import Reasons from '../Reasons/Reasons';
 
 const ReasonsSection = () => {

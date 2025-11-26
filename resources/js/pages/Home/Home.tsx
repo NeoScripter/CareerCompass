@@ -1,9 +1,9 @@
 import AppLayout from '@/layouts/AppLayout/AppLayout';
-import HeroSection from './partials/HeroSection/HeroSection';
-import IntroSection from './partials/IntroSection/IntroSection';
-import OutcomesSection from './partials/OutcomesSection/OutcomesSection';
-import PlansSection from './partials/PlansSection/PlansSection';
-import ReasonsSection from './partials/ReasonsSection/ReasonsSection';
+import HeroSection from './Partials/HeroSection/HeroSection';
+import IntroSection from './Partials/IntroSection/IntroSection';
+import OutcomesSection from './Partials/OutcomesSection/OutcomesSection';
+import PlansSection from './Partials/PlansSection/PlansSection';
+import ReasonsSection from './Partials/ReasonsSection/ReasonsSection';
 
 const Home = () => {
     return (
