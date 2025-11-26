@@ -1,0 +1,14 @@
+@use 'core' as u;
+
+.show-input-btn {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 50%;
+    transform: translateY(50%);
+    cursor: pointer;
+}
+
+.show-input-btn__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}

@@ -1,0 +1,69 @@
+@use 'core' as u;
+
+.login {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.login__title {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+
+    @media (min-width: 1024px) {
+        font-size: 1.875rem;
+    }
+
+    @media (min-width: 1280px) {
+        font-size: 1.875rem;
+    }
+}
+
+.login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login__input {
+    @media (min-width: 640px) {
+        font-size: 1rem;
+    }
+}
+
+.login__submit {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.75rem;
+    width: fit-content;
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+.login__loader {
+    width: 1rem;
+    height: 1rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.login__signup-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.login__signup-link {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}

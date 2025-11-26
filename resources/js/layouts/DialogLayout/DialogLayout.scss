@@ -1,0 +1,65 @@
+@use 'core' as u;
+
+.dialog-layout {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    isolation: isolate;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    outline: none;
+}
+
+.dialog-layout__backdrop {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(4px);
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+.dialog-layout__backdrop[data-closed] {
+    opacity: 0;
+}
+
+.dialog-layout__panel {
+    position: relative;
+    z-index: 50;
+    margin: auto;
+    height: max-content;
+    width: 90%;
+    max-width: 30rem;
+    border-radius: 2rem;
+    background-color: white;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+.dialog-layout__panel[data-closed] {
+    scale: 0.4;
+    opacity: 0;
+}
+
+.dialog-layout__close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-property: opacity;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in;
+}
+
+.dialog-layout__close:hover {
+    opacity: 0.75;
+}
+
+.dialog-layout__close-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
