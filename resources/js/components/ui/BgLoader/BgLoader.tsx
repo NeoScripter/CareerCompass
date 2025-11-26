@@ -65,6 +65,7 @@ export default function BgLoader({
                     onLoad={() => setIsLoading(false)}
                     src={mobile}
                     alt={alt}
+                    loading="lazy"
                     className={cn('bg-loader__image', size, fit, pos)}
                 />
             </picture>
@@ -100,6 +101,7 @@ export default function BgLoader({
                         onLoad={() => setIsLoading(false)}
                         src={tinyMobile}
                         alt={alt}
+                        loading="lazy"
                         className={cn('bg-loader__image', size, fit, pos)}
                     />
                 </picture>
