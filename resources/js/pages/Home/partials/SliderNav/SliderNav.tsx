@@ -63,13 +63,13 @@ const SliderNav: FC<
 
     return (
         <nav
-            class={className}
+            class={cn('slider-nav', className)}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
         >
             <ul
                 ref={containerRef}
-                class="grid items-stretch overflow-x-clip"
+                class="slider-nav__list"
                 style={{
                     gridTemplateColumns: `repeat(${visibleSlides}, 1fr)`,
                 }}
@@ -103,37 +103,32 @@ const SliderBtn: FC<{
     const active = idx === current;
 
     return (
-        <li class={cn('relative flex-1')}>
+        <li class="slider-nav__item">
             <button
                 onClick={onClick}
-                class={cn(
-                    'sm:text-base text-foreground xs:text-sm ease z-25 size-full rounded-t-[2rem] bg-transparent px-2 py-5 text-center text-xs font-bold transition-colors duration-300 sm:px-5 md:text-lg lg:px-[2em] xl:py-7 xl:text-2xl',
-                    {
-                        'bg-muted cursor-default': active,
-                    },
-                )}
+                class={cn('slider-nav__button', {
+                    'slider-nav__button--active': active,
+                })}
             >
-                <span class="mr-2">{`0${idx + 1}`}</span>
-                <span class="z-30">{label}</span>
+                <span class="slider-nav__number">{`0${idx + 1}`}</span>
+                <span class="slider-nav__label">{label}</span>
             </button>
 
             <span
                 aria-hidden="true"
-                class={cn(
-                    'absolute inset-y-0 left-full -z-15 block w-full transition-all duration-300',
-                    active ? 'bg-muted opacity-100' : 'opacity-0',
-                )}
+                class={cn('slider-nav__edge slider-nav__edge--right', {
+                    'slider-nav__edge--visible': active,
+                })}
             >
-                <span class="absolute inset-0 block rounded-bl-[2rem] bg-white" />
+                <span class="slider-nav__edge-inner" />
             </span>
             <span
                 aria-hidden="true"
-                class={cn(
-                    'absolute inset-y-0 right-full -z-15 block w-full transition-all duration-300',
-                    active ? 'bg-muted opacity-100' : 'opacity-0',
-                )}
+                class={cn('slider-nav__edge slider-nav__edge--left', {
+                    'slider-nav__edge--visible': active,
+                })}
             >
-                <span class="absolute inset-0 block rounded-br-[2rem] bg-white" />
+                <span class="slider-nav__edge-inner" />
             </span>
         </li>
     );

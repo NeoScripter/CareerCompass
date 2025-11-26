@@ -1,34 +1,27 @@
-.outcomes-section {
+@use 'core' as u;
+
+.outcomes-section__header {
+    @include u.fluid(margin-bottom, 45, 80, 124, 84);
 }
 
 .outcomes-section__header {
-    margin-bottom: 2.75rem; /* mb-11 */
-}
-
-@media (min-width: 640px) {
-    .outcomes-section__header {
-        margin-bottom: 5rem; /* sm:mb-20 */
+    @include u.sm() {
         display: flex;
         align-items: flex-end;
-        gap: 1rem; /* sm:gap-4 */
-    }
-}
-
-@media (min-width: 1280px) {
-    .outcomes-section__header {
-        margin-bottom: 5.25rem; /* xl:mb-21 */
+        @include u.fluid(gap, null, 15, 30, 30);
     }
 }
 
 .outcomes-section__heading {
-    @media (min-width: 640px) {
-        max-width: 45%;
-        flex: 1;
+    @include u.sm() {
+        margin-bottom: 0;
+        @include u.fluid(width, 320, 330, 573, 597);
+        flex-shrink: 0;
     }
 }
 
 .outcomes-section__description {
-    @media (min-width: 640px) {
+    @include u.sm() {
         flex: 1;
     }
 }

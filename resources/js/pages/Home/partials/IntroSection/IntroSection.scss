@@ -26,7 +26,7 @@
     border-radius: 3rem;
 
     @include u.fluid(width, 320, 358, 697, 908);
-    @include u.fluid(height, 400, 244, 392, 511);
+    @include u.fluid(height, 400, 244, 392, 512);
 }
 
 .intro-section__content {
@@ -37,7 +37,7 @@
 
 .intro-section__progress-bar {
     display: flex;
-    @include u.fluid(margin-top, 7, 8, 10, 12.5);
+    @include u.fluid(margin-top, 7, 8, 10, 12);
     @include u.fluid(height, 260.5, 243, 387, 400);
     @include u.fluid(width, 2, 2, 3, 3);
     flex-shrink: 0;
@@ -48,12 +48,12 @@
 .intro-section__step-bar {
     width: 100%;
     flex: 1;
-    background-color: clr('foreground');
+    background-color: u.clr('foreground');
     transition: background-color 0.3s ease;
 }
 
 .intro-section__step-bar--active {
-    background-color: clr('primary');
+    background-color: u.clr('primary');
 }
 
 .intro-section__steps-list {

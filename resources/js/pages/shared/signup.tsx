@@ -7,7 +7,6 @@ import InputError from '@/components/forms/input-error';
 import Label from '@/components/forms/label';
 import PasswordInput from '@/components/forms/password-input';
 import { Button } from '@/components/ui/Button/Button';
-import SecondaryHeading from '@/components/ui/secondary-heading';
 import { cn } from '@/lib/utils/cn';
 import { useLoginModal } from '@/providers/login-context';
 import { useSignupModal } from '@/providers/signup-context';
@@ -52,9 +51,9 @@ export default function Signup() {
 
     return (
         <div class="py-8">
-            <SecondaryHeading className="mx-auto w-fit lg:text-3xl xl:text-3xl">
+            <h2 className="mx-auto w-fit lg:text-3xl xl:text-3xl">
                 Регистрация
-            </SecondaryHeading>
+            </h2>
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="mx-auto grid w-full max-w-90 gap-3 px-2 sm:w-4/5 sm:max-w-full sm:gap-4 sm:px-0">

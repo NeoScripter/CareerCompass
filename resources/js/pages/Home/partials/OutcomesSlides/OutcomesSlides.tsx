@@ -1,5 +1,4 @@
 import BgLoader from '@/components/ui/BgLoader/BgLoader';
-import SecondaryHeading from '@/components/ui/secondary-heading';
 import { OutcomeSlide, outcomeSlides } from '@/lib/data/outcomeSlides';
 import { cn } from '@/lib/utils/cn';
 import { range } from '@/lib/utils/range';
@@ -10,8 +9,7 @@ import SliderNav from '../SliderNav/SliderNav';
 const OutcomesSlides: FC<NodeProps> = ({ className }) => {
     const [activeSlide, setActiveSlide] = useState(0);
 
-    return (
-        <div class={cn('outcomes-slides', className)}>
+    return ( <div class={cn('outcomes-slides', className)}>
             <header class="outcomes-slides__header">
                 <SliderLines activeSlide={activeSlide} />
 
@@ -71,7 +69,7 @@ const SliderDisplay: FC<{ outcome: OutcomeSlide; activeSlide: number }> = ({
             })}
         >
             <div class="outcomes-slides__content">
-                <SecondaryHeading>{outcome.title}</SecondaryHeading>
+                <h2>{outcome.title}</h2>
                 <p>{outcome.description}</p>
             </div>
 
@@ -83,7 +81,7 @@ const SliderDisplay: FC<{ outcome: OutcomeSlide; activeSlide: number }> = ({
                 mobile={outcome.mobile}
                 mobileSm={outcome.mobileTiny}
                 alt={outcome.alt}
-                mbMinWidth={500}
+                mbMinWidth={570}
                 className="outcomes-slides__image"
             />
         </div>

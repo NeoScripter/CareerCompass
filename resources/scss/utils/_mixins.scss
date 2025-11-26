@@ -20,17 +20,22 @@
 }
 
 @mixin fluid($property, $size-xs, $size-sm, $size-md, $size-lg) {
-    #{$property}: f.calc-adaptive($size-xs, b.$relSm, 570);
-
-    @include sm {
-        #{$property}: f.calc-adaptive($size-sm, b.$relMd, 1110);
+    @if $size-xs != null {
+        #{$property}: f.calc-adaptive($size-xs, b.$relSm, 570);
     }
-
-    @include md {
-        #{$property}: f.calc-adaptive($size-md, b.$relLg, 1680);
+    @if $size-sm != null {
+        @include sm {
+            #{$property}: f.calc-adaptive($size-sm, b.$relMd, 1110);
+        }
     }
-
-    @include lg {
-        #{$property}: f.calc-adaptive($size-lg, b.$relXl, 1920);
+    @if $size-md != null {
+        @include md {
+            #{$property}: f.calc-adaptive($size-md, b.$relLg, 1680);
+        }
+    }
+    @if $size-lg != null {
+        @include lg {
+            #{$property}: f.calc-adaptive($size-lg, b.$relXl, 1920);
+        }
     }
 }

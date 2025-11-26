@@ -1,3 +1,5 @@
+@use 'core' as u;
+
 .outcomes-slides {
     width: 100%;
 }
@@ -11,45 +13,37 @@
     align-items: center;
     justify-content: space-between;
     gap: 4px;
-    margin-bottom: 20px;
+    @include u.fluid(gap, 3, null, null, null);
+    @include u.fluid(margin-bottom, 20, null, null, null);
 
-    @media (min-width: 640px) {
+    @include u.sm() {
         display: none;
     }
 }
 
 .outcomes-slides__line {
-    height: 4px;
+    @include u.fluid(height, 2, null, null, null);
     flex: 1;
     border-radius: 9999px;
     background-color: #d1d5db;
 }
 
 .outcomes-slides__line--active {
-    background-color: var(--color-foreground);
+    background-color: u.clr('foreground');
 }
 
 .outcomes-slides__card {
-    background-color: var(--color-muted);
-    border-radius: 2rem;
-    padding: 30px 20px;
+    background-color: u.clr('muted');
+    border-radius: 3rem;
     display: block;
+    @include u.fluid(padding-inline, 20, 25, 60, 50);
+    @include u.fluid(padding-top, 30, 60, 80, 100);
+    @include u.fluid(padding-bottom, 30, 25, 35, 30);
+    @include u.fluid(gap, null, 30, 40, 60);
 
-    @media (min-width: 768px) {
+    @include u.sm() {
         display: flex;
         align-items: flex-start;
-        gap: 24px;
-        padding: 60px 30px;
-    }
-
-    @media (min-width: 1024px) {
-        gap: 40px;
-        padding: 80px 60px 60px;
-    }
-
-    @media (min-width: 1280px) {
-        gap: 56px;
-        padding: 100px 52px 60px;
     }
 }
 
@@ -62,17 +56,14 @@
 }
 
 .outcomes-slides__content {
-    margin-bottom: 32px;
+    @include u.fluid(margin-bottom, 32, 0, null, null);
 }
 
 .outcomes-slides__image {
     position: static;
     z-index: 5;
-    max-height: 600px;
-    border-radius: 2rem;
+    @include u.fluid(width, 280, 400, 880, 1127);
+    @include u.fluid(height, 549, 217, 416, 535);
+    border-radius: 1rem;
     flex-shrink: 0;
-
-    @media (min-width: 640px) {
-        flex-basis: 55%;
-    }
 }

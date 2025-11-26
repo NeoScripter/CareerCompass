@@ -7,12 +7,12 @@
         display: block;
         width: fit-content;
         font-weight: 700;
-        color: clr('foreground');
+        color: u.clr('foreground');
         transition: color 0.2s ease;
         @include u.fluid(font-size, 13, 13, 17, 20);
     }
 
     .link:hover {
-        color: clr('primary');
+        color: u.clr('primary');
     }
 }

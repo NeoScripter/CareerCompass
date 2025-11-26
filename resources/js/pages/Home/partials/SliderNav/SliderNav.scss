@@ -1,0 +1,86 @@
+@use 'core' as u;
+
+.slider-nav__list {
+    display: grid;
+    align-items: stretch;
+    overflow-x: clip;
+}
+
+.slider-nav__item {
+    position: relative;
+    flex: 1;
+}
+
+.slider-nav__button {
+    z-index: 25;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    background-color: transparent;
+    @include u.fluid(font-size, 14, 16, 24, 29);
+    @include u.fluid(padding-block, 20, 20, 30, null);
+    @include u.fluid(padding-inline, 20, 25, 77, 50);
+    text-align: center;
+    font-weight: 600;
+    color: u.clr('foreground');
+    transition-property: color, background-color;
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+
+}
+
+.slider-nav__button--active {
+    background-color: u.clr('muted');
+    cursor: default;
+}
+
+.slider-nav__number {
+    margin-right: 0.5em;
+}
+
+.slider-nav__label {
+    z-index: 30;
+}
+
+.slider-nav__edge {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: -15;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: all 300ms;
+    opacity: 0;
+}
+
+.slider-nav__edge--right {
+    left: 100%;
+}
+
+.slider-nav__edge--left {
+    right: 100%;
+}
+
+.slider-nav__edge--visible {
+    background-color: u.clr('muted');
+    opacity: 1;
+}
+
+.slider-nav__edge-inner {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    display: block;
+    background-color: white;
+}
+
+.slider-nav__edge--right .slider-nav__edge-inner {
+    border-bottom-left-radius: 2rem;
+}
+
+.slider-nav__edge--left .slider-nav__edge-inner {
+    border-bottom-right-radius: 2rem;
+}
