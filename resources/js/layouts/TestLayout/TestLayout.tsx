@@ -5,8 +5,8 @@ import { FC } from 'preact/compat';
 
 const TestLayout: FC<NodeProps> = ({ children, className }) => {
     return (
-        <div class={cn('test-layout', className)}>
-            <div class="test-layout__body">
+        <div class='test-layout'>
+            <div class={cn("test-layout__body", className)}>
                 <header class="test-layout__header">
                     <button type="button" class="test-layout__btn">
                         <CornerUpLeft class="test-layout__icon" />
