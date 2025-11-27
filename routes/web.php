@@ -36,6 +36,6 @@ Route::middleware('auth')->name('test.')->group(function () {
     Route::post('/test', [TestCreationController::class, 'store'])->name('store');
 
     Route::middleware('test.access')->group(function () {
-        Route::get('/test/{testId}', [TestCreationController::class, 'show'])->name('show');
     });
 });
+Route::get('/test/{testId}', [TestCreationController::class, 'show'])->name('show');

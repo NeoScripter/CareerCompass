@@ -1,0 +1,36 @@
+@use 'core' as u;
+
+.test__bg-image {
+    position: absolute;
+    inset: 0;
+}
+.test__bg-image--pos {
+    object-position: center;
+}
+
+.test__bg-image--fit {
+    object-fit: cover;
+}
+
+.test__body {
+    text-align: center;
+    margin-inline: auto;
+    @include u.fluid(width, null, 606, 1136, 1536);
+}
+
+.test__heading {
+    text-wrap: balance;
+    word-break: break-all;
+}
+
+.test__description {
+    text-wrap: pretty;
+    @include u.fluid(margin-bottom, 40, 40, 100, 100);
+}
+
+.test__button {
+    margin-inline: auto;
+    @include u.fluid(margin-top, 30, 0, 0, 0);
+    @include u.fluid(padding-block, 10, 10, 20, 20);
+    @include u.fluid(padding-inline, 70, 60, 125, 137);
+}

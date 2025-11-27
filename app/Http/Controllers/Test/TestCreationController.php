@@ -16,7 +16,7 @@ class TestCreationController extends Controller
      */
     public function show()
     {
-        return Inertia::render('test/test');
+        return Inertia::render('Test/Test');
     }
 
     /**
