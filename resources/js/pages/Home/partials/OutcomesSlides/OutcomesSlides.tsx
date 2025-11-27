@@ -96,17 +96,19 @@ const SliderDisplay: FC<{ outcome: OutcomeSlide; activeSlide: number }> = ({
                 <p>{outcome.description}</p>
             </div>
 
-            <BgLoader
-                desktop={outcome.desktop}
-                desktopSm={outcome.desktopTiny}
-                tablet={outcome.tablet}
-                tabletSm={outcome.tabletTiny}
-                mobile={outcome.mobile}
-                mobileSm={outcome.mobileTiny}
-                alt={outcome.alt}
-                mbMinWidth={500}
-                className="outcomes-slides__image"
-            />
+            <div class="outcomes-slides__image-wrapper">
+                <BgLoader
+                    desktop={outcome.desktop}
+                    desktopSm={outcome.desktopTiny}
+                    tablet={outcome.tablet}
+                    tabletSm={outcome.tabletTiny}
+                    mobile={outcome.mobile}
+                    mobileSm={outcome.mobileTiny}
+                    alt={outcome.alt}
+                    mbMinWidth={500}
+                    className="outcomes-slides__image"
+                />
+            </div>
         </div>
     );
 };

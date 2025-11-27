@@ -63,6 +63,12 @@
 .outcomes-slides__image {
     position: static;
     z-index: 5;
+    width: 100%;
+    height: 100%;
+}
+
+.outcomes-slides__image-wrapper {
+    position: relative;
     @include u.fluid(width, 280, 400, 880, 1127);
     @include u.fluid(height, 549, 217, 416, 535);
     /* box-shadow: 5px 5px 10px rgba(black, 0.5); */
