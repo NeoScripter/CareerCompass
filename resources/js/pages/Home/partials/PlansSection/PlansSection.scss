@@ -6,7 +6,7 @@
     text-align: center;
     text-wrap: balance;
 
-    @include u.fluid(width, 361, 361, 436, 419);
+    @include u.fluid(width, null, 361, 436, 419);
 }
 
 .plans-section__text {

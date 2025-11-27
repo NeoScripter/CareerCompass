@@ -6,24 +6,47 @@ import { NodeProps } from '@/types/nodeProps';
 import { FC, useEffect, useState } from 'preact/compat';
 import SliderNav from '../SliderNav/SliderNav';
 
+const SWIPE_THRESHOLD = 50;
+
 const OutcomesSlides: FC<NodeProps> = ({ className }) => {
     const [activeSlide, setActiveSlide] = useState(0);
 
-    return ( <div class={cn('outcomes-slides', className)}>
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+    const handleDecrement = () =>
+        setActiveSlide((prev) => Math.max(0, prev - 1));
+
+    const handleIncrement = () =>
+        setActiveSlide((prev) => Math.min(outcomeSlides.length - 1, prev + 1));
+
+    const handleTouchStart = (e: TouchEvent) => {
+        setTouchStartX(e.touches[0].clientX);
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+        if (touchStartX === null) return;
+
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+
+        if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
+            deltaX > 0 ? handleDecrement() : handleIncrement();
+        }
+    };
+
+    return (
+        <div
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            class={cn('outcomes-slides', className)}
+        >
             <header class="outcomes-slides__header">
                 <SliderLines activeSlide={activeSlide} />
 
                 <SliderNav
                     activeSlide={activeSlide}
                     handleClick={setActiveSlide}
-                    handleDecrement={() =>
-                        setActiveSlide((prev) => Math.max(0, prev - 1))
-                    }
-                    handleIncrement={() =>
-                        setActiveSlide((prev) =>
-                            Math.min(outcomeSlides.length - 1, prev + 1),
-                        )
-                    }
+                    handleDecrement={handleDecrement}
+                    handleIncrement={handleIncrement}
                 />
 
                 <SliderDisplay
