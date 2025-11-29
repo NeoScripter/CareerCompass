@@ -21,6 +21,10 @@ class QuestionController extends Controller
             ->orderBy('number')
             ->first();
 
+        if (!$question) {
+            return redirect()->route('result.show', ['testId' => $testId]);
+        }
+
         $total = Question::where('test_id', $testId)->count();
 
         return Inertia::render('Question/Question', [

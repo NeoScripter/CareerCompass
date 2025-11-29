@@ -8,6 +8,7 @@ use App\Http\Controllers\Legal\PolicyController;
 use App\Http\Controllers\ProcessPaymentController;
 use App\Http\Controllers\Test\QuestionController;
 use App\Http\Controllers\Test\TestCreationController;
+use App\Http\Controllers\Test\TestResultController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -36,9 +37,9 @@ Route::middleware('auth')->name('payment.')->group(function () {
 Route::middleware('auth')->name('test.')->group(function () {
     Route::post('/test', [TestCreationController::class, 'store'])->name('store');
 
-    Route::middleware('test.access')->group(function () {
-    });
+    Route::middleware('test.access')->group(function () {});
 });
+Route::get('/test/{testId}/result', [TestResultController::class, 'show'])->name('result.show');
 Route::get('/test/{testId}', [TestCreationController::class, 'show'])->name('show');
 Route::get('/test/{testId}/questions', [QuestionController::class, 'index'])->name('questions');
 Route::patch('/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');

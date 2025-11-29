@@ -45,6 +45,8 @@ const Question = () => {
         });
     };
 
+    // TODO - popup when trying to leave the page
+
     return (
         <TestLayout className="question__layout">
             <div class="question__body">
@@ -74,7 +76,7 @@ const Question = () => {
                         disabled={question.number === 1}
                         className="button primary question__nav-button"
                     >
-                        <ChevronLeft />
+                        <ChevronLeft class="question__nav-button--prev" />
                     </Button>
 
                     <Button
@@ -82,7 +84,7 @@ const Question = () => {
                         disabled={selectedAnswer == null}
                         className="button primary question__nav-button"
                     >
-                        <ChevronRight />
+                        <ChevronRight class="question__nav-button--next" />
                     </Button>
                 </nav>
             </div>

@@ -44,6 +44,14 @@
     }
 }
 
+.question__nav-button--prev {
+    transform: translateX(-5%);
+}
+
+.question__nav-button--next {
+    transform: translateX(10%);
+}
+
 .question__answers {
     display: flex;
     align-items: center;
