@@ -7,6 +7,20 @@
 .question__heading {
     text-align: center;
     @include u.fluid(margin-bottom, 40, 40, 80, 80);
+    @include u.fluid(font-size, 33, 33, 44, 53);
+}
+
+.question__progress {
+    margin-inline: auto;
+    @include u.fluid(width, null, 606, 1136, 1536);
+    @include u.fluid(margin-bottom, 60, 40, 100, 100);
+}
+
+.question__current {
+    text-align: center;
+    display: block;
+    @include u.fluid(font-size, 15, 15, 22, 26);
+    @include u.fluid(margin-bottom, 10, 15, 20, 20);
 }
 
 .question__btn-wrapper {
@@ -28,4 +42,54 @@
         @include u.fluid(width, 22, 22, 36, 36);
         @include u.fluid(height, 22, 22, 36, 36);
     }
+}
+
+.question__answers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    @include u.fluid(gap, 15, 20, 35, 35);
+
+    @include u.sm() {
+        flex-direction: row;
+    }
+
+    > li {
+        width: 100%;
+        @include u.sm() {
+            width: auto;
+        }
+    }
+}
+.answer-btn {
+    position: relative;
+    background-color: white;
+    font-weight: 600;
+    color: u.clr('foreground');
+    border-radius: 2rem;
+    display: flex;
+    gap: 0.5em;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 200ms ease;
+    @include u.fluid(padding-inline, 110, 30, 40, 50);
+    @include u.fluid(padding-block, 10, 10, 20, 24);
+    @include u.fluid(font-size, 13, 13, 24, 29);
+
+    &:hover {
+        background-color: u.clr('primary');
+    }
+}
+
+.answer-img {
+    flex-shrink: 0;
+    @include u.fluid(width, 20, 20, 29, 35);
+    @include u.fluid(height, 20, 20, 29, 35);
+}
+
+.answer-btn--selected {
+    background-color: u.clr('primary');
 }

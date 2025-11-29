@@ -1,0 +1,29 @@
+@use 'core' as u;
+@use 'sass:color';
+
+.progress-bar {
+    > svg {
+        width: 100%;
+    }
+}
+
+.progress-bar__foreground {
+    stroke: u.clr('foreground');
+    transition: stroke-dashoffset 1500ms;
+    stroke-dasharray: 100, 1000;
+}
+
+.progress-bar__background {
+    stroke: color.adjust($color: u.clr('foreground'), $lightness: 0.4);
+}
+
+.progress-bar__path {
+    stroke-width: 2px;
+
+    @include u.sm() {
+        stroke-width: 1.5px;
+    }
+    @include u.md() {
+        stroke-width: 1px;
+    }
+}

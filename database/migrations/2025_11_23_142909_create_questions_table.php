@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->text('question');
             $table->foreignId('test_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('number')->index();
+            $table->unsignedInteger('number');
             $table->string('answer')->nullable();
             $table->timestamps();
+
+            $table->index(['test_id', 'number']);
         });
     }
 

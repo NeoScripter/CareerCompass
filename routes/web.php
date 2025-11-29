@@ -41,3 +41,5 @@ Route::middleware('auth')->name('test.')->group(function () {
 });
 Route::get('/test/{testId}', [TestCreationController::class, 'show'])->name('show');
 Route::get('/test/{testId}/questions', [QuestionController::class, 'index'])->name('questions');
+Route::patch('/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
+Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
