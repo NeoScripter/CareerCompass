@@ -22,7 +22,7 @@ const Question = () => {
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
-    const progress = Math.floor((30 / 100) * question.number);
+    const progress = Math.floor((question.number / total) * 100);
 
     const handleSelect = (value: string) => {
         setSelectedAnswer(value);

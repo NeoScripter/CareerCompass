@@ -22,7 +22,7 @@ const QuestionDialog: FC<
     return (
         <div class={cn('question-dialog', className)}>
             <h2 class="question-dialog__heading">
-                {`${auth?.user?.name}, Вы прошли уже 1 %. Осталось совсем немного! Завершите
+                {`${auth?.user?.name}, Вы прошли уже ${progress}%. Осталось совсем немного! Завершите
                 тест и узнаете о себе все!`}
             </h2>
             <div class="question-dialog__nav">
