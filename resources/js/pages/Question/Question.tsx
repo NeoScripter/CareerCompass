@@ -1,15 +1,16 @@
 import Checkmark from '@/assets/svgs/question-btn-selected.svg';
-import { Button } from '@/components/ui/Button/Button';
 import ProgressBar from '@/components/ui/ProgressBar/ProgressBar';
 import VisuallyHidden from '@/components/ui/VisuallyHidden/VisuallyHidden';
+import DialogLayout from '@/layouts/DialogLayout/DialogLayout';
 import TestLayout from '@/layouts/TestLayout/TestLayout';
 import { capitalize } from '@/lib/utils/capitalize';
 import { cn } from '@/lib/utils/cn';
 import { Question as QuestionType } from '@/types/model';
-import { router, usePage } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight } from 'lucide-preact';
+import { usePage } from '@inertiajs/react';
 import { useState } from 'preact/hooks';
 import { FC } from 'react-dom/src';
+import QuestionDialog from './partials/QuestionDialog/QuestionDialog';
+import QuestionNav from './partials/QuestionNav/QuestionNav';
 
 const Question = () => {
     const { question, answers, total } = usePage<{
@@ -18,6 +19,7 @@ const Question = () => {
         total: number;
     }>().props;
 
+    const [showDialog, setShowDialog] = useState<boolean>(false);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
     const progress = Math.floor((30 / 100) * question.number);
@@ -26,29 +28,12 @@ const Question = () => {
         setSelectedAnswer(value);
     };
 
-    const handleNextQuestion = () => {
-        if (selectedAnswer == null) return;
-
-        router.visit(route('questions.update', question.id), {
-            method: 'patch',
-            data: { answer: selectedAnswer },
-            preserveScroll: true,
-        });
+    const handleDialogClick = () => {
+        setShowDialog(true);
     };
-
-    const handlePrevQuestion = () => {
-        if (question.number === 1) return;
-
-        router.visit(route('questions.destroy', question.id), {
-            method: 'delete',
-            preserveScroll: true,
-        });
-    };
-
-    // TODO - popup when trying to leave the page
 
     return (
-        <TestLayout className="question__layout">
+        <TestLayout onClick={handleDialogClick} className="question__layout">
             <div class="question__body">
                 <div class="question__progress">
                     <span className="question__current">{`${question.number} из ${total}`}</span>
@@ -70,24 +55,22 @@ const Question = () => {
                     </ul>
                 </div>
 
-                <nav class="question__nav">
-                    <Button
-                        onClick={handlePrevQuestion}
-                        disabled={question.number === 1}
-                        className="button primary question__nav-button"
-                    >
-                        <ChevronLeft class="question__nav-button--prev" />
-                    </Button>
-
-                    <Button
-                        onClick={handleNextQuestion}
-                        disabled={selectedAnswer == null}
-                        className="button primary question__nav-button"
-                    >
-                        <ChevronRight class="question__nav-button--next" />
-                    </Button>
-                </nav>
+                <QuestionNav
+                    selectedAnswer={selectedAnswer}
+                    question={question}
+                />
             </div>
+
+            <DialogLayout
+                show={showDialog}
+                onClose={() => setShowDialog(false)}
+                className="question__dialog"
+            >
+                <QuestionDialog
+                    onClick={() => setShowDialog(false)}
+                    progress={progress}
+                />
+            </DialogLayout>
         </TestLayout>
     );
 };

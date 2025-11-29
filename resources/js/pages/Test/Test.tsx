@@ -7,10 +7,17 @@ import Tablet from '@/assets/images/test/questions/test-bg-tablet.webp';
 import BgLoader from '@/components/ui/BgLoader/BgLoader';
 import { Button } from '@/components/ui/Button/Button';
 import TestLayout from '@/layouts/TestLayout/TestLayout';
+import { router } from '@inertiajs/react';
 
 const Test = () => {
+    const { testId } = route().params;
+
+    const handleClick = () => {
+        router.visit(route('home'), { method: 'get', preserveScroll: true });
+    };
+
     return (
-        <TestLayout>
+        <TestLayout onClick={handleClick}>
             <BgLoader
                 mobile={Mobile}
                 mobileSm={MobileTiny}
@@ -24,16 +31,19 @@ const Test = () => {
                 pos="test__bg-image--pos"
             />
             <div class="test__body">
-                <h1 class="test__heading">
-                    Тест на профориентацию
-                </h1>
+                <h1 class="test__heading">Тест на профориентацию</h1>
                 <p class="test__description">
-                    Отвечайте честно на вопросы — нет правильных или неправильных ответов.
-                    Результат формируется с помощью искусственного интеллекта и адаптируется
-                    под ваш тип личности. После завершения вы получите подробный отчёт
-                    с анализом и рекомендациями.
+                    Отвечайте честно на вопросы — нет правильных или
+                    неправильных ответов. Результат формируется с помощью
+                    искусственного интеллекта и адаптируется под ваш тип
+                    личности. После завершения вы получите подробный отчёт с
+                    анализом и рекомендациями.
                 </p>
-                <Button className="button primary test__button">
+                <Button
+                    as="link"
+                    href={route('questions', testId)}
+                    className="button primary test__button"
+                >
                     Начать тест
                 </Button>
             </div>

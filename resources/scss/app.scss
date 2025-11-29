@@ -41,3 +41,6 @@
 @use '@/components/ui/VisuallyHidden/VisuallyHidden';
 @use '@/components/ui/ProgressBar/ProgressBar';
 @use '@/pages/Result/Result';
+@use '@/pages/Question/partials/QuestionNav/QuestionNav';
+@use '@/pages/Question/partials/QuestionDialog/QuestionDialog';
+@use '@/pages/Home/Home';

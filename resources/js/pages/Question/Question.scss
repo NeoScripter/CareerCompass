@@ -43,15 +43,6 @@
         @include u.fluid(height, 22, 22, 36, 36);
     }
 }
-
-.question__nav-button--prev {
-    transform: translateX(-5%);
-}
-
-.question__nav-button--next {
-    transform: translateX(10%);
-}
-
 .question__answers {
     display: flex;
     align-items: center;
@@ -100,4 +91,9 @@
 
 .answer-btn--selected {
     background-color: u.clr('primary');
+}
+
+.question__dialog {
+    margin-inline: auto;
+    max-width: full;
 }

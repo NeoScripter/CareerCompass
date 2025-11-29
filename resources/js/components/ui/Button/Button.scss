@@ -4,6 +4,7 @@
     display: flex;
     cursor: pointer;
     align-items: center;
+    width: fit-content;
     justify-content: center;
     @include u.fluid(border-radius, 33, 33, 33, 33);
     @include u.fluid(padding-inline, 20, 20, 39, 39);

@@ -1,0 +1,21 @@
+@use 'core' as u;
+
+.question-dialog {
+    @include u.fluid(max-width, null, 730, 1136, 1536);
+    @include u.fluid(padding-inline, 10, 63, 117, 156);
+    @include u.fluid(padding-block, 80, 83, 170, 267);
+}
+
+.question-dialog__heading {
+    text-align: center;
+    margin-inline: auto;
+    @include u.fluid(margin-bottom, 40, 40, 100, 100);
+    @include u.fluid(font-size, 33, 33, 44, 53);
+}
+
+.question-dialog__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include u.fluid(gap, 20, 20, 30, 30);
+}
