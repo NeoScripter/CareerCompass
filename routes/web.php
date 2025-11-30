@@ -32,15 +32,16 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 Route::middleware('auth')->name('payment.')->group(function () {
-    Route::get('/payment', [ProcessPaymentController::class, 'show'])->name('show');
+    Route::get('/payment/{tier}', [ProcessPaymentController::class, 'show'])->name('show');
+    Route::post('/payment/{tier}', [ProcessPaymentController::class, 'store'])->name('store');
 });
 Route::middleware('auth')->name('test.')->group(function () {
     Route::post('/test', [TestCreationController::class, 'store'])->name('store');
 
     Route::middleware('test.access')->group(function () {});
 });
-Route::get('/test/{testId}/result', [TestResultController::class, 'show'])->name('result.show');
-Route::get('/test/{testId}', [TestCreationController::class, 'show'])->name('show');
+Route::get('/test/{test}/result', [TestResultController::class, 'show'])->name('result.show');
+Route::get('/test/{testId}', [TestCreationController::class, 'show'])->name('test.show');
 Route::get('/test/{testId}/questions', [QuestionController::class, 'index'])->name('questions');
 Route::patch('/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
 Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');

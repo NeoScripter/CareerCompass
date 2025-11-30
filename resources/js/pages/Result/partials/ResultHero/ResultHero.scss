@@ -1,0 +1,75 @@
+@use 'core' as u;
+
+.result-hero {
+    @include u.fluid(height, 721, 423, 747, 1010);
+    max-height: 90svh;
+    position: relative;
+    border-radius: 2rem;
+    overflow: clip;
+    @include u.fluid(padding, 20, 20, 50, 50);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.result-hero__header {
+    width: 100%;
+    @include u.fluid(font-size, 15, 15, 22, 26);
+}
+
+.result-hero__icon {
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease;
+    flex-shrink: 0;
+    @include u.fluid(width, 31, 31, 62, 62);
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.result-hero__btn {
+    display: flex;
+    align-items: end;
+    transition: color 0.3s;
+    @include u.fluid(gap, 10, 10, 15, 30);
+
+    &:hover {
+        color: black;
+    }
+
+    > span {
+        @include u.md() {
+            margin-bottom: 0.25em;
+        }
+    }
+}
+
+.result-hero__bg-image {
+    position: absolute;
+    inset: 0;
+}
+
+.result-hero__bg-image--fit {
+    object-position: center;
+}
+
+.result-hero__bg-image--pos {
+    object-fit: cover;
+}
+
+.result-hero__heading {
+    text-align: center;
+}
+
+.result-hero__arrow {
+    width: 100%;
+    height: 100%;
+}
+
+.result-hero__arrow-wrapper {
+    @include u.fluid(width, 35, 35, 40, 40);
+    display: block;
+}

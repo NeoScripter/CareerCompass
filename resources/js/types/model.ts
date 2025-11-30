@@ -14,7 +14,7 @@ export type Plan = {
     price: number;
     prevPrice?: number;
     description: string;
-    perks: string[];
+    perks: string;
     tier: string;
     created_at?: string;
     updated_at?: string;
@@ -32,9 +32,9 @@ export type Question = {
 };
 export type Test = {
     id: number;
-    tier: string;
+    tier: TestTiers;
     user_id: number;
-    completed: any;
+    result?: string;
     created_at?: string;
     updated_at?: string;
     user?: User;
@@ -51,6 +51,11 @@ export type User = {
     tests?: Test[];
     plans?: Plan[];
 };
+export enum Answers {
+    YES = "\u0434\u0430",
+    NO = "\u043D\u0435\u0442",
+    UNKNOWN = "\u043D\u0435 \u0437\u043D\u0430\u044E"
+}
 export enum LegalInfoKeys {
     POLICY = "policy",
     CONSENT = "consent"

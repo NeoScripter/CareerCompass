@@ -35,7 +35,7 @@ class TestCreationController extends Controller
         ]);
 
         if (!$user->plans->pluck('tier')->contains($validated['tier'])) {
-            return redirect()->route('home');
+            return redirect()->route('payment.show', $validated['tier']);
         }
 
         // if ($user->plans->count() === 1 && $user->plans->first()->tier === TestTiers::FREE->value) {

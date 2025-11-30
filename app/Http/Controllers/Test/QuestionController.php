@@ -6,6 +6,7 @@ use App\Enums\Answers;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\Test;
+use App\Services\TestResultGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -22,7 +23,16 @@ class QuestionController extends Controller
             ->first();
 
         if (!$question) {
-            return redirect()->route('result.show', ['testId' => $testId]);
+            $test = Test::findOrFail($testId);
+            $questions = $test->questions()
+                ->select(['question', 'answer', 'number'])
+                ->get();
+
+            $results = app(TestResultGenerator::class)
+                ->generate($questions, $test->tier);
+            $test->update(['result' => $results]);
+
+            return redirect()->route('result.show', ['test' => $test]);
         }
 
         $total = Question::where('test_id', $testId)->count();

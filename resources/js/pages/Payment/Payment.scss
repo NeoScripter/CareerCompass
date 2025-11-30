@@ -1,0 +1,52 @@
+@use 'core' as u;
+
+.payment {
+    padding-top: 8.75rem;
+
+    @media (min-width: 640px) {
+        padding-top: 10.5rem;
+    }
+
+    @media (min-width: 1024px) {
+        padding-top: 12.5rem;
+    }
+}
+
+.payment__title {
+    color: u.clr('foreground');
+    margin-bottom: 1.25rem;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    text-wrap: balance;
+
+    @media (min-width: 1024px) {
+        margin-bottom: 2.5rem;
+        font-size: 3.75rem;
+    }
+
+    @media (min-width: 1280px) {
+        margin-bottom: 3.5rem;
+        font-size: 4.5rem;
+    }
+}
+
+.payment__content {
+    color: u.clr('foreground');
+    margin: 0.75rem auto;
+    display: block;
+    max-width: 80rem;
+
+    @media (min-width: 1024px) {
+        margin-top: 1.25rem;
+    }
+}
+
+.payment__button {
+    margin: 0 auto;
+
+    @media (min-width: 1024px) {
+        padding-left: 3em;
+        padding-right: 3em;
+    }
+}

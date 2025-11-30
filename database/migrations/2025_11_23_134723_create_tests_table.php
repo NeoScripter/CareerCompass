@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('tier');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->boolean('completed')->default(false);
+            $table->json('result')->nullable();
             $table->timestamps();
+
+            $table->index('tier');
         });
     }
 

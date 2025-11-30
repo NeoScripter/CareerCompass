@@ -16,9 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(LegalInfoSeeder::class);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Ilya',
+            'email' => 'test@gmail.com',
         ]);
-
     }
 }

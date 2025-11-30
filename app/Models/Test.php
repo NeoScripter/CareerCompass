@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TestTiers;
 use App\Services\QuestionGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,11 @@ class Test extends Model
     /** @use HasFactory<\Database\Factories\TestFactory> */
     use HasFactory;
 
+    protected $casts = [
+        'tier' => TestTiers::class,
+        'result' => 'array',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -24,9 +30,16 @@ class Test extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function isCompleted(): bool
+    {
+        return $this->questions()
+            ->whereNull('answer')
+            ->doesntExist();
+    }
+
     public function scopeCompleted(Builder $query): Builder
     {
-        return $query->where('completed', true);
+        return $query->whereNotNull('result');
     }
 
     protected static function booted(): void

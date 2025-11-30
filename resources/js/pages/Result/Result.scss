@@ -1,9 +1,16 @@
 @use 'core' as u;
 
 .result__layout {
-    --layout-padding: 0;
     margin-inline: auto;
     max-width: u.$xl;
-    @include u.fluid(--layout-padding, 0, 25, 35, 35);
-    padding: var(--layout-padding);
+    @include u.fluid(padding-inline, 20, 25, 35, 35);
+    @include u.fluid(padding-block, 30, 30, 35, 35);
+
+    > *:not(:last-child) {
+        @include u.fluid(margin-bottom, 50, 80, 130, 150);
+    }
+
+    h2 {
+        text-align: center;
+    }
 }
