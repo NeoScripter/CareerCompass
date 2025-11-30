@@ -1,0 +1,36 @@
+@use 'core' as u;
+
+.description {
+    text-align: center;
+    @include u.fluid(margin-bottom, 50, 50, 80, 100);
+}
+
+.summary {
+    margin-inline: auto;
+    background-color: u.clr('muted');
+    @include u.fluid(padding, 18, 20, 50, 50);
+    @include u.fluid(max-width, null, 606, 1135, 1536);
+    border: 2px solid u.clr('primary');
+    border-radius: 1rem;
+
+    @include u.md() {
+        border-radius: 1.5rem;
+    }
+}
+
+.item {
+    @include u.sm() {
+        display: flex;
+        align-items: start;
+    }
+}
+
+.itemTitle {
+    font-weight: 800;
+    @include u.fluid(font-size, 18, 18, 24, 29);
+    @include u.fluid(margin-bottom, 20, 0, null, null);
+}
+
+.itemDescription {
+    /* @include u.fluid(font-size, 18); */
+}

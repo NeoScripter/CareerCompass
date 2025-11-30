@@ -9,8 +9,10 @@ use Inertia\Inertia;
 class TestResultController extends Controller
 {
 
-    public function show(Test $test)
+    public function show($testId)
     {
+        $test = Test::findOrFail($testId);
+
         if (!$test || !$test->isCompleted()) {
             return redirect()
                 ->route('home');

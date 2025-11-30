@@ -37,6 +37,11 @@ class Test extends Model
             ->doesntExist();
     }
 
+    public function hasResults(): bool
+    {
+        return !is_null($this->result);
+    }
+
     public function scopeCompleted(Builder $query): Builder
     {
         return $query->whereNotNull('result');

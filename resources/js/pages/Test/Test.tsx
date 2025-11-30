@@ -41,7 +41,7 @@ const Test = () => {
                 </p>
                 <Button
                     as="link"
-                    href={route('questions', testId)}
+                    href={route('test.questions', testId)}
                     className="button primary test__button"
                 >
                     Начать тест

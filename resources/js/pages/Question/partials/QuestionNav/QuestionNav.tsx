@@ -8,23 +8,37 @@ const QuestionNav: FC<{
     question: QuestionType;
     selectedAnswer: string | null;
 }> = ({ question, selectedAnswer }) => {
+    const { testId } = route().params;
+
     const handleNextQuestion = () => {
         if (selectedAnswer == null) return;
 
-        router.visit(route('questions.update', question.id), {
-            method: 'patch',
-            data: { answer: selectedAnswer },
-            preserveScroll: true,
-        });
+        router.visit(
+            route('test.questions.update', {
+                testId: testId,
+                question: question.id,
+            }),
+            {
+                method: 'patch',
+                data: { answer: selectedAnswer },
+                preserveScroll: true,
+            },
+        );
     };
 
     const handlePrevQuestion = () => {
         if (question.number === 1) return;
 
-        router.visit(route('questions.destroy', question.id), {
-            method: 'delete',
-            preserveScroll: true,
-        });
+        router.visit(
+            route('test.questions.destroy', {
+                testId: testId,
+                question: question.id,
+            }),
+            {
+                method: 'delete',
+                preserveScroll: true,
+            },
+        );
     };
 
     return (

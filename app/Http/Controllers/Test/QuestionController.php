@@ -24,15 +24,18 @@ class QuestionController extends Controller
 
         if (!$question) {
             $test = Test::findOrFail($testId);
-            $questions = $test->questions()
-                ->select(['question', 'answer', 'number'])
-                ->get();
 
-            $results = app(TestResultGenerator::class)
-                ->generate($questions, $test->tier);
-            $test->update(['result' => $results]);
+            if (!$test->hasResults()) {
+                $questions = $test->questions()
+                    ->select(['question', 'answer', 'number'])
+                    ->get();
 
-            return redirect()->route('result.show', ['test' => $test]);
+                $results = app(TestResultGenerator::class)
+                    ->generate($questions, $test->tier);
+                $test->update(['result' => $results]);
+            }
+
+            return redirect()->route('test.result.show', ['testId' => $test->id]);
         }
 
         $total = Question::where('test_id', $testId)->count();
@@ -45,7 +48,7 @@ class QuestionController extends Controller
     }
 
 
-    public function update(Request $request, Question $question)
+    public function update(Request $request, string $testId, Question $question)
     {
         $validated = $request->validate([
             'answer' => ['required', Rule::enum(Answers::class)]
@@ -58,7 +61,7 @@ class QuestionController extends Controller
         return redirect()->back();
     }
 
-    public function destroy(Question $question)
+    public function destroy(string $testId, Question $question)
     {
         if ($question->number <= 1) {
             return redirect()->back();

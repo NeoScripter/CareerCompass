@@ -45,5 +45,6 @@
 @use '@/pages/Question/partials/QuestionDialog/QuestionDialog';
 @use '@/pages/Home/Home';
 @use '@/pages/Result/partials/ResultHero/ResultHero';
-@use '@/pages/Result/partials/ResultIntro/ResultIntro';
+/* @use '@/pages/Result/partials/ResultIntro/ResultIntro'; */
 @use '@/pages/Payment/Payment';
+@use '@/pages/Result/partials/ResultIntro/ResultIntro.module';
