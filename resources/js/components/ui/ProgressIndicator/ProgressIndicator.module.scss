@@ -1,0 +1,40 @@
+@use 'core' as u;
+
+.progressIndicator {
+    --percent: 10;
+    stroke-dasharray: var(--percent), 1000;
+    stroke-linecap: butt;
+    stroke-dashoffset: 0px;
+    transition: stroke-dashoffset 1000ms;
+    transform-origin: center;
+}
+
+.progressTrack {
+    stroke: hsla(240, 3%, 46%, 0.5);
+}
+
+.progressWrapper {
+    position: relative;
+    display: grid;
+    place-content: center;
+    @include u.fluid(margin-bottom, 35, 34, 50, 80);
+    @include u.fluid(margin-top, 50, 50, 80, 100);
+}
+
+.bigNumber {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    text-align: center;
+    @include u.fluid(font-size, 33, 33, 44, 53);
+}
+
+.svgProgress {
+    @include u.fluid(width, 233, 233, 280, 280);
+    stroke: u.clr('primary');
+    stroke-linecap: round;
+    stroke-width: 25px;
+}
