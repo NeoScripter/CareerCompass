@@ -2,6 +2,7 @@ import AppFooter from '@/layouts/partials/AppFooter/AppFooter';
 import { TestResult } from '@/types/testResult';
 import { usePage } from '@inertiajs/react';
 import BestJob from './partials/BestJob/BestJob';
+import ChartList from './partials/ChartList/ChartList';
 import ResultCards from './partials/ResultCards/ResultCards';
 import ResultHero from './partials/ResultHero/ResultHero';
 import ResultIntro from './partials/ResultIntro/ResultIntro';
@@ -23,6 +24,13 @@ const Result = () => {
             />
 
             <ResultJobs jobs={result.jobs} />
+
+            <ChartList
+                heading="Характеристики личности"
+                charts={result.charts}
+            />
+            <ChartList heading="Сильные стороны" charts={result.strengths} />
+            <ChartList heading="Слабые стороны" charts={result.weaknesses} />
             <Summary summary={result.summary} />
 
             <BestJob job={result.bestJob} />
