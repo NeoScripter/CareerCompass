@@ -9,6 +9,7 @@ use App\Http\Controllers\ProcessPaymentController;
 use App\Http\Controllers\Test\QuestionController;
 use App\Http\Controllers\Test\TestCreationController;
 use App\Http\Controllers\Test\TestResultController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -44,5 +45,9 @@ Route::middleware('auth')->name('test.')->group(function () {
         Route::get('/test/{testId}/questions', [QuestionController::class, 'index'])->name('questions');
         Route::patch('/test/{testId}/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
         Route::delete('/test/{testId}/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+
+        if (App::environment('local')) {
+            Route::patch('/test/{testId}/magic', [QuestionController::class, 'magic'])->name('magic');
+        }
     });
 });

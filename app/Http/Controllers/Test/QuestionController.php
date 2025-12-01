@@ -47,6 +47,14 @@ class QuestionController extends Controller
         ]);
     }
 
+    public function magic(string $testId)
+    {
+        $test = Test::findOrFail($testId);
+
+        $test->questions()->each(fn($q) => $q->update(['answer' => Answers::YES]));
+
+        return redirect()->route('test.questions', ['testId' => $testId]);
+    }
 
     public function update(Request $request, string $testId, Question $question)
     {

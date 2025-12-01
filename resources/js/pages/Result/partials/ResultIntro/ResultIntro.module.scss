@@ -18,19 +18,51 @@
     }
 }
 
+.items {
+    @include u.fluid(margin-bottom, 30, 30, 50, 55);
+}
+
 .item {
+    @include u.fluid(padding-inline, 20, 30, 35, 35);
+    @include u.fluid(padding-block, 20, 20, 30, 55);
     @include u.sm() {
         display: flex;
         align-items: start;
+    }
+
+    &:nth-of-type(even) {
+      background-color: u.clr('muted');
     }
 }
 
 .itemTitle {
     font-weight: 800;
+    flex-shrink: 0;
     @include u.fluid(font-size, 18, 18, 24, 29);
     @include u.fluid(margin-bottom, 20, 0, null, null);
+    @include u.fluid(width, null, 248, 467, 627);
 }
 
 .itemDescription {
     /* @include u.fluid(font-size, 18); */
+}
+
+.wrapper {
+    --padding: 0;
+    display: grid;
+    grid-template-columns:
+        var(--padding)
+        1fr
+        var(--padding);
+
+    @include u.fluid(--padding, 20, 25, 35, 35);
+
+    > * {
+        grid-column: 2;
+    }
+
+    > :global(.full-bleed) {
+        width: 100%;
+        grid-column: 1 / 4;
+    }
 }

@@ -1,0 +1,32 @@
+@use 'core' as u;
+
+.layout {
+    --padding: 0;
+    display: grid;
+    grid-template-columns:
+        var(--padding)
+        1fr
+        var(--padding);
+
+    margin-inline: auto;
+    max-width: u.$xl;
+    @include u.fluid(--padding, 20, 25, 35, 35);
+    @include u.fluid(padding-block, 30, 30, 35, 35);
+
+    > *:not(:last-child) {
+        @include u.fluid(margin-bottom, 50, 80, 130, 150);
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    > * {
+        grid-column: 2;
+    }
+
+    > :global(.full-bleed) {
+        width: 100%;
+        grid-column: 1 / 4;
+    }
+}
