@@ -1,0 +1,41 @@
+@use 'core' as u;
+
+.jobTitle {
+    font-weight: 800;
+    @include u.fluid(font-size, 18, 18, 24, 29);
+    @include u.fluid(margin-bottom, 20, 20, 30, 30);
+}
+.jobDescription {
+    @include u.fluid(font-size, 15, 15, 22, 26);
+    @include u.fluid(margin-bottom, 30, 15, 50, 50);
+}
+
+.cardSection {
+    @include u.fluid(font-size, 18, 18, 24, 29);
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.divider {
+    @include u.fluid(margin-block, 15, 15, 20, 25);
+}
+.cardTitle {
+    flex-shrink: 0;
+    @include u.fluid(font-size, 18, 18, 24, 29);
+    @include u.fluid(width, 171, 233, 283, 283);
+}
+.cardValue {
+    text-align: end;
+}
+
+.jobListItem {
+    position: relative;
+
+    &:last-child {
+        @include u.md() {
+            grid-column: 2;
+        }
+    }
+}
+

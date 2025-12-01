@@ -8,7 +8,7 @@ const ResultIntro: FC<{ summary: string; items: PersonalityItem[] | null }> = ({
     items,
 }) => {
     return (
-        <section class={cn(css.wrapper, 'full-bleed')}>
+        <section id="intro" class={cn(css.wrapper, 'full-bleed')}>
             <h2>Подробное описание характера</h2>
             <p class={css.description}>
                 На основе ваших ответов можно выделить следующие черты:

@@ -1,6 +1,6 @@
 @use 'core' as u;
 
-.result-hero {
+.wrapper {
     @include u.fluid(height, 721, 423, 747, 1010);
     max-height: 90svh;
     position: relative;
@@ -13,12 +13,12 @@
     justify-content: space-between;
 }
 
-.result-hero__header {
+.header {
     width: 100%;
     @include u.fluid(font-size, 15, 15, 22, 26);
 }
 
-.result-hero__icon {
+.icon {
     width: 100%;
     height: 100%;
     transition: opacity 0.3s ease;
@@ -30,7 +30,7 @@
     }
 }
 
-.result-hero__btn {
+.btn {
     display: flex;
     align-items: end;
     transition: color 0.3s;
@@ -47,29 +47,29 @@
     }
 }
 
-.result-hero__bg-image {
+.bgImage {
     position: absolute;
     inset: 0;
 }
 
-.result-hero__bg-image--fit {
+.bgImageFit {
     object-position: center;
 }
 
-.result-hero__bg-image--pos {
+.bgImagePos {
     object-fit: cover;
 }
 
-.result-hero__heading {
+.heading {
     text-align: center;
 }
 
-.result-hero__arrow {
+.arrow {
     width: 100%;
     height: 100%;
 }
 
-.result-hero__arrow-wrapper {
+.arrowWrapper {
     @include u.fluid(width, 35, 35, 40, 40);
     display: block;
 }

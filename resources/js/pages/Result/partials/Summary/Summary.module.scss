@@ -1,0 +1,17 @@
+@use 'core' as u;
+
+.heading {
+    @include u.fluid(margin-bottom, 50, 50, 80, 100);
+}
+
+.description {
+    text-align: center;
+    text-wrap: pretty;
+    display: block;
+    @include u.fluid(width, null, 606, 1136, 1536);
+    margin-inline: auto;
+}
+
+.descriptionWrapper {
+    position: relative;
+}

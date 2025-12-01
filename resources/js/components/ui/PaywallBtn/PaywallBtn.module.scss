@@ -1,0 +1,13 @@
+@use 'core' as u;
+
+.scrollBtn {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+
+    + * {
+        filter: blur(18px);
+    }
+}

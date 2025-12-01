@@ -3,7 +3,7 @@ import { navLinks } from '@/lib/data/navLinks';
 
 const AppFooter = () => {
     return (
-        <footer class="app-footer">
+        <footer id="app-footer" class="app-footer">
             <span class="app-footer__copyright">© 2025</span>
             <nav class="app-footer__nav">
                 <ul class="app-footer__nav-list">

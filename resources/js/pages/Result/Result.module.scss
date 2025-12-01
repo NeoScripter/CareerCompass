@@ -14,11 +14,12 @@
     @include u.fluid(padding-block, 30, 30, 35, 35);
 
     > *:not(:last-child) {
-        @include u.fluid(margin-bottom, 50, 80, 130, 150);
+        @include u.fluid(margin-bottom, 80, 80, 130, 150);
     }
 
     h2 {
         text-align: center;
+        text-wrap: balance;
     }
 
     > * {

@@ -1,0 +1,6 @@
+@use 'core' as u;
+
+.item {
+    margin-inline: auto;
+    @include u.fluid(width, null, 358, 437, 440);
+}

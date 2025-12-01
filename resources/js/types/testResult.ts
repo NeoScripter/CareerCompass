@@ -187,7 +187,7 @@ export interface PremiumTestResult extends BaseTestResult {
         Weakness,
         Weakness,
     ];
-    summary: Summary[];
+    summary: Summary;
     bestJob: Job;
     jobAdvice: Advice[];
     improvementAdvice: Advice[];

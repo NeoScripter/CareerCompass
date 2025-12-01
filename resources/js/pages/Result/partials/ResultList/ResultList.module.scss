@@ -1,0 +1,29 @@
+@use 'core' as u;
+
+.heading {
+    @include u.fluid(margin-bottom, 50, 52, 80, 100);
+}
+
+.list {
+    display: grid;
+    @include u.fluid(gap, 22, 22, 30, 30);
+    @include u.fluid(width, null, 606, 1136, 1536);
+    text-wrap: pretty;
+    margin-inline: auto;
+}
+
+.listWrapper {
+    position: relative;
+}
+
+.item {
+    display: flex;
+    align-items: start;
+    @include u.fluid(gap, 10, 10, 15, 15);
+
+    > svg {
+        flex-shrink: 0;
+        @include u.fluid(width, 20, 20, 20, 20);
+        @include u.fluid(height, 20, 20, 20, 20);
+    }
+}
