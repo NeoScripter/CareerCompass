@@ -3,18 +3,17 @@ import { TestResult } from '@/types/testResult';
 import { usePage } from '@inertiajs/react';
 import BestJob from './partials/BestJob/BestJob';
 import ChartList from './partials/ChartList/ChartList';
-import ResultCards from './partials/ResultCards/ResultCards';
 import ResultHero from './partials/ResultHero/ResultHero';
 import ResultIntro from './partials/ResultIntro/ResultIntro';
 import ResultJobs from './partials/ResultJobs/ResultJobs';
 import ResultList from './partials/ResultList/ResultList';
 import Summary from './partials/Summary/Summary';
 import css from './Result.module.scss';
+import Plans from '../Home/partials/Plans/Plans';
 
 const Result = () => {
     const { result } = usePage<{ result: TestResult }>().props;
 
-    console.log(result);
     return (
         <div class={css.layout}>
             <ResultHero />
@@ -45,7 +44,7 @@ const Result = () => {
                 items={result.improvementAdvice}
             />
 
-            <ResultCards />
+            <Plans />
 
             <AppFooter />
         </div>

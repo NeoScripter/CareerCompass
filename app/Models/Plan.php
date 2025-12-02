@@ -19,6 +19,8 @@ class Plan extends Model
         'perks' => 'array',
     ];
 
+    protected $appends = ['taken'];
+
     protected function taken(): Attribute
     {
         return Attribute::make(
@@ -26,7 +28,7 @@ class Plan extends Model
                 /** @var \App\Models\User|null $user */
                 $user = Auth::user();
 
-                if (!$user) return null;
+                if (!$user) return false;
 
                 return $user->tests()
                     ->where('tier', $this->tier)

@@ -8,15 +8,13 @@ const Plans = () => {
     const { plans } = usePage<{ plans: Plan[] }>().props;
 
     return (
-        <ul class={css.plans}>
+        <ul id="result-cards" class={css.plans}>
             {plans.map((plan, idx) => (
                 <PlanCard
                     key={plan.id}
                     plan={plan}
                     className={cn(
-                        idx === 2
-                            ? [css.cardLast]
-                            : [css.cardRegular],
+                        idx === 2 ? [css.cardLast] : [css.cardRegular],
                         {
                             [css.cardSecond]: idx === 1,
                         },

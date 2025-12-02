@@ -19,6 +19,8 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
         auth: { user: User | null };
     }>().props;
 
+    console.log(plan)
+
     const handleClick = () => {
         if (auth?.user == null) {
             showLoginModal.value = true;
@@ -31,6 +33,7 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
     };
 
     const price = plan.taken ? plan.price >> 1 : plan.price;
+    const prevPrice = plan.taken ? (plan?.prevPrice ?? 1) >> 1 : plan.prevPrice;
 
     return (
         <li
@@ -54,10 +57,7 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
             </p>
             <div class={css.pricing}>
                 <p class={css.price}>
-                    <span
-                        class={css.priceValue}
-                        aria-label={`${price} рублей`}
-                    >
+                    <span class={css.priceValue} aria-label={`${price} рублей`}>
                         {price} ₽
                     </span>
                 </p>
@@ -65,13 +65,13 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
                     <p class={css.prevPrice}>
                         <span
                             class={css.prevPriceWrapper}
-                            aria-label={`Предыдущая цена ${plan.prevPrice} рублей`}
+                            aria-label={`Предыдущая цена ${prevPrice} рублей`}
                         >
                             <span
                                 aria-hidden="true"
                                 class={css.prevPriceLine}
                             />
-                            {plan.prevPrice} ₽
+                            {prevPrice} ₽
                         </span>
                     </p>
                 )}
@@ -85,7 +85,7 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
                 aria-label={`Пройти тест для плана ${plan.title}`}
                 disabled={disabled}
             >
-                Пройти тест
+                {plan.taken ? 'Пройти еще раз' : 'Пройти тест'}
             </Button>
             <ul class={css.perks} aria-label="Преимущества плана">
                 {plan.perks.map((perk, idx) => (
