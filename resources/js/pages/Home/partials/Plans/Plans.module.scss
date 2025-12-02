@@ -4,13 +4,17 @@
 .plans {
     display: grid;
     @include u.fluid(gap, 20, 15, 30, 30);
+    /* width: max-content; */
+    /* margin-inline: auto; */
+    place-content: center;
+    @include u.fluid(--col, null, null, 427, 587);
 
     @include u.sm() {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     @include u.md() {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(0, var(--col)));
     }
 }
 
