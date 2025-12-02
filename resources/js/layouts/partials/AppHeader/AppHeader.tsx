@@ -86,7 +86,7 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
             ) : (
                 <Button
                     onClick={() => (show.value = true)}
-                    class={cn(css.logoutBtn, 'button secondary')}
+                    class={cn('button secondary')}
                     type="button"
                     as="button"
                 >
