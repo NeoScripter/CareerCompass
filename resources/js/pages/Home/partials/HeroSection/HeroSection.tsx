@@ -7,11 +7,13 @@ import TabletBg from '@/assets/images/home/hero/hero-tablet.webp';
 import BgLoader from '@/components/ui/BgLoader/BgLoader';
 import { Button } from '@/components/ui/Button/Button';
 import AppSection from '@/layouts/partials/AppSection/AppSection';
+import { cn } from '@/lib/utils/cn';
 import scrollToSection from '@/lib/utils/scrollToSection';
+import css from './HeroSection.module.scss';
 
 const HeroSection = () => {
     return (
-        <AppSection className="hero-section">
+        <AppSection className={css.heroSection}>
             <BgLoader
                 desktop={DesktopBg}
                 desktopSm={DesktopBgSm}
@@ -19,14 +21,14 @@ const HeroSection = () => {
                 tabletSm={TabletBgSm}
                 mobile={MobileBg}
                 mobileSm={MobileBgSm}
-                className="background"
-                fit="fit"
-                pos="pos"
+                className={css.background}
+                fit={css.backgroundFit}
+                pos={css.backgroundPos}
                 mbMinWidth={570}
             />
-            <div class="content">
-                <h1 class="title">Найди свое призвание</h1>
-                <p class="description">
+            <div class={css.content}>
+                <h1 class={css.title}>Найди свое призвание</h1>
+                <p class={css.description}>
                     Пройдите быстрый тест на профориентацию, а ИИ-алгоритм
                     подберет для вас самые подходящие профессии и расскажет о
                     вас все!
@@ -37,7 +39,7 @@ const HeroSection = () => {
                     onClick={() => scrollToSection('#plans')}
                     as="button"
                     type="button"
-                    className="primary cta-button"
+                    className={cn(css.ctaButton, 'button primary')}
                 >
                     Пройти тест
                 </Button>

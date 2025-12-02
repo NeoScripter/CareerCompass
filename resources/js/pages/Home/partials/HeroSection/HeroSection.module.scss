@@ -1,6 +1,6 @@
 @use 'core' as u;
 
-.hero-section {
+.heroSection {
     position: relative;
     overflow-y: clip;
     isolation: isolate;
@@ -14,32 +14,33 @@
         align-items: end;
         justify-content: space-between;
     }
+}
 
-    .background {
-        @include u.fluid(inset, -20, 0, 0, 0);
-        background-color: u.clr('muted');
-        position: absolute;
-        z-index: -5;
-        border-radius: 2rem;
-    }
+.background {
+    @include u.fluid(inset, -20, 0, 0, 0);
+    background-color: u.clr('muted');
+    position: absolute;
+    z-index: -5;
+    border-radius: 2rem;
+}
 
-    .content {
-        @include u.fluid(padding-top, 107, 243, 551, 765);
-    }
+.content {
+    @include u.fluid(padding-top, 107, 243, 551, 765);
+}
 
-    .cta-button {
-        margin-inline: auto;
-        @include u.fluid(margin-top, 30, 0, 0, 0);
-        @include u.fluid(padding-block, 10, 10, 20, 20);
-        @include u.fluid(padding-inline, 70, 60, 125, 137);
+.ctaButton {
+    margin-inline: auto;
+    @include u.fluid(margin-top, 30, 0, 0, 0);
+    @include u.fluid(padding-block, 10, 10, 20, 20);
+    @include u.fluid(padding-inline, 70, 60, 125, 137);
 
-        @include u.sm() {
-            margin-inline: 0;
-        }
+    @include u.sm() {
+        margin-inline: 0;
     }
 }
 
 .description {
+    text-align: left;
     @include u.fluid(width, 280, 338, 640, 703);
 }
 
@@ -47,7 +48,7 @@
     @include u.fluid(max-width, 300, 338, 640, 703);
 }
 
-.fit {
+.backgroundFit {
     object-fit: cover;
 
     @include u.sm() {
@@ -55,6 +56,6 @@
     }
 }
 
-.pos {
+.backgroundPos {
     object-position: right bottom;
 }

@@ -29,11 +29,13 @@ export default ChartList;
 const ChartItem: FC<{ chart: PersonalityChart | null }> = ({ chart }) => {
     return (
         <li class={css.chartItem}>
+            {chart == null && <PaywallBtn />}
             <span class={css.chartWrapper}>
-                {chart == null && <PaywallBtn />}
                 <span class={css.chartTop}>
-                    <h4 class={css.title}>{chart?.title}</h4>
-                    <span>{`${chart?.percent}%`}</span>
+                    <h4 class={css.title}>
+                        {chart?.title ?? 'Lorem ipsum Lorem ipsum Lorem ipsum'}
+                    </h4>
+                    <span>{`${chart?.percent ?? 40}%`}</span>
                 </span>
                 <ProgressBar progress={chart?.percent ?? 40} />
             </span>
