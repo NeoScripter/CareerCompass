@@ -7,11 +7,16 @@ import { FC } from 'react-dom/src';
 const QuestionNav: FC<{
     question: QuestionType;
     selectedAnswer: string | null;
-}> = ({ question, selectedAnswer }) => {
+    cb?: () => void;
+}> = ({ question, selectedAnswer, cb }) => {
     const { testId } = route().params;
 
     const handleNextQuestion = () => {
         if (selectedAnswer == null) return;
+
+        if (cb != null && question.number === 30) {
+            cb();
+        }
 
         router.visit(
             route('test.questions.update', {

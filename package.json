@@ -36,6 +36,7 @@
         "preact": "^10.27.2",
         "sonner": "^2.0.7",
         "tailwind-merge": "^3.4.0",
+        "react-spinners": "^0.15.0",
         "zod": "^4.1.12"
     }
 }

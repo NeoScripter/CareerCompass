@@ -14,7 +14,7 @@ const Plans = () => {
                     key={plan.id}
                     plan={plan}
                     className={cn(
-                        idx === plans.length - 1
+                        idx === 2
                             ? [css.cardLast]
                             : [css.cardRegular],
                         {

@@ -32,7 +32,7 @@ class QuestionController extends Controller
 
                 $results = app(TestResultGenerator::class)
                     ->generate($questions, $test->tier);
-                $test->update(['result' => $results, 'taken' => true]);
+                $test->update(['result' => $results]);
             }
 
             return redirect()->route('test.result.show', ['testId' => $test->id]);

@@ -11,6 +11,7 @@ import { useState } from 'preact/hooks';
 import { FC } from 'react-dom/src';
 import QuestionDialog from './partials/QuestionDialog/QuestionDialog';
 import QuestionNav from './partials/QuestionNav/QuestionNav';
+import PageLoader from '@/components/ui/PageLoader/PageLoader';
 
 const Question = () => {
     const { question, answers, total } = usePage<{
@@ -19,6 +20,7 @@ const Question = () => {
         total: number;
     }>().props;
 
+    const [showLoader, setShowLoader] = useState(false);
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
@@ -34,6 +36,7 @@ const Question = () => {
 
     return (
         <TestLayout onClick={handleDialogClick} className="question__layout">
+            {showLoader && <PageLoader />}
             <div class="question__body">
                 <div class="question__progress">
                     <span className="question__current">{`${question.number} из ${total}`}</span>
@@ -58,6 +61,7 @@ const Question = () => {
                 <QuestionNav
                     selectedAnswer={selectedAnswer}
                     question={question}
+                    cb={() => setShowLoader(true)}
                 />
             </div>
 

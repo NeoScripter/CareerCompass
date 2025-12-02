@@ -58,7 +58,7 @@ class TestResultGenerator
     private function callLLMApi(string $prompt, TestTiers $tier): array
     {
         // Simulate API latency
-        sleep(2);
+        sleep(6);
 
         // TODO: Replace with actual LLM API call
         // Example:
