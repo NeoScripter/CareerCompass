@@ -70,7 +70,7 @@ export default function Signup() {
                             onChange={(e) =>
                                 setData('name', e.currentTarget.value)
                             }
-                            placeholder="Иван Иванов"
+                            placeholder="Иван"
                             className="signup__input"
                         />
                         <InputError message={errors.name} />

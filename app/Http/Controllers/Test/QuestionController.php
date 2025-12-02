@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Test;
 
 use App\Enums\Answers;
 use App\Http\Controllers\Controller;
+use App\Models\Plan;
 use App\Models\Question;
 use App\Models\Test;
 use App\Services\TestResultGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -33,6 +35,14 @@ class QuestionController extends Controller
                 $results = app(TestResultGenerator::class)
                     ->generate($questions, $test->tier);
                 $test->update(['result' => $results]);
+
+                /** @var \App\Models\User|null $user */
+                $user = Auth::user();
+                $plan = Plan::where('tier', $test->tier)->first();
+
+                if ($user && $plan) {
+                    $user->plans()->detach($plan->id);
+                }
             }
 
             return redirect()->route('test.result.show', ['testId' => $test->id]);
