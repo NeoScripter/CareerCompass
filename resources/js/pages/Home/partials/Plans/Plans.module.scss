@@ -1,0 +1,42 @@
+@use 'core' as u;
+@use 'sass:color';
+
+.plans {
+    display: grid;
+    @include u.fluid(gap, 20, 15, 30, 30);
+
+    @include u.sm() {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @include u.md() {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.cardRegular {
+    @include u.sm() {
+        grid-column: span 2 / span 2;
+    }
+
+    @include u.md() {
+        grid-column: span 1 / span 1;
+    }
+}
+
+.cardLast {
+    @include u.sm() {
+        grid-column-start: 2;
+        grid-column-end: 4;
+        align-items: center;
+    }
+
+    @include u.md() {
+        grid-column-start: auto;
+        grid-column-end: auto;
+    }
+}
+
+.cardSecond {
+    background-color: color.change(u.clr('primary'), $alpha: 0.2);
+}

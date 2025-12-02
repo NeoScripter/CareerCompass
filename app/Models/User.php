@@ -72,13 +72,13 @@ class User extends Authenticatable
             ->exists();
     }
 
-    protected static function booted(): void
-    {
-        static::created(function (User $user) {
-            if ($user->plans()->count() === 0) {
-                $freePlanId = Plan::free()->value('id');
-                $user->plans()->attach($freePlanId);
-            }
-        });
-    }
+    // protected static function booted(): void
+    // {
+    //     static::created(function (User $user) {
+    //         if ($user->plans()->count() === 0) {
+    //             $freePlanId = Plan::free()->value('id');
+    //             $user->plans()->attach($freePlanId);
+    //         }
+    //     });
+    // }
 }

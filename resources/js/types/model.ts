@@ -14,7 +14,8 @@ export type Plan = {
     price: number;
     prevPrice?: number;
     description: string;
-    perks: string;
+    taken: any;
+    perks: string[];
     tier: string;
     created_at?: string;
     updated_at?: string;

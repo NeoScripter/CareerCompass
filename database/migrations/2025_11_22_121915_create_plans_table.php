@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('price');
             $table->unsignedInteger('prevPrice')->nullable();
             $table->text('description');
+            $table->boolean('taken')->default(false);
             $table->json('perks');
             $table->string('tier');
             $table->timestamps();
