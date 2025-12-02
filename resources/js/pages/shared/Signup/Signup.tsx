@@ -40,6 +40,7 @@ export default function Signup() {
         e.preventDefault();
 
         post(route('register'), {
+            preserveScroll: true,
             onSuccess: () => {
                 router.flushAll();
                 toast('Регистрация успешна!');

@@ -32,6 +32,7 @@ export default function Login() {
         e.preventDefault();
 
         post(route('login'), {
+            preserveScroll: true,
             onSuccess: () => {
                 router.flushAll();
                 toast('Добро пожаловать!');
