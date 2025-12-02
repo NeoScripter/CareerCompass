@@ -44,7 +44,7 @@ class TestCreationController extends Controller
             ->first();
 
         if ($incomplete) {
-            return redirect()->route('test.show', $incomplete->id);
+            return redirect()->route('test.questions', $incomplete->id);
         }
 
         $test = Test::create([
