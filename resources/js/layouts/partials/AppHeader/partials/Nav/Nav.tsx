@@ -5,16 +5,18 @@ import { cn } from '@/lib/utils/cn';
 import { Test, User } from '@/types/model';
 import { router, usePage } from '@inertiajs/react';
 import { FC } from 'preact/compat';
+import css from './Nav.module.scss';
 
 const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
     showMenu,
     isLoggedIn,
 }) => {
     const { auth } = usePage<{
-        auth: { user: User | null; lastTest: Test | null };
+        auth: { user: User | null; lastTest: Test | null; plan: string | null };
     }>().props;
 
     const disabled = auth.lastTest == null;
+    console.log(auth.plan);
 
     const handleLastResultClick = () => {
         if (auth.lastTest == null) return;
@@ -26,12 +28,12 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
 
     return (
         <nav
-            class={cn('Nav', {
-                'nav-open': showMenu,
-                'nav-closed': !showMenu,
+            class={cn(css.nav, {
+                [css.navOpen]: showMenu,
+                [css.navClosed]: !showMenu,
             })}
         >
-            <ul class="list">
+            <ul class={css.list}>
                 {navLinks.map((link) => (
                     <NavLink
                         key={link.id}
@@ -42,18 +44,20 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
             </ul>
 
             {isLoggedIn && (
-                <Button
-                    onClick={handleLastResultClick}
-                    disabled={disabled}
-                    class={cn(
-                        'button secondary result-btn',
-                        disabled && 'disabled',
+                <div class={css.btnWrapper}>
+                    {auth.plan && (
+                        <span class={css.planTitle}>{auth.plan}</span>
                     )}
-                    type="button"
-                    as="button"
-                >
-                    Последний результат
-                </Button>
+                    <Button
+                        onClick={handleLastResultClick}
+                        disabled={disabled}
+                        class={cn('button secondary', disabled && css.disabled)}
+                        type="button"
+                        as="button"
+                    >
+                        Последний результат
+                    </Button>
+                </div>
             )}
         </nav>
     );

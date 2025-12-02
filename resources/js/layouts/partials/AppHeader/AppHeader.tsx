@@ -9,13 +9,14 @@ import { Link, router, usePage } from '@inertiajs/react';
 import { LogOut } from 'lucide-preact';
 import { FC, useEffect, useRef, useState } from 'preact/compat';
 import { toast } from 'sonner';
+import css from './AppHeader.module.scss';
 import Nav from './partials/Nav/Nav';
 
 const AppHeader: FC<{ className?: string }> = ({ className }) => {
     const { show } = useLoginModal();
 
     const { auth } = usePage<{
-        auth: { user: User | null; lastTest: Test | null };
+        auth: { user: User | null; lastTest: Test | null; plan: string | null };
     }>().props;
 
     const { show: showMenu, setShow: setShowMenu } = useClickOutside([
@@ -52,10 +53,10 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
     return (
         <header
             id="header"
-            class={cn('app-header', className, {
-                'rounded-default': !showMenu,
-                'rounded-open': showMenu,
-                'hidden-header': hide,
+            class={cn(css.header, className, {
+                [css.roundedDefault]: !showMenu,
+                [css.roundedOpen]: showMenu,
+                [css.hiddenHeader]: hide,
             })}
         >
             <BurgerMenu
@@ -64,8 +65,9 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
                 aria-label={showMenu ? 'Закрыть меню' : 'Открыть меню'}
                 aria-expanded={showMenu}
             />
+            {auth.plan && <span class={css.planTitle}>{auth.plan}</span>}
 
-            {!isLoggedIn && <div class="placeholder" aria-hidden="true" />}
+            {!isLoggedIn && <div class={css.placeholder} aria-hidden="true" />}
             <Nav showMenu={showMenu} isLoggedIn={isLoggedIn} />
 
             {isLoggedIn ? (
@@ -77,14 +79,14 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
                     }}
                     method="post"
                     as="button"
-                    class="logout-btn"
+                    class={css.logoutBtn}
                 >
-                    <LogOut class="logout-icon" />
+                    <LogOut class={css.logoutIcon} />
                 </Link>
             ) : (
                 <Button
                     onClick={() => (show.value = true)}
-                    class="login-btn button secondary"
+                    class={cn(css.logoutBtn, 'button secondary')}
                     type="button"
                     as="button"
                 >

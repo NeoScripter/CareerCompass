@@ -19,8 +19,6 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
         auth: { user: User | null };
     }>().props;
 
-    console.log(plan)
-
     const handleClick = () => {
         if (auth?.user == null) {
             showLoginModal.value = true;

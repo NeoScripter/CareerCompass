@@ -9,10 +9,8 @@
 @use '@/layouts/DialogLayout/DialogLayout';
 @use '@/layouts/TestLayout/TestLayout';
 @use '@/layouts/partials/AppFooter/AppFooter';
-@use '@/layouts/partials/AppHeader/AppHeader';
 @use '@/layouts/partials/AppSection/AppSection';
 @use '@/components/ui/LazyImage/LazyImage';
-@use '@/layouts/partials/AppHeader/partials/Nav/Nav';
 @use '@/components/ui/BurgerMenu/BurgerMenu';
 @use '@/components/nav/NavLink/NavLink';
 @use '@/pages/Home/partials/IntroSection/IntroSection';

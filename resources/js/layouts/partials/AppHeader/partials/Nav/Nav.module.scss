@@ -1,6 +1,6 @@
 @use 'core' as u;
 
-.Nav {
+.nav {
     position: absolute;
     left: 0;
     right: 0;
@@ -31,13 +31,13 @@
     }
 }
 
-.nav-open {
+.navOpen {
     max-height: 20rem;
     @include u.fluid(padding-bottom, 20, 0, 0, 0);
     @include u.fluid(padding-top, 40, 0, 0, 0);
 }
 
-.nav-closed {
+.navClosed {
     max-height: 0rem;
     padding-top: 0rem;
     padding-bottom: 0rem;
@@ -59,8 +59,29 @@
     }
 }
 
-.result-btn.disabled {
+.disabled {
     opacity: 0.5;
     cursor: default;
     pointer-events: none;
+}
+
+.btnWrapper {
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+
+    @include u.sm() {
+      margin-top: 0;
+    }
+}
+
+.planTitle {
+    display: none;
+    font-weight: 600;
+
+    @include u.sm() {
+        display: block;
+    }
 }

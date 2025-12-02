@@ -14,11 +14,11 @@ export type Plan = {
     price: number;
     prevPrice?: number;
     description: string;
-    taken: any;
-    perks: string[];
+    perks: string;
     tier: string;
     created_at?: string;
     updated_at?: string;
+    taken: any;
     users?: User[];
 };
 export type Question = {
