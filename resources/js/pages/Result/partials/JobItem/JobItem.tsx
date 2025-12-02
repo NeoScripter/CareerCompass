@@ -5,15 +5,18 @@ import { Job } from '@/types/testResult';
 import { FC, useId } from 'preact/compat';
 import css from './JobItem.module.scss';
 
-const JobItem: FC<{ job: Job | null; className?: string }> = ({
-    job,
-    className,
-}) => {
+const JobItem: FC<{
+    job: Job | null;
+    className?: string;
+    showBtn?: boolean;
+}> = ({ job, className, showBtn = false }) => {
     const percent = job?.percent ?? 50;
 
     return (
         <li class={cn(css.jobListItem, className)}>
-            {job == null && <PaywallBtn />}
+            {job == null && (
+                <PaywallBtn show={showBtn} />
+            )}
 
             <article
                 aria-hidden={job == null}

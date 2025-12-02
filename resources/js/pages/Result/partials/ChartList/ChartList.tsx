@@ -8,6 +8,8 @@ const ChartList: FC<{
     heading: string;
     charts: (PersonalityChart | null)[];
 }> = ({ charts, heading }) => {
+    const firstNull = charts.findIndex((c) => c == null);
+
     return (
         <section class={css.wrapper}>
             <h2 class={css.heading}>{heading}</h2>
@@ -17,6 +19,7 @@ const ChartList: FC<{
                     <ChartItem
                         key={chart?.id ?? `chart-null-${idx}`}
                         chart={chart}
+                        showBtn={idx === firstNull}
                     />
                 ))}
             </ul>
@@ -26,10 +29,15 @@ const ChartList: FC<{
 
 export default ChartList;
 
-const ChartItem: FC<{ chart: PersonalityChart | null }> = ({ chart }) => {
+const ChartItem: FC<{ chart: PersonalityChart | null; showBtn?: boolean }> = ({
+    chart,
+    showBtn = false,
+}) => {
     return (
         <li class={css.chartItem}>
-            {chart == null && <PaywallBtn />}
+            {chart == null && (
+                <PaywallBtn show={showBtn} />
+            )}
             <span class={css.chartWrapper}>
                 <span class={css.chartTop}>
                     <h4 class={css.title}>

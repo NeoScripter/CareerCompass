@@ -9,7 +9,7 @@ const BestJob: FC<{ job: Job | null }> = ({ job }) => {
             <h2>Лучший вариант по профессии и рекомендации</h2>
 
             <ul class={css.item}>
-                <JobItem job={job} />
+                <JobItem showBtn={true} job={job} />
             </ul>
         </section>
     );

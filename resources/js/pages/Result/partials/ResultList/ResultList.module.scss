@@ -27,3 +27,7 @@
         @include u.fluid(height, 20, 20, 20, 20);
     }
 }
+
+.showBtn {
+    display: flex;
+}

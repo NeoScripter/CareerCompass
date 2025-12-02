@@ -11,7 +11,7 @@ const Summary: FC<{ summary: SummaryType | null }> = ({ summary }) => {
             </h2>
 
             <div class={css.descriptionWrapper}>
-                {summary == null && <PaywallBtn />}
+                {summary == null && <PaywallBtn show={summary == null} />}
                 <p class={css.description}>
                     {summary?.description ??
                         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum rem excepturi, sit ea culpa nobis veniam ducimus maxime eius repellendus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum rem excepturi, sit ea culpa nobis veniam ducimus maxime eius repellendus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum rem excepturi, sit ea culpa nobis veniam ducimus maxime eius repellendus!'}

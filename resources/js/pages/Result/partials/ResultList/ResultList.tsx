@@ -21,7 +21,8 @@ const ResultList: FC<{ title: string; items: Advice[] | null }> = ({
             <h2 class={css.heading}>{title}</h2>
 
             <div class={css.listWrapper}>
-                {items == null && <PaywallBtn />}
+                {items == null && <PaywallBtn show={!items} />}
+
                 <ul class={css.list}>
                     {items
                         ? items.map((item) => (
