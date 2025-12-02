@@ -1,6 +1,7 @@
 .bg-loader {
     pointer-events: none;
-    /* position: absolute; */
+    isolation: isolate;
+    position: relative;
     top: 0;
     right: 0;
     bottom: 0;

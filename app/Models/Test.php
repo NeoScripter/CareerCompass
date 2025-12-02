@@ -10,6 +10,29 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property TestTiers $tier
+ * @property int $user_id
+ * @property array<array-key, mixed>|null $result
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Question> $questions
+ * @property-read int|null $questions_count
+ * @property-read \App\Models\User $user
+ * @method static Builder<static>|Test completed()
+ * @method static \Database\Factories\TestFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Test newModelQuery()
+ * @method static Builder<static>|Test newQuery()
+ * @method static Builder<static>|Test query()
+ * @method static Builder<static>|Test whereCreatedAt($value)
+ * @method static Builder<static>|Test whereId($value)
+ * @method static Builder<static>|Test whereResult($value)
+ * @method static Builder<static>|Test whereTier($value)
+ * @method static Builder<static>|Test whereUpdatedAt($value)
+ * @method static Builder<static>|Test whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Test extends Model
 {
     /** @use HasFactory<\Database\Factories\TestFactory> */
