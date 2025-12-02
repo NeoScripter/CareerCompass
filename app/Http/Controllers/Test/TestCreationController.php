@@ -38,9 +38,14 @@ class TestCreationController extends Controller
             return redirect()->route('payment.show', $validated['tier']);
         }
 
-        // if ($user->plans->count() === 1 && $user->plans->first()->tier === TestTiers::FREE->value) {
-        //     $user->plans()->detach();
-        // }
+        $incomplete = $user->tests()
+            ->where('tier', $validated['tier'])
+            ->whereNull('result')
+            ->first();
+
+        if ($incomplete) {
+            return redirect()->route('test.show', $incomplete->id);
+        }
 
         $test = Test::create([
             'user_id' => $user->id,
