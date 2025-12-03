@@ -1,18 +1,26 @@
+import TestModal from '@/components/ui/TestModal/TestModal';
 import { cn } from '@/lib/utils/cn';
+import Login from '@/pages/shared/Login/Login';
+import Signup from '@/pages/shared/Signup/Signup';
 import { useLoginModal } from '@/providers/login-context';
 import { useSignupModal } from '@/providers/signup-context';
+import { useTestModalModal } from '@/providers/test-modal-context';
+import { Plan } from '@/types/model';
 import { NodeProps } from '@/types/nodeProps';
+import { usePage } from '@inertiajs/react';
 import { FC } from 'preact/compat';
 import { Toaster } from 'sonner';
 import DialogLayout from '../DialogLayout/DialogLayout';
 import AppFooter from '../partials/AppFooter/AppFooter';
 import AppHeader from '../partials/AppHeader/AppHeader';
-import Signup from '@/pages/shared/Signup/Signup';
-import Login from '@/pages/shared/Login/Login';
 
 const AppLayout: FC<NodeProps> = ({ children, className }) => {
+    const { show: showTestModal } = useTestModalModal();
     const { show } = useLoginModal();
     const { show: showSignupModal } = useSignupModal();
+    const { plans } = usePage<{
+        plans: Plan[] | undefined;
+    }>().props;
 
     return (
         <div className={cn('app-layout', className)}>
@@ -26,6 +34,15 @@ const AppLayout: FC<NodeProps> = ({ children, className }) => {
                     className: 'app-layout__toaster',
                 }}
             />
+            {plans != null && (
+                <DialogLayout
+                    show={showTestModal.value}
+                    onClose={() => (showTestModal.value = false)}
+                    className="app-layout__modal-dialog"
+                >
+                    <TestModal />
+                </DialogLayout>
+            )}
             <DialogLayout
                 show={show.value}
                 onClose={() => (show.value = false)}

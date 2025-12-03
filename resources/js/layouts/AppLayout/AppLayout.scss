@@ -26,3 +26,8 @@
     margin-inline: auto;
     max-width: 30rem;
 }
+
+.app-layout__modal-dialog {
+    margin-inline: auto;
+    @include u.fluid(max-width, null, 730, 1370, 1850);
+}

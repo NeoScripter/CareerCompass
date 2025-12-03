@@ -4,6 +4,7 @@ import { createRoot } from 'preact/compat/client';
 import '../scss/app.scss';
 import { LoginProvider } from './providers/login-context';
 import { SignupProvider } from './providers/signup-context';
+import { TestModalProvider } from './providers/test-modal-context';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -14,11 +15,14 @@ createInertiaApp({
     },
     setup({ el, App, props }) {
         createRoot(el).render(
-            <LoginProvider>
-                <SignupProvider>
-                    <App {...props} />
-                </SignupProvider>
-            </LoginProvider>,
+            <TestModalProvider>
+                <LoginProvider>
+                    <SignupProvider>
+                        <App {...props} />
+                    </SignupProvider>
+                </LoginProvider>
+                ,
+            </TestModalProvider>,
         );
     },
     progress: {

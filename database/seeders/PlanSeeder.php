@@ -30,7 +30,7 @@ class PlanSeeder extends Seeder
             'title' => 'ТОП',
             'tier' => TestTiers::TOP,
             'duration' => 4,
-            'price' => 99,
+            'price' => 149,
             'prevPrice' => 499,
             'description' => 'Для тех, кто хочет не просто выбрать профессию, но и лучше понять себя, свои качества и потенциал развития.',
             'perks' => [
@@ -46,7 +46,7 @@ class PlanSeeder extends Seeder
             'title' => 'ПРЕМИУМ',
             'tier' => TestTiers::PREMIUM,
             'duration' => 6,
-            'price' => 199,
+            'price' => 349,
             'prevPrice' => 999,
             'description' => 'Для тех, кто хочет глубоко проанализировать себя, определить путь к идеальной профессии и составить план личностного роста.',
             'perks' => [

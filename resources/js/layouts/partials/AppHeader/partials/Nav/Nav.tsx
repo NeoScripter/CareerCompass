@@ -2,7 +2,8 @@ import NavLink from '@/components/nav/NavLink/NavLink';
 import { Button } from '@/components/ui/Button/Button';
 import { navLinks } from '@/lib/data/navLinks';
 import { cn } from '@/lib/utils/cn';
-import { Test, User } from '@/types/model';
+import { useTestModalModal } from '@/providers/test-modal-context';
+import { Plan, Test, User } from '@/types/model';
 import { router, usePage } from '@inertiajs/react';
 import { FC } from 'preact/compat';
 import css from './Nav.module.scss';
@@ -11,19 +12,20 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
     showMenu,
     isLoggedIn,
 }) => {
-    const { auth } = usePage<{
+    const { show: showTestModal } = useTestModalModal();
+    const { auth, plans } = usePage<{
         auth: { user: User | null; lastTest: Test | null; plan: string | null };
+        plans: Plan[] | undefined;
     }>().props;
 
-    const disabled = auth.lastTest == null;
-    console.log(auth.plan);
-
     const handleLastResultClick = () => {
-        if (auth.lastTest == null) return;
-
-        router.visit(route('test.result.show', auth.lastTest.id), {
-            method: 'get',
-        });
+        if (auth.lastTest == null) {
+            showTestModal.value = true;
+        } else {
+            router.visit(route('test.result.show', auth.lastTest.id), {
+                method: 'get',
+            });
+        }
     };
 
     return (
@@ -50,8 +52,11 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
                     )}
                     <Button
                         onClick={handleLastResultClick}
-                        disabled={disabled}
-                        class={cn('button secondary', disabled && css.disabled)}
+                        disabled={plans == null}
+                        class={cn(
+                            'button secondary',
+                            plans == null && css.disabled,
+                        )}
                         type="button"
                         as="button"
                     >

@@ -1,0 +1,27 @@
+@use 'core' as u;
+
+.grid {
+    @include u.fluid(--col, 301, 347, 327, 487);
+}
+
+.wrapper {
+    padding: 1rem;
+}
+
+.heading {
+    text-align: center;
+    color: black;
+    font-weight: 600;
+    line-height: 1.2;
+    @include u.fluid(margin-block, 40, 40, 100, 100);
+    @include u.fluid(font-size, 45, 45, 60, 75);
+}
+
+.description {
+    text-align: center;
+    color: black;
+    line-height: 1.2;
+    font-weight: 600;
+    @include u.fluid(margin-bottom, 30, 30, 50, 50);
+    @include u.fluid(font-size, 33, 33, 44, 44);
+}
