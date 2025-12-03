@@ -1,35 +1,21 @@
 import { Button } from '@/components/ui/Button/Button';
 import { Question as QuestionType } from '@/types/model';
-import { router } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight } from 'lucide-preact';
-import { FC } from 'react-dom/src';
+import { router, usePage } from '@inertiajs/react';
+import { ChevronLeft } from 'lucide-preact';
+import { FC } from 'preact/compat';
 
 const QuestionNav: FC<{
     question: QuestionType;
     selectedAnswer: string | null;
-    cb?: () => void;
-}> = ({ question, selectedAnswer, cb }) => {
+    showDialog: () => void;
+}> = ({ question, selectedAnswer, showDialog }) => {
     const { testId } = route().params;
 
-    const handleNextQuestion = () => {
-        if (selectedAnswer == null) return;
+    const { total } = usePage<{
+        total: number;
+    }>().props;
 
-        if (cb != null && question.number === 30) {
-            cb();
-        }
-
-        router.visit(
-            route('test.questions.update', {
-                testId: testId,
-                question: question.id,
-            }),
-            {
-                method: 'patch',
-                data: { answer: selectedAnswer },
-                preserveScroll: true,
-            },
-        );
-    };
+    const showFinishBtn = question.number === total;
 
     const handlePrevQuestion = () => {
         if (question.number === 1) return;
@@ -56,13 +42,15 @@ const QuestionNav: FC<{
                 <ChevronLeft class="question-nav__button--prev" />
             </Button>
 
-            <Button
-                onClick={handleNextQuestion}
-                disabled={selectedAnswer == null}
-                className="button primary question-nav__button"
-            >
-                <ChevronRight class="question-nav__button--next" />
-            </Button>
+            {showFinishBtn && (
+                <Button
+                    onClick={showDialog}
+                    disabled={selectedAnswer == null}
+                    className="button primary"
+                >
+                    Завершить
+                </Button>
+            )}
         </nav>
     );
 };

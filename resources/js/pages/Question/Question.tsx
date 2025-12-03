@@ -1,4 +1,5 @@
 import Checkmark from '@/assets/svgs/question-btn-selected.svg';
+import PageLoader from '@/components/ui/PageLoader/PageLoader';
 import ProgressBar from '@/components/ui/ProgressBar/ProgressBar';
 import VisuallyHidden from '@/components/ui/VisuallyHidden/VisuallyHidden';
 import DialogLayout from '@/layouts/DialogLayout/DialogLayout';
@@ -6,12 +7,12 @@ import TestLayout from '@/layouts/TestLayout/TestLayout';
 import { capitalize } from '@/lib/utils/capitalize';
 import { cn } from '@/lib/utils/cn';
 import { Question as QuestionType } from '@/types/model';
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useState } from 'preact/hooks';
 import { FC } from 'react-dom/src';
+import FinishTestModal from './partials/FinishTestModal/FinishTestModal';
 import QuestionDialog from './partials/QuestionDialog/QuestionDialog';
 import QuestionNav from './partials/QuestionNav/QuestionNav';
-import PageLoader from '@/components/ui/PageLoader/PageLoader';
 
 const Question = () => {
     const { question, answers, total } = usePage<{
@@ -19,15 +20,45 @@ const Question = () => {
         answers: string[];
         total: number;
     }>().props;
+    const { testId } = route().params;
 
     const [showLoader, setShowLoader] = useState(false);
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+    const [showFinishModal, setShowFinishModal] = useState(false);
 
     const progress = Math.floor((question.number / total) * 100);
 
+    const submit = (value: string | null) => {
+        if (value == null) return;
+
+        router.visit(
+            route('test.questions.update', {
+                testId: testId,
+                question: question.id,
+            }),
+            {
+                method: 'patch',
+                data: { answer: value },
+                preserveScroll: true,
+            },
+        );
+    };
+
+    const handleFinishTest = () => {
+        submit(selectedAnswer);
+        setShowLoader(true);
+        setShowFinishModal(false);
+    };
+
     const handleSelect = (value: string) => {
+        if (value == null) return;
+
         setSelectedAnswer(value);
+
+        if (question.number !== total) {
+            submit(value);
+        }
     };
 
     const handleDialogClick = () => {
@@ -50,7 +81,10 @@ const Question = () => {
                             <li key={ans}>
                                 <AnswerBtn
                                     onClick={() => handleSelect(ans)}
-                                    selected={ans === selectedAnswer}
+                                    selected={
+                                        ans === selectedAnswer &&
+                                        question.number === total
+                                    }
                                     label={ans}
                                 />{' '}
                             </li>
@@ -59,9 +93,9 @@ const Question = () => {
                 </div>
 
                 <QuestionNav
+                    showDialog={() => setShowFinishModal(true)}
                     selectedAnswer={selectedAnswer}
                     question={question}
-                    cb={() => setShowLoader(true)}
                 />
             </div>
 
@@ -73,6 +107,17 @@ const Question = () => {
                 <QuestionDialog
                     onClick={() => setShowDialog(false)}
                     progress={progress}
+                />
+            </DialogLayout>
+
+            <DialogLayout
+                show={showFinishModal}
+                onClose={() => setShowFinishModal(false)}
+                className="finish-test__dialog"
+            >
+                <FinishTestModal
+                    onClose={() => setShowFinishModal(false)}
+                    onFinish={handleFinishTest}
                 />
             </DialogLayout>
         </TestLayout>

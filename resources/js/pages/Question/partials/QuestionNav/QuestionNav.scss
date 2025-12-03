@@ -1,8 +1,5 @@
 @use 'core' as u;
 
-.question-nav__button--next {
-    transform: translateX(5%);
-}
 
 .question-nav__button {
     @include u.fluid(padding, 11, 11, 18, 18);
@@ -14,6 +11,9 @@
     }
 }
 
+.question-nav__button--next {
+    border-radius: 2rem;
+}
 .question-nav__button--prev {
     transform: translateX(-5%);
 }

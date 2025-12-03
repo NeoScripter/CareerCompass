@@ -97,3 +97,9 @@
     margin-inline: auto;
     max-width: full;
 }
+
+.finish-test__dialog {
+    margin-inline: auto;
+    max-width: full;
+    @include u.fluid(width, 320, 730, 1136, 1136);
+}

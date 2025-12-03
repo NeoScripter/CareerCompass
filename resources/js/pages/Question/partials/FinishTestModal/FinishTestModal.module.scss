@@ -1,0 +1,16 @@
+@use 'core' as u;
+
+.wrapper {
+    margin-inline: auto;
+    text-align: center;
+    @include u.fluid(padding-block, 100, 113, 209, 209);
+    /* @include u.fluid(width, 320, 730, 1136, 1136); */
+}
+
+.btnWrapper {
+    @include u.fluid(margin-top, 40, 40, 100, 100);
+    @include u.fluid(gap, 20, 20, 30, 30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
