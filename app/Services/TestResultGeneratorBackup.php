@@ -5,34 +5,513 @@ namespace App\Services;
 use App\Enums\TestTiers;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
-use Exception;
+use Illuminate\Support\Str;
 
 class TestResultGenerator
 {
     /**
-     * Generate test results based on questions and test tier.
+     * Generate test results based on questions, answers, and test tier.
      *
      * @param Collection $questions Collection of Question models
      * @param TestTiers $tier Test tier (free, top, premium)
      * @return array Structured test results
-     * @throws Exception If API call fails or response is invalid
      */
     public function generate(Collection $questions, TestTiers $tier): array
     {
-        $prompt = $this->buildDeepSeekPrompt($questions, $tier);
+        $prompt = $this->buildPrompt($questions);
 
-        try {
-            $response = $this->callDeepSeekApi($prompt);
-            return $this->parseApiResponse($response);
-        } catch (Exception $e) {
-            Log::error('DeepSeek API call failed', [
-                'error' => $e->getMessage(),
-                'tier' => $tier->value,
-                'questions_count' => $questions->count()
+        // Simulate LLM API request
+        $response = $this->callLLMApi($prompt, $tier);
+
+        return $response;
+    }
+
+    /**
+     * Build the prompt from questions and answers.
+     *
+     * @param Collection $questions
+     * @return string
+     */
+    private function buildPrompt(Collection $questions): string
+    {
+        $questionsAndAnswers = $questions
+            ->map(fn($question) => [
+                'number' => $question->number,
+                'question' => $question->question,
+                'answer' => $question->answer,
+            ])
+            ->values()
+            ->toArray();
+
+        return json_encode([
+            'instructions' => 'Analyze the following personality test responses and generate career recommendations.',
+            'responses' => $questionsAndAnswers,
+        ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    }
+
+    // /**
+    //  * Simulate calling an LLM API.
+    //  *
+    //  * @param string $prompt
+    //  * @param TestTiers $tier
+    //  * @return array
+    //  */
+    // private function callLLMApi(string $prompt, TestTiers $tier): array
+    // {
+    //     // Simulate API latency
+    //     sleep(6);
+
+    //     // TODO: Replace with actual LLM API call
+    //     // Example:
+    //     // $response = Http::timeout(60)->post('https://api.llm-provider.com/generate', [
+    //     //     'prompt' => $prompt,
+    //     //     'tier' => $tier->value,
+    //     // ]);
+    //     // return $response->json();
+
+    //     return $this->getMockResponse($tier);
+    // }
+
+    private function callLLMApi(string $prompt, TestTiers $tier): array
+    {
+        $questions = config('questions.items');
+        $fullPrompt = $this->buildDeepSeekPrompt($questions, $tier);
+
+        // Real API call
+        $response = Http::timeout(90)
+            ->withHeaders([
+                'Authorization' => 'Bearer ' . config('services.deepseek.api_key'),
+                'Content-Type' => 'application/json',
+            ])
+            ->post('https://api.deepseek.com/v1/chat/completions', [
+                'model' => 'deepseek-chat',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => 'Ты — эксперт по карьерному консультированию. Отвечай ТОЛЬКО валидным JSON без дополнительных пояснений.'
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $fullPrompt
+                    ]
+                ],
+                'temperature' => 0.7,
+                'response_format' => ['type' => 'json_object']
             ]);
-            throw $e;
-        }
+
+        return $response->json()['choices'][0]['message']['content'];
+    }
+
+    /**
+     * Get mock response based on tier.
+     *
+     * @param TestTiers $tier
+     * @return array
+     */
+    private function getMockResponse(TestTiers $tier): array
+    {
+        return match ($tier) {
+            TestTiers::FREE => $this->getFreeResponse(),
+            TestTiers::TOP => $this->getTopResponse(),
+            TestTiers::PREMIUM => $this->getPremiumResponse(),
+        };
+    }
+
+    /**
+     * Generate free tier response.
+     *
+     * @return array
+     */
+    private function getFreeResponse(): array
+    {
+        return [
+            'personalityItems' => null,
+            'personalityDescription' => 'Вы обладаете активностью и межличностной ориентацией, склонностью к творчеству и инициативе. Ваши ответы указывают на интерес к искусству, культуре и людским взаимодействиям. Вы умеете проявлять инициативу в творческих сферах и вам нравится делиться своими идеями, что говорит о желании развиваться и искать новые возможности. При этом у вас есть склонность к практической деятельности, вы заинтересованы в профессиях, связанных с работой руками и техническим оборудованием, а также вам важна стабильность в карьере. Вы можете успешно реализовать себя в сферах, требующих аккуратности и ответственности. В тоже время, у вас есть вопросы или неуверенность относительно эмоциональных и коммуникативных аспектов, а также о работе в командной обстановке. ',
+            'jobs' => [
+                $this->createJob(
+                    'Веб-разработчик',
+                    'Создание и поддержка веб-приложений с использованием современных технологий',
+                    120000,
+                    'Очень высокая',
+                    85
+                ),
+                $this->createJob(
+                    'UX/UI Дизайнер',
+                    'Проектирование пользовательских интерфейсов и улучшение пользовательского опыта',
+                    100000,
+                    'Высокая',
+                    78
+                ),
+                $this->createJob(
+                    'Менеджер проектов',
+                    'Координация команды и управление проектами от начала до завершения',
+                    110000,
+                    'Высокая',
+                    72
+                ),
+                ...array_fill(0, 7, null),
+            ],
+            'charts' => [
+                $this->createChart('Логическое мышление', 82),
+                $this->createChart('Креативность', 75),
+                $this->createChart('Коммуникабельность', 68),
+                $this->createChart('Лидерство', 65),
+                $this->createChart('Техническая экспертиза', 88),
+                ...array_fill(0, 5, null),
+            ],
+            'strengths' => [
+                $this->createStrength('Аналитические способности', 90),
+                $this->createStrength('Быстрое обучение', 85),
+                $this->createStrength('Внимание к деталям', 80),
+                $this->createStrength('Системное мышление', 78),
+                $this->createStrength('Технические навыки', 88),
+                ...array_fill(0, 5, null),
+            ],
+            'weaknesses' => [
+                $this->createWeakness('Перфекционизм', 75),
+                $this->createWeakness('Нетерпеливость', 65),
+                $this->createWeakness('Сложность делегирования', 60),
+                $this->createWeakness('Избегание конфликтов', 55),
+                $this->createWeakness('Переработка', 70),
+                ...array_fill(0, 5, null),
+            ],
+            'summary' => null,
+            'bestJob' => null,
+            'jobAdvice' => null,
+            'improvementAdvice' => null,
+        ];
+    }
+
+    /**
+     * Generate top tier response.
+     *
+     * @return array
+     */
+    private function getTopResponse(): array
+    {
+        return [
+            'personalityItems' => null,
+            'personalityDescription' => 'Вы — амбициозный профессионал с сильными лидерскими качествами. Вы способны мотивировать команду и достигать поставленных целей. Ваш аналитический ум в сочетании с креативностью делает вас ценным специалистом в различных областях.',
+            'jobs' => [
+                $this->createJob(
+                    'Senior Веб-разработчик',
+                    'Разработка сложных веб-приложений и менторство младших разработчиков',
+                    180000,
+                    'Очень высокая',
+                    92
+                ),
+                $this->createJob(
+                    'Технический директор',
+                    'Стратегическое планирование технологического развития компании',
+                    250000,
+                    'Высокая',
+                    88
+                ),
+                $this->createJob(
+                    'Product Manager',
+                    'Управление продуктом от концепции до запуска',
+                    160000,
+                    'Очень высокая',
+                    85
+                ),
+                $this->createJob(
+                    'Архитектор ПО',
+                    'Проектирование масштабируемых программных систем',
+                    200000,
+                    'Высокая',
+                    82
+                ),
+                $this->createJob(
+                    'DevOps Engineer',
+                    'Автоматизация процессов и управление инфраструктурой',
+                    150000,
+                    'Очень высокая',
+                    78
+                ),
+                $this->createJob(
+                    'Data Scientist',
+                    'Анализ больших данных и построение прогнозных моделей',
+                    170000,
+                    'Очень высокая',
+                    75
+                ),
+                $this->createJob(
+                    'UX Research Lead',
+                    'Руководство исследованиями пользовательского опыта',
+                    140000,
+                    'Средняя',
+                    72
+                ),
+                $this->createJob(
+                    'Scrum Master',
+                    'Фасилитация agile-процессов в команде',
+                    130000,
+                    'Высокая',
+                    68
+                ),
+                ...array_fill(0, 2, null),
+            ],
+            'charts' => [
+                $this->createChart('Логическое мышление', 90),
+                $this->createChart('Креативность', 82),
+                $this->createChart('Коммуникабельность', 85),
+                $this->createChart('Лидерство', 88),
+                $this->createChart('Техническая экспертиза', 92),
+                $this->createChart('Стратегическое мышление', 86),
+                $this->createChart('Эмоциональный интеллект', 78),
+                $this->createChart('Адаптивность', 84),
+                ...array_fill(0, 2, null),
+            ],
+            'strengths' => [
+                $this->createStrength('Стратегическое видение', 92),
+                $this->createStrength('Технические навыки', 90),
+                $this->createStrength('Лидерство', 88),
+                $this->createStrength('Решение проблем', 86),
+                $this->createStrength('Командная работа', 84),
+                ...array_fill(0, 5, null),
+            ],
+            'weaknesses' => [
+                $this->createWeakness('Склонность к переработке', 75),
+                $this->createWeakness('Высокие ожидания от других', 70),
+                $this->createWeakness('Нетерпеливость к бюрократии', 68),
+                $this->createWeakness('Трудность в отключении от работы', 65),
+                $this->createWeakness('Перфекционизм в деталях', 72),
+                ...array_fill(0, 5, null),
+            ],
+            'summary' => null,
+            'bestJob' => null,
+            'jobAdvice' => null,
+            'improvementAdvice' => [
+                $this->createAdvice('Развивайте навыки публичных выступлений для повышения влияния'),
+                $this->createAdvice('Изучите основы финансового менеджмента для понимания бизнес-стороны'),
+                $this->createAdvice('Практикуйте делегирование для масштабирования своей эффективности'),
+            ],
+        ];
+    }
+
+    /**
+     * Generate premium tier response.
+     *
+     * @return array
+     */
+    private function getPremiumResponse(): array
+    {
+        $bestJob = $this->createJob(
+            'Senior Веб-разработчик / Tech Lead',
+            'Руководство командой разработки, архитектурные решения, менторство. Работа над высоконагруженными системами с использованием современного стека технологий.',
+            200000,
+            'Очень высокая',
+            95
+        );
+
+        return [
+            'personalityItems' => [
+                $this->createPersonalityItem('Реалистический', 75, 'Практический подход к решению задач, предпочтение конкретных результатов'),
+                $this->createPersonalityItem('Исследовательский', 88, 'Аналитическое мышление и стремление к глубокому пониманию'),
+                $this->createPersonalityItem('Артистический', 65, 'Креативность и нестандартный подход к решениям'),
+                $this->createPersonalityItem('Социальный', 72, 'Навыки коммуникации и работы в команде'),
+                $this->createPersonalityItem('Предпринимательский', 85, 'Лидерство и способность к стратегическому мышлению'),
+                $this->createPersonalityItem('Конвенциональный', 60, 'Организованность и внимание к деталям'),
+            ],
+            'personalityDescription' => 'Вы — выдающийся специалист с уникальным сочетанием технических и межличностных навыков. Ваша способность видеть общую картину при внимании к деталям делает вас исключительным лидером. Вы естественным образом вдохновляете других и создаете инновационные решения сложных проблем.',
+            'jobs' => [
+                $this->createJob(
+                    'Senior Веб-разработчик / Tech Lead',
+                    'Руководство командой разработки, архитектурные решения, менторство',
+                    200000,
+                    'Очень высокая',
+                    95
+                ),
+                $this->createJob(
+                    'Технический директор (CTO)',
+                    'Стратегическое управление технологическим направлением компании',
+                    280000,
+                    'Высокая',
+                    90
+                ),
+                $this->createJob(
+                    'Principal Engineer',
+                    'Разработка критически важных систем и технологическое лидерство',
+                    230000,
+                    'Очень высокая',
+                    88
+                ),
+                $this->createJob(
+                    'VP of Engineering',
+                    'Управление инженерными командами и процессами разработки',
+                    300000,
+                    'Средняя',
+                    85
+                ),
+                $this->createJob(
+                    'Solutions Architect',
+                    'Проектирование комплексных IT-решений для корпоративных клиентов',
+                    190000,
+                    'Высокая',
+                    83
+                ),
+                $this->createJob(
+                    'Product Manager (Technical)',
+                    'Управление техническим продуктом с глубоким пониманием технологий',
+                    170000,
+                    'Очень высокая',
+                    80
+                ),
+                $this->createJob(
+                    'Machine Learning Engineer',
+                    'Разработка и внедрение ML-моделей в production',
+                    195000,
+                    'Очень высокая',
+                    78
+                ),
+                $this->createJob(
+                    'Security Architect',
+                    'Проектирование защищенных систем и обеспечение информационной безопасности',
+                    185000,
+                    'Высокая',
+                    75
+                ),
+                $this->createJob(
+                    'Engineering Manager',
+                    'Управление командой разработки и технические решения',
+                    175000,
+                    'Высокая',
+                    72
+                ),
+                $this->createJob(
+                    'Technical Consultant',
+                    'Консультирование компаний по технологическим вопросам',
+                    165000,
+                    'Средняя',
+                    70
+                ),
+            ],
+            'charts' => [
+                $this->createChart('Логическое мышление', 94),
+                $this->createChart('Креативность', 88),
+                $this->createChart('Коммуникабельность', 90),
+                $this->createChart('Лидерство', 92),
+                $this->createChart('Техническая экспертиза', 96),
+                $this->createChart('Стратегическое мышление', 91),
+                $this->createChart('Эмоциональный интеллект', 85),
+                $this->createChart('Адаптивность', 89),
+                $this->createChart('Инновационность', 93),
+                $this->createChart('Стрессоустойчивость', 87),
+            ],
+            'strengths' => [
+                $this->createStrength('Техническое мастерство', 96),
+                $this->createStrength('Стратегическое мышление', 92),
+                $this->createStrength('Лидерские качества', 90),
+                $this->createStrength('Решение сложных проблем', 94),
+                $this->createStrength('Менторство и обучение', 88),
+                $this->createStrength('Системное видение', 91),
+                $this->createStrength('Инновационный подход', 89),
+                $this->createStrength('Коммуникация с stakeholders', 86),
+                $this->createStrength('Архитектурное мышление', 93),
+                $this->createStrength('Быстрое принятие решений', 87),
+            ],
+            'weaknesses' => [
+                $this->createWeakness('Тенденция к микроменеджменту в стрессовых ситуациях', 72),
+                $this->createWeakness('Сложность в делегировании критических задач', 68),
+                $this->createWeakness('Высокие стандарты могут создавать напряжение', 70),
+                $this->createWeakness('Склонность работать сверхурочно', 75),
+                $this->createWeakness('Нетерпимость к некачественному коду', 65),
+                $this->createWeakness('Может быть слишком прямолинейным в feedback', 62),
+                $this->createWeakness('Трудность переключения между проектами', 60),
+                $this->createWeakness('Иногда упускает политические аспекты', 58),
+                $this->createWeakness('Перфекционизм в архитектурных решениях', 73),
+                $this->createWeakness('Склонность к overthinking в простых ситуациях', 55),
+            ],
+            'summary' =>
+            $this->createSummary('Ваш профиль показывает исключительное сочетание технических и лидерских качеств. Вы способны не только создавать качественный код, но и вести за собой команду, принимать стратегические решения и влиять на технологическое направление всей компании.'),
+            'bestJob' => $bestJob,
+            'jobAdvice' => [
+                $this->createAdvice('Сфокусируйтесь на позициях Tech Lead или Principal Engineer в растущих технологических компаниях, где ваше влияние будет максимальным'),
+                $this->createAdvice('Рассмотрите возможность работы в стартапах серии B-C, где есть баланс между стабильностью и возможностью влиять на архитектуру'),
+                $this->createAdvice('Развивайте личный бренд через техническое публичное выступление, блоги и open source вклад'),
+                $this->createAdvice('Ищите компании с сильной инженерной культурой, где ценится техническое совершенство и инновации'),
+            ],
+            'improvementAdvice' => [
+                $this->createAdvice('Развивайте навыки эффективного делегирования — это ключ к масштабированию вашего влияния и росту команды'),
+                $this->createAdvice('Изучите основы бизнес-стратегии и финансов, чтобы лучше понимать контекст технологических решений'),
+                $this->createAdvice('Практикуйте эмпатичную коммуникацию при предоставлении feedback, особенно с менее опытными коллегами'),
+                $this->createAdvice('Инвестируйте время в понимание организационной динамики и политики — это поможет эффективнее продвигать ваши идеи'),
+                $this->createAdvice('Создайте систему work-life balance для предотвращения выгорания и поддержания долгосрочной продуктивности'),
+            ],
+        ];
+    }
+
+    /**
+     * Helper methods to create structured data
+     */
+    private function createPersonalityItem(string $title, int $percent, string $description): array
+    {
+        return [
+            'id' => (string) Str::uuid(),
+            'title' => $title,
+            'percent' => $percent,
+            'description' => $description,
+        ];
+    }
+
+    private function createJob(
+        string $title,
+        string $description,
+        int $salary,
+        string $demand,
+        int $percent
+    ): array {
+        return [
+            'id' => (string) Str::uuid(),
+            'percent' => $percent,
+            'title' => $title,
+            'description' => $description,
+            'avrSalary' => $salary,
+            'demand' => $demand,
+        ];
+    }
+
+    private function createChart(string $title, int $percent): array
+    {
+        return [
+            'id' => (string) Str::uuid(),
+            'title' => $title,
+            'percent' => $percent,
+        ];
+    }
+
+    private function createStrength(string $title, int $percent): array
+    {
+        return [
+            'id' => (string) Str::uuid(),
+            'title' => $title,
+            'percent' => $percent,
+        ];
+    }
+
+    private function createWeakness(string $title, int $percent): array
+    {
+        return [
+            'id' => (string) Str::uuid(),
+            'title' => $title,
+            'percent' => $percent,
+        ];
+    }
+
+    private function createSummary(string $description): array
+    {
+        return [
+            'id' => (string) Str::uuid(),
+            'description' => $description,
+        ];
+    }
+
+    private function createAdvice(string $description): array
+    {
+        return [
+            'id' => (string) Str::uuid(),
+            'description' => $description,
+        ];
     }
 
     /**
@@ -47,7 +526,7 @@ class TestResultGenerator
         $questionsAndAnswers = $questions
             ->map(fn($question) => sprintf(
                 "Вопрос %d: %s\nОтвет: %s",
-                $question->number ?? $question->id,
+                $question->number,
                 $question->question,
                 $question->answer
             ))
@@ -57,121 +536,36 @@ class TestResultGenerator
             TestTiers::FREE => $this->getFreePromptInstructions(),
             TestTiers::TOP => $this->getTopPromptInstructions(),
             TestTiers::PREMIUM => $this->getPremiumPromptInstructions(),
-            default => $this->getFreePromptInstructions()
         };
 
         return <<<PROMPT
-Ты — эксперт по карьерному консультированию и профориентации с глубокими знаниями российского рынка труда. Твоя задача — проанализировать ответы человека на личностный тест и предоставить детальные рекомендации по карьере.
+    Ты — эксперт по карьерному консультированию и профориентации с глубокими знаниями российского рынка труда. Твоя задача — проанализировать ответы человека на личностный тест и предоставить детальные рекомендации по карьере.
 
-ВАЖНО: Твой ответ должен быть ТОЛЬКО валидным JSON без каких-либо дополнительных текстов, пояснений или markdown-разметки. Не добавляй ```json в начале или ``` в конце. Только чистый JSON.
+    ВАЖНО: Твой ответ должен быть ТОЛЬКО валидным JSON без каких-либо дополнительных текстов, пояснений или markdown-разметки. Не добавляй ```json в начале или ``` в конце. Только чистый JSON.
 
-ОТВЕТЫ НА ТЕСТ:
-{$questionsAndAnswers}
+    ОТВЕТЫ НА ТЕСТ:
+    {$questionsAndAnswers}
 
-{$tierInstructions}
+    {$tierInstructions}
 
-ТРЕБОВАНИЯ К КАЧЕСТВУ КОНТЕНТА:
-1. Весь текст должен быть на безупречном русском языке
-2. Описания должны быть конкретными, информативными и персонализированными
-3. Избегай общих фраз типа "вы можете", используй уверенные формулировки
-4. Зарплаты указывай в рублях в месяц (реалистичные для российского рынка 2024-2025)
-5. Проценты должны быть логичными и соответствовать реальной совместимости
-6. Каждый UUID генерируй случайным образом в формате: "550e8400-e29b-41d4-a716-446655440000"
+    ТРЕБОВАНИЯ К КАЧЕСТВУ КОНТЕНТА:
+    1. Весь текст должен быть на безупречном русском языке
+    2. Описания должны быть конкретными, информативными и персонализированными
+    3. Избегай общих фраз типа "вы можете", используй уверенные формулировки
+    4. Зарплаты указывай в рублях в месяц (реалистичные для российского рынка 2024-2025)
+    5. Проценты должны быть логичными и соответствовать реальной совместимости
+    6. Каждый UUID генерируй случайным образом в формате: "550e8400-e29b-41d4-a716-446655440000"
 
-КРИТИЧЕСКИ ВАЖНО:
-- Ответ должен быть ТОЛЬКО валидным JSON
-- Никаких пояснений до или после JSON
-- Никаких markdown-блоков кода
-- Все строки в кавычках должны быть экранированы правильно
-- Все массивы должны содержать точное количество элементов как указано
-- null должен быть именно null, а не строка "null"
+    КРИТИЧЕСКИ ВАЖНО:
+    - Ответ должен быть ТОЛЬКО валидным JSON
+    - Никаких пояснений до или после JSON
+    - Никаких markdown-блоков кода
+    - Все строки в кавычках должны быть экранированы правильно
+    - Все массивы должны содержать точное количество элементов как указано
+    - null должен быть именно null, а не строка "null"
 
-Начинай свой ответ сразу с открывающей фигурной скобки {
-PROMPT;
-    }
-
-    /**
-     * Call DeepSeek API with proper error handling.
-     *
-     * @param string $prompt
-     * @return array
-     * @throws Exception
-     */
-    private function callDeepSeekApi(string $prompt): array
-    {
-        $apiKey = config('services.deepseek.api_key');
-
-        if (empty($apiKey)) {
-            throw new Exception('DeepSeek API key is not configured. Please set DEEPSEEK_API_KEY in your .env file.');
-        }
-
-        $response = Http::timeout(2000)
-            ->withHeaders([
-                'Authorization' => 'Bearer ' . $apiKey,
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-            ])
-            ->post('https://api.deepseek.com/chat/completions', [
-                'model' => 'deepseek-chat',
-                'messages' => [
-                    [
-                        'role' => 'system',
-                        'content' => 'Ты — эксперт по карьерному консультированию. Отвечай ТОЛЬКО валидным JSON без дополнительных пояснений.'
-                    ],
-                    [
-                        'role' => 'user',
-                        'content' => $prompt
-                    ]
-                ],
-                'temperature' => 0.7,
-                'max_tokens' => 8100,
-                'response_format' => ['type' => 'json_object']
-            ]);
-
-        // Check for HTTP errors
-        if ($response->failed()) {
-            $status = $response->status();
-            $error = $response->json()['error']['message'] ?? $response->body();
-            throw new Exception("DeepSeek API request failed (Status: {$status}): {$error}");
-        }
-
-        $responseData = $response->json();
-
-        // Check for API errors
-        if (isset($responseData['error'])) {
-            throw new Exception("DeepSeek API error: " . $responseData['error']['message']);
-        }
-
-        return $responseData;
-    }
-
-    /**
-     * Parse and validate API response.
-     *
-     * @param array $responseData
-     * @return array
-     * @throws Exception
-     */
-    private function parseApiResponse(array $responseData): array
-    {
-        if (!isset($responseData['choices'][0]['message']['content'])) {
-            throw new Exception('Invalid API response structure: missing content');
-        }
-
-        $content = $responseData['choices'][0]['message']['content'];
-
-        // Clean up the response (remove markdown code blocks if present)
-        $content = preg_replace('/^```json\s*/', '', $content);
-        $content = preg_replace('/\s*```$/', '', $content);
-        $content = trim($content);
-
-        // Validate JSON
-        $parsed = json_decode($content, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception('Invalid JSON in API response: ' . json_last_error_msg());
-        }
-
-        return $parsed;
+    Начинай свой ответ сразу с открывающей фигурной скобки {
+    PROMPT;
     }
 
     /**

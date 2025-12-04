@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'deepseek' => [
+        'api_key' => env('DEEPSEEK_API_KEY'),
+        'base_url' => 'https://api.deepseek.com',
+        'timeout' => 2000,
+    ],
+
 ];
