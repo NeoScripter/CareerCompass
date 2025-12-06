@@ -18,7 +18,7 @@ const Plans: FC<NodeProps> = ({ className }) => {
                     className={cn(
                         idx === 2 ? [css.cardLast] : [css.cardRegular],
                         {
-                            [css.cardSecond]: idx === 1,
+                            [css.cardSecond]: plan.tier === 'top',
                         },
                     )}
                 />

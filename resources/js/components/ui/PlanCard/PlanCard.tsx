@@ -30,9 +30,6 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
         }
     };
 
-    const price = plan.taken ? plan.price >> 1 : plan.price;
-    const prevPrice = plan.taken ? (plan?.prevPrice ?? 1) >> 1 : plan.prevPrice;
-
     return (
         <li
             class={cn(
@@ -55,21 +52,21 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
             </p>
             <div class={css.pricing}>
                 <p class={css.price}>
-                    <span class={css.priceValue} aria-label={`${price} рублей`}>
-                        {price} ₽
+                    <span class={css.priceValue} aria-label={`${plan.price} рублей`}>
+                        {plan.price} ₽
                     </span>
                 </p>
                 {plan.prevPrice && (
                     <p class={css.prevPrice}>
                         <span
                             class={css.prevPriceWrapper}
-                            aria-label={`Предыдущая цена ${prevPrice} рублей`}
+                            aria-label={`Предыдущая цена ${plan.prevPrice} рублей`}
                         >
                             <span
                                 aria-hidden="true"
                                 class={css.prevPriceLine}
                             />
-                            {prevPrice} ₽
+                            {plan.prevPrice} ₽
                         </span>
                     </p>
                 )}

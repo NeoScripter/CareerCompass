@@ -10,3 +10,17 @@
     background-color: rgba(0, 0, 0, 0.6);
     transition: opacity 300ms ease;
 }
+
+.info {
+    margin-bottom: 4rem;
+    text-align: center;
+    color: white;
+    max-width: min(80%, 30rem);
+    margin-inline: auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

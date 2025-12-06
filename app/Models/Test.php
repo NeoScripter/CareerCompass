@@ -73,7 +73,7 @@ class Test extends Model
     protected static function booted(): void
     {
         static::created(function (Test $test) {
-            app(QuestionGenerator::class)->generate($test->id);
+            app(QuestionGenerator::class)->generate($test);
         });
     }
 }

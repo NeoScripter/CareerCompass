@@ -195,12 +195,13 @@ const InfoLink: React.FC<{ routeName: string; label: string }> = ({
 }) => {
     const { show } = useSignupModal();
     return (
-        <Link
+        <a
+            target="_blank"
             href={routeName}
-            onClick={() => (show.value = false)}
+            // onClick={() => (show.value = false)}
             className="info-link"
         >
             {label}
-        </Link>
+        </a>
     );
 };

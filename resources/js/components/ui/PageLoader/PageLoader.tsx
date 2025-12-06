@@ -4,7 +4,13 @@ import css from './PageLoader.module.scss';
 export default function PageLoader() {
     return (
         <div className={css.loader}>
-            <ScaleLoader color="#fff" />
+            <div class={css.wrapper}>
+                <div class={css.info}>
+                    Не закрывайте эту страницу! ИИ-алгоритм анализирует ваши
+                    ответы. Это может занять до 10 минут
+                </div>
+                <ScaleLoader color="#fff" />
+            </div>
         </div>
     );
 }

@@ -69,6 +69,13 @@ class Plan extends Model
         );
     }
 
+    protected function price(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $this->taken ? ceil($value >> 1) : $value,
+        );
+    }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
