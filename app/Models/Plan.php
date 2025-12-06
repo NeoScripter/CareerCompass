@@ -91,7 +91,11 @@ class Plan extends Model
      */
     public function scopeAvailableForUser(Builder $query): Builder
     {
-        $highestTierTaken = Auth::user()->highestTierTaken()->tier;
+        $highestTierTaken = Auth::user()?->highestTierTaken()?->tier;
+
+        if (!$highestTierTaken) {
+            return $query;
+        }
 
         return $query->where(function ($q) use ($highestTierTaken) {
             $tierHierarchy = [
