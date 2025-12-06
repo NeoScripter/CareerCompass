@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $user,
                 'lastTest' => $user?->lastTest(),
-                'plan' => $user?->highestTierTaken(),
+                'plan' => $user?->highestTierTaken()->title,
             ],
             'ziggy' => fn(): array => [
                 ...(new Ziggy)->toArray(),

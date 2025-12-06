@@ -55,7 +55,7 @@ class User extends Authenticatable
         return $this->tests()->completed()->latest()->first();
     }
 
-    public function highestTierTaken(): ?string
+    public function highestTierTaken(): ?Plan
     {
         $tiersTaken = $this->tests()->pluck('tier')->unique()->map->value;
 
@@ -65,8 +65,8 @@ class User extends Authenticatable
 
         foreach ([TestTiers::PREMIUM, TestTiers::TOP, TestTiers::FREE] as $tier) {
             if ($tiersTaken->contains($tier->value)) {
-                $plan = Plan::select('title')->where('tier', $tier->value)->firstOrFail();
-                return $plan->title;
+                $plan = Plan::select(['title', 'tier'])->where('tier', $tier->value)->firstOrFail();
+                return $plan;
             }
         }
 

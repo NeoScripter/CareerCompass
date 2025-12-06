@@ -72,7 +72,7 @@ class Plan extends Model
     protected function price(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $this->taken ? ceil($value >> 1) : $value,
+            get: fn($value) => $this->taken ? ceil($value / 2) : $value,
         );
     }
 
@@ -84,5 +84,38 @@ class Plan extends Model
     public function scopeFree(Builder $query): Builder
     {
         return $query->where('tier', TestTiers::FREE->value);
+    }
+
+    /**
+     * Scope to filter plans based on user's highest tier taken.
+     */
+    public function scopeAvailableForUser(Builder $query): Builder
+    {
+        $highestTierTaken = Auth::user()->highestTierTaken()->tier;
+
+        return $query->where(function ($q) use ($highestTierTaken) {
+            $tierHierarchy = [
+                TestTiers::FREE->value => 1,
+                TestTiers::TOP->value => 2,
+                TestTiers::PREMIUM->value => 3,
+            ];
+
+            $q->where(function ($subQ) {
+                $subQ->where('tier', '!=', TestTiers::FREE->value)
+                    ->orWhere('taken', false);
+            });
+
+            if ($highestTierTaken && isset($tierHierarchy[$highestTierTaken])) {
+                $takenLevel = $tierHierarchy[$highestTierTaken];
+
+                $q->where(function ($subQ) use ($tierHierarchy, $takenLevel) {
+                    foreach ($tierHierarchy as $tier => $level) {
+                        if ($level >= $takenLevel) {
+                            $subQ->orWhere('tier', $tier);
+                        }
+                    }
+                });
+            }
+        });
     }
 }

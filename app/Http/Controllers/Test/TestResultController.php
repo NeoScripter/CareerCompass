@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Test;
 
-use App\Enums\TestTiers;
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
 use App\Models\Test;
@@ -19,9 +18,8 @@ class TestResultController extends Controller
             return redirect()
                 ->route('home');
         }
-
-        $plans = Plan::whereNot('tier',  TestTiers::FREE->value)
-            ->orderBy('price', 'asc')
+        $plans = Plan::orderBy('price', 'asc')
+            ->availableForUser()
             ->get();
 
         return Inertia::render('Result/Result', [
