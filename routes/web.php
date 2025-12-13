@@ -33,9 +33,14 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 Route::middleware('auth')->name('payment.')->group(function () {
-    Route::get('/payment/{tier}', [ProcessPaymentController::class, 'show'])->name('show');
+    // Route::get('/payment/{tier}', [ProcessPaymentController::class, 'show'])->name('show');
+
     Route::post('/payment/{tier}', [ProcessPaymentController::class, 'store'])->name('store');
 });
+Route::get('/payment/return', [ProcessPaymentController::class, 'return'])
+    ->middleware('signed')
+    ->name('payment.return');
+
 Route::middleware('auth')->name('test.')->group(function () {
     Route::post('/test', [TestCreationController::class, 'store'])->name('store');
 

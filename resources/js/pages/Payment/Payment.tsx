@@ -1,26 +1,36 @@
-import { Button } from '@/components/ui/Button/Button';
 import AppLayout from '@/layouts/AppLayout/AppLayout';
-import { router } from '@inertiajs/react';
 
 const Payment = () => {
     const { tier } = route().params;
 
-    const handleClick = () => {
-        router.visit(route('payment.store', tier), { method: 'post' });
-    };
     return (
         <AppLayout className="payment">
-            <h1 class="payment__title">This is a payment processing page</h1>
+            <h1 className="payment__title">
+                This is a payment processing page
+            </h1>
+
             <div className="payment__content">
-                <Button
-                    onClick={handleClick}
-                    class="payment__button button secondary"
-                    variant="primary"
-                >
-                    Pay
-                </Button>
+                <form method="POST" action={route('payment.store', tier)}>
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value={
+                            document
+                                .querySelector('meta[name="csrf-token"]')
+                                ?.getAttribute('content')!
+                        }
+                    />
+
+                    <button
+                        type="submit"
+                        className="payment__button button secondary"
+                    >
+                        Pay
+                    </button>
+                </form>
             </div>
         </AppLayout>
     );
 };
+
 export default Payment;

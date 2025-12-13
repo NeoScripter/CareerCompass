@@ -40,6 +40,9 @@ class HandleInertiaRequests extends Middleware
         $user = Auth::user();
         return [
             ...parent::share($request),
+            'flash' => [
+                'error' => fn() => $request->session()->pull('error')
+            ],
             'auth' => [
                 'user' => $user,
                 'lastTest' => $user?->lastTest(),

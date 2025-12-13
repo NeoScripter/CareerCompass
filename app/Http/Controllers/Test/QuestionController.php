@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Exception;
 
 class QuestionController extends Controller
 {
@@ -32,16 +33,24 @@ class QuestionController extends Controller
                     ->select(['question', 'answer', 'number'])
                     ->get();
 
-                $results = app(TestResultGenerator::class)
-                    ->generate($questions, $test->tier);
-                $test->update(['result' => $results]);
+                try {
+                    $results = app(TestResultGenerator::class)
+                        ->generate($questions, $test->tier);
 
-                /** @var \App\Models\User|null $user */
-                $user = Auth::user();
-                $plan = Plan::where('tier', $test->tier)->first();
+                    $test->update(['result' => $results]);
 
-                if ($user && $plan) {
-                    $user->plans()->detach($plan->id);
+                    /** @var \App\Models\User|null $user */
+                    $user = Auth::user();
+                    $plan = Plan::where('tier', $test->tier)->first();
+
+                    if ($user && $plan) {
+                        $user->plans()->detach($plan->id);
+                    }
+                    $test->update(['result' => $results]);
+                } catch (Exception $e) {
+                    return redirect()
+                        ->route('home')
+                        ->with(['error' => 'К сожалению, не удалось сгенерировать тест. Попробуйте позже']);
                 }
             }
 

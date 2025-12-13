@@ -23,10 +23,27 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
         if (auth?.user == null) {
             showLoginModal.value = true;
         } else {
-            router.visit(route('test.store'), {
-                method: 'post',
-                data: { tier: plan.tier },
-            });
+            // router.visit(route('test.store'), {
+            //     method: 'post',
+            //     data: { tier: plan.tier },
+            // });
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = route('payment.store', plan.tier);
+
+            // add CSRF token
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute('content')!;
+            form.appendChild(csrfInput);
+
+            // append form to body and submit
+            document.body.appendChild(form);
+            form.submit();
         }
     };
 
@@ -52,7 +69,10 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
             </p>
             <div class={css.pricing}>
                 <p class={css.price}>
-                    <span class={css.priceValue} aria-label={`${plan.price} рублей`}>
+                    <span
+                        class={css.priceValue}
+                        aria-label={`${plan.price} рублей`}
+                    >
                         {plan.price} ₽
                     </span>
                 </p>
