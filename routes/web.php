@@ -38,6 +38,9 @@ Route::middleware('auth')->name('payment.')->group(function () {
 
     Route::post('/payment/{tier}', [ProcessPaymentController::class, 'store'])->name('store');
 });
+Route::get('/payment/return', [ProcessPaymentController::class, 'return'])
+    ->middleware('signed')
+    ->name('payment.return');
 
 Route::post('/yookassa/webhook', [YooKassaWebhookController::class, 'handle'])
     ->name('yookassa.webhook');
