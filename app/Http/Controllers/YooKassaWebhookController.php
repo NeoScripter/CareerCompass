@@ -11,7 +11,7 @@ class YooKassaWebhookController extends Controller
 {
     public function handle(Request $request)
     {
-        // Accept only succeeded payments
+        // Accept only successful payments
         if ($request->input('event') !== 'payment.succeeded') {
             return response()->json(['ok' => true]);
         }
@@ -32,21 +32,19 @@ class YooKassaWebhookController extends Controller
             return response()->json(['error' => 'Invalid payload'], 400);
         }
 
-        // Prevent duplicate processing
+        // 🔒 Idempotency — REQUIRED
         if (Test::where('payment_id', $paymentId)->exists()) {
             return response()->json(['ok' => true]);
         }
 
-        // Resolve entities
         $user = User::findOrFail($userId);
         $plan = Plan::where('tier', $tier)->firstOrFail();
 
-        // Attach plan (idempotent)
+        // Attach plan safely
         if (!$user->plans()->where('plan_id', $plan->id)->exists()) {
             $user->plans()->attach($plan->id);
         }
 
-        // Create test (authoritative)
         Test::create([
             'user_id'    => $user->id,
             'tier'       => $tier,
