@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
-use Inertia\Inertia;
 use YooKassa\Client;
 use App\Models\Plan;
 use App\Models\Test;
 use App\Enums\TestTiers;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
@@ -24,20 +22,6 @@ class ProcessPaymentController extends Controller
             config('services.yookassa.shop_id'),
             config('services.yookassa.secret')
         );
-    }
-
-    /*
-     * Show the payment page
-     */
-    public function show(string $tier)
-    {
-        validator(['tier' => $tier], [
-            'tier' => ['required', new Enum(TestTiers::class)],
-        ])->validate();
-
-        return Inertia::render('Payment/Payment', [
-            'tier' => $tier,
-        ]);
     }
 
     /*
@@ -73,7 +57,7 @@ class ProcessPaymentController extends Controller
                     'return_url' => URL::signedRoute('payment.return'),
                 ],
                 'capture' => true,
-                'description' => 'Test plan: ' . $tier,
+                'description' => 'Оплата теста: ' . $tier,
                 'metadata' => [
                     'user_id' => $user->id,
                     'tier' => $tier,
@@ -89,10 +73,14 @@ class ProcessPaymentController extends Controller
 
     /*
      * YooKassa redirects user here
-     * TEST MODE: we query YooKassa directly
      */
+
     public function return(Request $request)
     {
+        if (!$request->hasValidSignature()) {
+            abort(403);
+        }
+
         $paymentId = $request->get('payment_id');
 
         if (!$paymentId) {
@@ -100,31 +88,17 @@ class ProcessPaymentController extends Controller
                 ->with('error', 'Платеж не удался');
         }
 
-        $payment = $this->yookassa->getPaymentInfo($paymentId);
+        $test = Test::where('payment_id', $paymentId)->first();
 
-        if ($payment->getStatus() !== 'succeeded') {
+        if (!$test) {
             return redirect('/')
-                ->with('error', 'Платеж не удался');
+                ->with('error', 'Платеж обрабатывается');
         }
 
-        $metadata = $payment->getMetadata();
-
-        $userId = $metadata['user_id'];
-        $user = User::findOrFail($userId);
-        Auth::login($user);
-
-        $tier = $metadata['tier'];
-
-        $plan = Plan::where('tier', $tier)->firstOrFail();
-
-        if (!$user->plans()->where('plan_id', $plan->id)->exists()) {
-            $user->plans()->attach($plan->id);
+        // Restore session only for UX
+        if (!Auth::check()) {
+            Auth::loginUsingId($test->user_id);
         }
-
-        $test = Test::create([
-            'tier' => $tier,
-            'user_id' => $user->id,
-        ]);
 
         return redirect()->route('test.show', [
             'testId' => $test->id,

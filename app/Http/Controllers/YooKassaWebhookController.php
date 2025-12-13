@@ -2,64 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use YooKassa\Client;
 use App\Models\Plan;
 use App\Models\Test;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class YooKassaWebhookController extends Controller
 {
-    private Client $yookassa;
-
-    public function __construct()
-    {
-        $this->yookassa = new Client();
-        $this->yookassa->setAuth(
-            config('services.yookassa.shop_id'),
-            config('services.yookassa.secret')
-        );
-    }
-
     public function handle(Request $request)
     {
-        $paymentId = $request->get('object')['id'] ?? null;
-
-        if (!$paymentId) {
-            return response()->json(['error' => 'Платеж не удался'], 400);
+        // Accept only succeeded payments
+        if ($request->input('event') !== 'payment.succeeded') {
+            return response()->json(['ok' => true]);
         }
 
-        // Get payment info from YooKassa
-        $payment = $this->yookassa->getPaymentInfo($paymentId);
+        $payment = $request->input('object');
 
-        if ($payment->getStatus() !== 'succeeded') {
-            return response()->json(['error' => 'Платеж не удался'], 400);
+        if (($payment['status'] ?? null) !== 'succeeded') {
+            return response()->json(['ok' => true]);
         }
 
-        $metadata = $payment->getMetadata();
+        $paymentId = $payment['id'] ?? null;
+        $metadata  = $payment['metadata'] ?? [];
 
-        // Assign user based on metadata
-        $userId = $metadata['user_id'];
+        $userId = $metadata['user_id'] ?? null;
+        $tier   = $metadata['tier'] ?? null;
+
+        if (!$paymentId || !$userId || !$tier) {
+            return response()->json(['error' => 'Invalid payload'], 400);
+        }
+
+        // Prevent duplicate processing
+        if (Test::where('payment_id', $paymentId)->exists()) {
+            return response()->json(['ok' => true]);
+        }
+
+        // Resolve entities
         $user = User::findOrFail($userId);
-
-        // Optional: log in the user if needed (only for return_url, not webhook)
-        // Auth::login($user);
-
-        $tier = $metadata['tier'];
-
         $plan = Plan::where('tier', $tier)->firstOrFail();
 
+        // Attach plan (idempotent)
         if (!$user->plans()->where('plan_id', $plan->id)->exists()) {
             $user->plans()->attach($plan->id);
         }
 
-        Test::firstOrCreate([
-            'tier' => $tier,
-            'user_id' => $user->id,
+        // Create test (authoritative)
+        Test::create([
+            'user_id'    => $user->id,
+            'tier'       => $tier,
+            'payment_id' => $paymentId,
         ]);
 
-        return response()->json(['status' => 'ok']);
+        return response()->json(['ok' => true]);
     }
 }
-

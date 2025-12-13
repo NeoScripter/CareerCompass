@@ -9,6 +9,7 @@ use App\Http\Controllers\ProcessPaymentController;
 use App\Http\Controllers\Test\QuestionController;
 use App\Http\Controllers\Test\TestCreationController;
 use App\Http\Controllers\Test\TestResultController;
+use App\Http\Controllers\YooKassaWebhookController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -37,9 +38,9 @@ Route::middleware('auth')->name('payment.')->group(function () {
 
     Route::post('/payment/{tier}', [ProcessPaymentController::class, 'store'])->name('store');
 });
-Route::get('/payment/return', [ProcessPaymentController::class, 'return'])
-    ->middleware('signed')
-    ->name('payment.return');
+
+Route::post('/yookassa/webhook', [YooKassaWebhookController::class, 'handle'])
+    ->name('yookassa.webhook');
 
 Route::middleware('auth')->name('test.')->group(function () {
     Route::post('/test', [TestCreationController::class, 'store'])->name('store');
