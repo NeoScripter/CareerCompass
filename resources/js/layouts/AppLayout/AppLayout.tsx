@@ -8,7 +8,7 @@ import { useTestModalModal } from '@/providers/test-modal-context';
 import { Plan } from '@/types/model';
 import { NodeProps } from '@/types/nodeProps';
 import { usePage } from '@inertiajs/react';
-import { FC } from 'preact/compat';
+import { FC, useEffect } from 'preact/compat';
 import { toast, Toaster } from 'sonner';
 import DialogLayout from '../DialogLayout/DialogLayout';
 import AppFooter from '../partials/AppFooter/AppFooter';
@@ -23,9 +23,11 @@ const AppLayout: FC<NodeProps> = ({ children, className }) => {
         flash: { error: string | null };
     }>().props;
 
-    if (flash?.error != null) {
-        toast(flash?.error);
-    }
+    useEffect(() => {
+        if (flash?.error != null) {
+            toast(flash?.error);
+        }
+    }, []);
 
     return (
         <div className={cn('app-layout', className)}>

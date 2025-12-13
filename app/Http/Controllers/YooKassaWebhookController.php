@@ -32,7 +32,6 @@ class YooKassaWebhookController extends Controller
             return response()->json(['error' => 'Invalid payload'], 400);
         }
 
-        // 🔒 Idempotency — REQUIRED
         if (Test::where('payment_id', $paymentId)->exists()) {
             return response()->json(['ok' => true]);
         }

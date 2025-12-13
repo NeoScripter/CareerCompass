@@ -80,23 +80,20 @@ class ProcessPaymentController extends Controller
         if (!$request->hasValidSignature()) {
             abort(403);
         }
-
-        $payment = $request->input('object');
-        $paymentId = $payment['id'] ?? null;
+        $paymentId = data_get($request->input('object'), 'id');
 
         if (!$paymentId) {
             return redirect('/')
-                ->with('error', 'Платеж не удался');
+                ->with('error', 'Нажмите на кнопку "пройти тест" и узнайте свою будущую профессию!');
         }
 
         $test = Test::where('payment_id', $paymentId)->first();
 
         if (!$test) {
             return redirect('/')
-                ->with('error', 'Платеж обрабатывается');
+                ->with('error', 'Нажмите на кнопку "пройти тест" и узнайте свою будущую профессию!');
         }
 
-        // Restore session only for UX
         if (!Auth::check()) {
             Auth::loginUsingId($test->user_id);
         }
