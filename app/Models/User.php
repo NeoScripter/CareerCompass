@@ -50,6 +50,15 @@ class User extends Authenticatable
         ];
     }
 
+    public function latestIncompletePaidTest(): ?Test
+    {
+        return $this->tests()
+            ->paid()
+            ->incomplete()
+            ->latest()
+            ->first();
+    }
+
     public function lastTest(): ?Test
     {
         return $this->tests()->completed()->latest()->first();

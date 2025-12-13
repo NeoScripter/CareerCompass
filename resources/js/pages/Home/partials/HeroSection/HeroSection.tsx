@@ -9,9 +9,25 @@ import { Button } from '@/components/ui/Button/Button';
 import AppSection from '@/layouts/partials/AppSection/AppSection';
 import { cn } from '@/lib/utils/cn';
 import scrollToSection from '@/lib/utils/scrollToSection';
+import { Test } from '@/types/model';
+import { router, usePage } from '@inertiajs/react';
 import css from './HeroSection.module.scss';
 
 const HeroSection = () => {
+    const { auth } = usePage<{
+        auth: {
+            latestIncompleteTest: Test | null;
+        };
+    }>().props;
+
+    const handleClick = () => {
+        if (auth.latestIncompleteTest != null) {
+            router.visit(route('test.show', auth.latestIncompleteTest.id));
+        } else {
+            scrollToSection('#plans');
+        }
+    };
+
     return (
         <AppSection className={css.heroSection}>
             <BgLoader
@@ -36,7 +52,7 @@ const HeroSection = () => {
             </div>
             <div>
                 <Button
-                    onClick={() => scrollToSection('#plans')}
+                    onClick={handleClick}
                     as="button"
                     type="button"
                     className={cn(css.ctaButton, 'button primary')}

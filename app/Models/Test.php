@@ -70,6 +70,16 @@ class Test extends Model
         return $query->whereNotNull('result');
     }
 
+    public function scopePaid(Builder $query): Builder
+    {
+        return $query->whereNotNull('payment_id');
+    }
+
+    public function scopeIncomplete(Builder $query): Builder
+    {
+        return $query->whereNull('result');
+    }
+
     protected static function booted(): void
     {
         static::created(function (Test $test) {

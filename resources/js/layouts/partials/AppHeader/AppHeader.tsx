@@ -16,7 +16,11 @@ const AppHeader: FC<{ className?: string }> = ({ className }) => {
     const { show } = useLoginModal();
 
     const { auth } = usePage<{
-        auth: { user: User | null; lastTest: Test | null; plan: string | null };
+        auth: {
+            user: User | null;
+            lastTest: Test | null;
+            plan: string | null;
+        };
     }>().props;
 
     const { show: showMenu, setShow: setShowMenu } = useClickOutside([

@@ -14,17 +14,24 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
 }) => {
     const { show: showTestModal } = useTestModalModal();
     const { auth, plans } = usePage<{
-        auth: { user: User | null; lastTest: Test | null; plan: string | null };
+        auth: {
+            user: User | null;
+            lastTest: Test | null;
+            plan: string | null;
+            latestIncompleteTest: Test | null;
+        };
         plans: Plan[] | undefined;
     }>().props;
 
     const handleLastResultClick = () => {
-        if (auth.lastTest == null) {
-            showTestModal.value = true;
-        } else {
+        if (auth.lastTest != null) {
             router.visit(route('test.result.show', auth.lastTest.id), {
                 method: 'get',
             });
+        } else if (auth.latestIncompleteTest != null) {
+            router.visit(route('test.show', auth.latestIncompleteTest.id));
+        } else {
+            showTestModal.value = true;
         }
     };
 

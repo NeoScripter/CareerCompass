@@ -81,7 +81,8 @@ class ProcessPaymentController extends Controller
             abort(403);
         }
 
-        $paymentId = $request->get('payment_id');
+        $payment = $request->input('object');
+        $paymentId = $payment['id'] ?? null;
 
         if (!$paymentId) {
             return redirect('/')

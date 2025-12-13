@@ -6,13 +6,11 @@ use App\Models\Plan;
 use App\Models\Test;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class YooKassaWebhookController extends Controller
 {
     public function handle(Request $request)
     {
-        Log::info('webhook started');
         // Accept only successful payments
         if ($request->input('event') !== 'payment.succeeded') {
             return response()->json(['ok' => true]);
