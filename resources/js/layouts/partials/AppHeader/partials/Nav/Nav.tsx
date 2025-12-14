@@ -28,8 +28,8 @@ const Nav: FC<{ showMenu: boolean; isLoggedIn: boolean }> = ({
             router.visit(route('test.result.show', auth.lastTest.id), {
                 method: 'get',
             });
-        } else if (auth.latestIncompleteTest != null) {
-            router.visit(route('test.show', auth.latestIncompleteTest.id));
+        // } else if (auth.latestIncompleteTest != null) {
+        //     router.visit(route('test.show', auth.latestIncompleteTest.id));
         } else {
             showTestModal.value = true;
         }

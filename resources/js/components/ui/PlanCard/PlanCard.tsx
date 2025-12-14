@@ -15,8 +15,9 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
 }) => {
     const { show: showLoginModal } = useLoginModal();
 
-    const { auth } = usePage<{
+    const { auth, csrf } = usePage<{
         auth: { user: User | null };
+        csrf: string;
     }>().props;
 
     const handleClick = () => {
@@ -36,9 +37,10 @@ const PlanCard: FC<NodeProps<{ plan: Plan; disabled?: boolean }>> = ({
             const csrfInput = document.createElement('input');
             csrfInput.type = 'hidden';
             csrfInput.name = '_token';
-            csrfInput.value = document
-                .querySelector('meta[name="csrf-token"]')
-                ?.getAttribute('content')!;
+            // csrfInput.value = document
+            //     .querySelector('meta[name="csrf-token"]')
+            //     ?.getAttribute('content')!;
+            csrfInput.value = csrf;
             form.appendChild(csrfInput);
 
             // append form to body and submit

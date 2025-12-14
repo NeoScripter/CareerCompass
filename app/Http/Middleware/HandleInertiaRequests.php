@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'error' => fn() => $request->session()->pull('error'),
             ],
+            'csrf' => fn() => csrf_token(),
             'auth' => [
                 'user' => $user,
                 'lastTest' => $user?->lastTest(),
