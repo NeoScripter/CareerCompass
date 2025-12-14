@@ -1,7 +1,15 @@
 @use 'core' as u;
 
 .grid {
-    @include u.fluid(--col, 301, 347, 327, 487);
+    @include u.fluid(--col, 301, 347, 377, 517);
+    gap: 1rem;
+
+    @include u.md() {
+        grid-template-columns: repeat(auto-fit, minmax(0, var(--col)));
+    }
+    @include u.lg() {
+        gap: 1.5rem;
+    }
 }
 
 .wrapper {
