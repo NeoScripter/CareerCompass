@@ -84,14 +84,14 @@ class ProcessPaymentController extends Controller
 
         if (!$paymentId) {
             return redirect('/')
-                ->with('error', 'Нажмите на кнопку "пройти тест" и узнайте свою будущую профессию!');
+                ->with('error', 'Оплата прошла успешно. Нажмите еще раз кнопку "Пройти тест" оплаченного теста.');
         }
 
         $test = Test::where('payment_id', $paymentId)->first();
 
         if (!$test) {
             return redirect('/')
-                ->with('error', 'Нажмите на кнопку "пройти тест" и узнайте свою будущую профессию!');
+                ->with('error', 'Оплата прошла успешно. Нажмите еще раз кнопку "Пройти тест" оплаченного теста.');
         }
 
         if (!Auth::check()) {

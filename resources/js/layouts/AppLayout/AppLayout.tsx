@@ -39,6 +39,7 @@ const AppLayout: FC<NodeProps> = ({ children, className }) => {
                 richColors
                 toastOptions={{
                     className: 'app-layout__toaster',
+                    duration: 5000
                 }}
             />
             {plans != null && (
