@@ -78,7 +78,7 @@ const Question = () => {
                 <div class="question__btn-wrapper">
                     <ul class="question__answers">
                         {answers.map((ans) => (
-                            <li key={ans}>
+                            <li key={`${ans}|${question.number}`}>
                                 <AnswerBtn
                                     onClick={() => handleSelect(ans)}
                                     selected={

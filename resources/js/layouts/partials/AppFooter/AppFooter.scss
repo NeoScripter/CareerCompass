@@ -5,17 +5,34 @@
     @include u.fluid(margin-bottom, 20, 25, 35, 35);
     @include u.fluid(padding, 20, 25, 30, 30);
     @include u.fluid(font-size, 13, 13, 17, 20);
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
     border: 1px solid u.clr('foreground');
     border-radius: 3rem;
     font-weight: 700;
+}
+
+.app-footer > div {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
 
     @include u.sm() {
         align-items: center;
         justify-content: flex-start;
         border-radius: 4rem;
+    }
+}
+
+.app-footer__link {
+    display: inline-block;
+    margin-top: 1em;
+    color: u.clr('foreground');
+
+    &:hover {
+        text-decoration: revert;
+    }
+
+    @include u.md() {
+        margin-top: 0.5em;
     }
 }
 
@@ -51,6 +68,6 @@
     @include u.fluid(width, 100, 100, 120, 120);
 
     @include u.sm() {
-      display: block;
+        display: block;
     }
 }
