@@ -7,7 +7,7 @@ export default function PageLoader() {
             <div class={css.wrapper}>
                 <div class={css.info}>
                     Не закрывайте эту страницу! ИИ-алгоритм анализирует ваши
-                    ответы. Это может занять до 3 минут
+                    ответы. Это может занять до 5 минут
                 </div>
                 <ScaleLoader color="#fff" />
             </div>
