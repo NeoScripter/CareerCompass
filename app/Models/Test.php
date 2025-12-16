@@ -60,6 +60,7 @@ class Test extends Model
             ->doesntExist();
     }
 
+
     public function hasResults(): bool
     {
         return !is_null($this->result);
@@ -78,6 +79,13 @@ class Test extends Model
     public function scopeIncomplete(Builder $query): Builder
     {
         return $query->whereNull('result');
+    }
+
+    public function scopeHasNotStarted(Builder $query): Builder
+    {
+        return $query->whereDoesntHave('questions', function ($q) {
+            $q->whereNotNull('answer');
+        });
     }
 
     protected static function booted(): void

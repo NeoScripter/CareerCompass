@@ -8,6 +8,7 @@ use YooKassa\Client;
 use App\Models\Plan;
 use App\Models\Test;
 use App\Enums\TestTiers;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
@@ -54,7 +55,10 @@ class ProcessPaymentController extends Controller
                 ],
                 'confirmation' => [
                     'type' => 'redirect',
-                    'return_url' => URL::signedRoute('payment.return'),
+                    'return_url' => URL::signedRoute(
+                        'payment.return',
+                        ['user_id' => $user->id]
+                    ),
                 ],
                 'capture' => true,
                 'description' => 'Оплата теста: ' . $tier,
@@ -80,22 +84,21 @@ class ProcessPaymentController extends Controller
         if (!$request->hasValidSignature()) {
             abort(403);
         }
-        $paymentId = data_get($request->input('object'), 'id');
 
-        if (!$paymentId) {
+        $userId = $request->query('user_id');
+
+        $user = User::find($userId);
+
+        if (!$user || !Auth::check()) {
             return redirect('/')
                 ->with('error', 'Оплата прошла успешно. Нажмите еще раз кнопку "Пройти тест" оплаченного теста.');
         }
 
-        $test = Test::where('payment_id', $paymentId)->first();
+        $test = Test::HasNotStarted()->where('user_id', $userId)->first();
 
         if (!$test) {
             return redirect('/')
                 ->with('error', 'Оплата прошла успешно. Нажмите еще раз кнопку "Пройти тест" оплаченного теста.');
-        }
-
-        if (!Auth::check()) {
-            Auth::loginUsingId($test->user_id);
         }
 
         return redirect()->route('test.show', [
