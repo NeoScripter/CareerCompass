@@ -21,7 +21,6 @@ createInertiaApp({
                         <App {...props} />
                     </SignupProvider>
                 </LoginProvider>
-                ,
             </TestModalProvider>,
         );
     },
