@@ -14,7 +14,7 @@
     <link rel="preload" href="{{ asset('fonts/Lato-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
-
+    <meta name="yandex-verification" content="cae75f97fc943038" />
     <!-- Yandex.Metrika counter -->
     <script defer type="text/javascript">
         (function(m, e, t, r, i, k, a) {
