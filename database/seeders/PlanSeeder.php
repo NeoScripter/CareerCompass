@@ -17,7 +17,7 @@ class PlanSeeder extends Seeder
             'title' => 'БАЗА',
             'tier' => TestTiers::FREE,
             'duration' => 2,
-            'price' => 1,
+            'price' => 49,
             'description' => 'Для тех, кто делает первые шаги в выборе профессии или направления обучения.',
             'perks' => [
                 '3 рекомендованные профессии',
