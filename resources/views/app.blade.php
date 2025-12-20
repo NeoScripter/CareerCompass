@@ -14,12 +14,12 @@
     <link rel="preload" href="{{ asset('fonts/Lato-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
+
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
+    <script defer type="text/javascript">
         (function(m, e, t, r, i, k, a) {
-            m[i] = m[i]
-            function() {
-                (m[i].a = m[i].a[]).push(arguments)
+            m[i] = m[i] || function() {
+                (m[i].a = m[i].a || []).push(arguments)
             };
             m[i].l = 1 * new Date();
             for (var j = 0; j < document.scripts.length; j++) {
